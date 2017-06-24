@@ -22,7 +22,3 @@ nbbuild/
 dist/
 nbdist/
 .nb-gradle/
-
-
-### eclispe by jh ###
-.class
