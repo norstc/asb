@@ -1,15 +1,32 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-<meta charset="UTF-8" />
-<title>Insert title here</title>
-</head>
+<html xmlns:th="http://www.thymeleaf.org" >
+
+<head th:replace="/fragments/layout :: common_header"></head>
+
 <body>
+	<div class="container">
+		<nav th:replace="/fragments/layout::navbar"></nav>
+		
+		<div class="jumbotron">
+			<h1>你好</h1>
+		</div>
+		
+		
+		<div th:replace="fragments/footer :: footer"></div>
 	
-	<p th:text="abcd">this is a template fragment test</p><br/>
 	
-	<div th:replace="fragments/footer :: footer">
-		<p> should replace with template</p>
-	</div>
+	</div> <!-- /container -->
+	
+	
+	
+	<!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="js/ie10-viewport-bug-workaround.js"></script>
+    
+    
 </body>
 </html>

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html th:fragment="layout">
-  <head>
+  <head th:fragment="common_header">
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -9,7 +9,7 @@
     <meta name="author" content="" />
     <link rel="icon" href="images/favicon.ico" />
 
-    <title>新四经</title>
+    <title >新四经</title>
 
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet" />
@@ -29,14 +29,17 @@
       <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+    
+    <!-- /* per page placeholder  for additional links */ -->
+
   </head>
 
-  <body>
+  <body th:fragment="common_body">
 
     <div class="container">
 
       <!-- Static navbar -->
-      <nav class="navbar navbar-default">
+      <nav class="navbar navbar-default" th:fragment="navbar">
         <div class="container-fluid">
           <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -49,8 +52,8 @@
           </div>
           <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-              <li class="active"><a href="#">主页</a></li>
-              <li><a href="#">关于</a></li>
+              <li class="active"><a href="/">主页</a></li>
+              <li><a href="/temp">关于</a></li>
               <li><a href="#">联系</a></li>
               <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">功能菜单 <span class="caret"></span></a>
