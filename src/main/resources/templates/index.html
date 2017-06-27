@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="zh-CN">
+<html xmlns:th="http://www.thymeleaf.org"  lang="en">
   <head>
     <meta charset="utf-8" />
 	<link rel="stylesheet" type="text/css" href="css/main.css" />
@@ -17,7 +17,8 @@
 	<h1>标题一 red</h1>
 	<h2>标题二 green</h2>
 	<h3>标题三 brown</h3>
-	<p style="color:red" th:text="#{home.welcome}">hello</p>
+	<p style="color:red" th:utext="#{index.welcome}">hello</p>
+	<p th:text="xxxx">current time</p>
    
      
   </body>
