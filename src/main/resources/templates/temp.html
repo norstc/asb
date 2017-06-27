@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<title>Insert title here</title>
+</head>
+<body>
+	
+	<p th:text="abcd">this is a template fragment test</p><br/>
+	
+	<div th:replace="fragments/footer :: footer">
+		<p> should replace with template</p>
+	</div>
+</body>
+</html>

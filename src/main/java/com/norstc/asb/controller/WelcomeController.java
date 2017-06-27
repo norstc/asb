@@ -14,4 +14,9 @@ public class WelcomeController {
 	public String indexHandler(){
 		return "index";
 	}
+	
+	@RequestMapping("/temp")
+	public String tempHandler(){
+		return "temp";
+	}
 }
