@@ -30,48 +30,54 @@ public class WelcomeController {
 		return "help";
 	}
 	
-	@RequestMapping("/main/select")
+	
+	// main part
+	
+	@RequestMapping("/stock/select")
 	public String mainSelectHandler(){
-		return "main/select";
+		return "/stock/select";
 	}
 	
-	@RequestMapping("/main/target")
+	@RequestMapping("/stock/target")
 	public String mainTargetHandler(){
-		return "main/target";
+		return "/stock/target";
 	}
 	
-	@RequestMapping("main/recorder")
+	@RequestMapping("/stock/recorder")
 	public String mainRecorderHandler(){
-		return "main/recorder";
+		return "/stock/recorder";
 	}
 	
-	@RequestMapping("main/balance")
+	@RequestMapping("/stock/balance")
 	public String mainBalanceHandler(){
-		return "main/balance";
+		return "/stock/balance";
 	}
 	
-	@RequestMapping("main/another")
+	@RequestMapping("/stock/another")
 	public String mainAnotherHandler(){
-		return "main/another";
+		return "/stock/another";
 	}
 	
-	@RequestMapping("main/secret")
+	@RequestMapping("/stock/secret")
 	public String mainSecretHandler(){
-		return "main/secret";
+		return "/stock/secret";
 	}
 	
-	@RequestMapping("user/login")
+	
+	//user part
+	
+	@RequestMapping("owner/login")
 	public String userLoginHandler(){
-		return "user/login";
+		return "owner/login";
 	}
 	
-	@RequestMapping("user/logout")
+	@RequestMapping("owner/logout")
 	public String userLogoutHandler(){
-		return "user/logout";
+		return "owner/logout";
 	}
 	
-	@RequestMapping("user/regist")
+	@RequestMapping("owner/regist")
 	public String userRegistHandler(){
-		return "user/regist";
+		return "owner/regist";
 	}
 }
