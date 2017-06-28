@@ -1,10 +1,22 @@
 package com.norstc.asb.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.norstc.asb.stock.StockService;
 
 @Controller
 public class StockController {
+	private StockService stockService;
+	
+	@Autowired
+	public void setStockService(StockService stockService){
+		this.stockService = stockService;
+	}
+	
 	// main part
 	
 	@RequestMapping("/stock/select")
@@ -12,8 +24,9 @@ public class StockController {
 		return "/stock/select";
 	}
 	
-	@RequestMapping("/stock/target")
-	public String mainTargetHandler(){
+	@RequestMapping("/stock/target/{id}")
+	public String mainTargetHandler(@PathVariable Integer id, Model model){
+		model.addAttribute("stock",stockService.getStockById(id));
 		return "/stock/target";
 	}
 	
