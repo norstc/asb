@@ -33,6 +33,17 @@ public class StockEntity extends NamedEntity{
 	@Column(name = "stock_name")
 	private String stockName;
 	
+	@Column(name = "current_price")
+	private Float currentPrice;
+	
+	@Column(name = "ai_price")
+	private Float aiPrice;
+	
+	@Column(name = "ai_roi")
+	private Float aiRoi;
+	
+	
+	
 	@ManyToOne
 	@JoinColumn(name = "type_id")
 	private StockType type;
@@ -44,6 +55,42 @@ public class StockEntity extends NamedEntity{
 	
 	
 	
+	public Float getCurrentPrice() {
+		return currentPrice;
+	}
+
+
+
+	public void setCurrentPrice(Float currentPrice) {
+		this.currentPrice = currentPrice;
+	}
+
+
+
+	public Float getAiPrice() {
+		return aiPrice;
+	}
+
+
+
+	public void setAiPrice(Float aiPrice) {
+		this.aiPrice = aiPrice;
+	}
+
+
+
+	public Float getAiRoi() {
+		return aiRoi;
+	}
+
+
+
+	public void setAiRoi(Float aiRoi) {
+		this.aiRoi = aiRoi;
+	}
+
+
+
 	public String getStockCode() {
 		return stockCode;
 	}
