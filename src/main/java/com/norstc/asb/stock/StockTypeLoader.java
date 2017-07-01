@@ -11,13 +11,26 @@ public class StockTypeLoader implements ApplicationListener<ContextRefreshedEven
 	
 	@Autowired
 	public void setStockTypeRepository(StockTypeRepository stockTypeRepository){
-		
+		this.stockTypeRepository = stockTypeRepository;
 	}
 	
 	@Override
 	public void onApplicationEvent(ContextRefreshedEvent arg0) {
-		// TODO Auto-generated method stub
+		StockType st = new StockType();
+		st.setId(1);
+		st.setName("diamond");
 		
+		stockTypeRepository.save(st);
+		
+		st.setId(2);
+		st.setName("golden");
+		
+		stockTypeRepository.save(st);
+		
+		st.setId(3);
+		st.setName("classic");
+		
+		stockTypeRepository.save(st);
 	}
 
 }

@@ -1,5 +1,6 @@
 package com.norstc.asb.stock;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
@@ -15,6 +16,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.Digits;
 
 import org.springframework.beans.support.MutableSortDefinition;
 import org.springframework.beans.support.PropertyComparator;
@@ -33,14 +35,15 @@ public class StockEntity extends NamedEntity{
 	@Column(name = "stock_name")
 	private String stockName;
 	
+	//use BigDecimal to present currency
 	@Column(name = "current_price")
-	private Float currentPrice;
+	private BigDecimal currentPrice;
 	
 	@Column(name = "ai_price")
-	private Float aiPrice;
+	private BigDecimal aiPrice;
 	
 	@Column(name = "ai_roi")
-	private Float aiRoi;
+	private BigDecimal aiRoi;
 	
 	
 	
@@ -55,37 +58,37 @@ public class StockEntity extends NamedEntity{
 	
 	
 	
-	public Float getCurrentPrice() {
+	public BigDecimal getCurrentPrice() {
 		return currentPrice;
 	}
 
 
 
-	public void setCurrentPrice(Float currentPrice) {
+	public void setCurrentPrice(BigDecimal currentPrice) {
 		this.currentPrice = currentPrice;
 	}
 
 
 
-	public Float getAiPrice() {
+	public BigDecimal getAiPrice() {
 		return aiPrice;
 	}
 
 
 
-	public void setAiPrice(Float aiPrice) {
+	public void setAiPrice(BigDecimal aiPrice) {
 		this.aiPrice = aiPrice;
 	}
 
 
 
-	public Float getAiRoi() {
+	public BigDecimal getAiRoi() {
 		return aiRoi;
 	}
 
 
 
-	public void setAiRoi(Float aiRoi) {
+	public void setAiRoi(BigDecimal aiRoi) {
 		this.aiRoi = aiRoi;
 	}
 
