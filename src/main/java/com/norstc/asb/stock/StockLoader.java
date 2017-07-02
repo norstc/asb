@@ -8,11 +8,14 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 
+import com.norstc.asb.owner.OwnerRepository;
+
 @Component
 public class StockLoader implements ApplicationListener<ContextRefreshedEvent>{
 	
 	private StockRepository stockRepository;
 	private StockTypeRepository stockTypeRepository;
+	private OwnerRepository ownerRepository;
 	
 	private Logger log = Logger.getLogger(StockLoader.class);
 	
@@ -29,8 +32,31 @@ public class StockLoader implements ApplicationListener<ContextRefreshedEvent>{
 	@Override
 	public void onApplicationEvent(ContextRefreshedEvent event) {
 		StockEntity se = new StockEntity();
-		StockType stockType = stockTypeRepository.findOne(1);
+		StockType stockType = new StockType();
 		
+		//initial stock type 
+		stockType.setId(1);
+		stockType.setName("clever");
+		stockTypeRepository.save(stockType);
+		stockType.setId(2);
+		stockType.setName("master");
+		stockTypeRepository.save(stockType);
+		stockType.setId(3);
+		stockType.setName("golden");
+		stockTypeRepository.save(stockType);
+		stockType.setId(4);
+		stockType.setName("diamand");
+		stockTypeRepository.save(stockType);
+		
+		
+		stockType =	stockTypeRepository.findOne(1);
+		if(stockType == null){
+			log.info("stockType is null");
+		}else{
+			log.info("stockType : "+ stockType.getId());
+		}
+		
+		//initial stock 
 		se.setId(1);
 		se.setStockCode("600000");
 		se.setStockName("浦发银行");
