@@ -8,6 +8,7 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 
+import com.norstc.asb.owner.OwnerEntity;
 import com.norstc.asb.owner.OwnerRepository;
 
 @Component
@@ -28,11 +29,28 @@ public class StockLoader implements ApplicationListener<ContextRefreshedEvent>{
 	public void setStockTypeRepository(StockTypeRepository stockTypeRepository){
 		this.stockTypeRepository = stockTypeRepository;
 	}
+	
+	@Autowired
+	public void setOwnerRepository(OwnerRepository ownerRepository){
+		this.ownerRepository  = ownerRepository;
+	}
 
 	@Override
 	public void onApplicationEvent(ContextRefreshedEvent event) {
 		StockEntity se = new StockEntity();
 		StockType stockType = new StockType();
+		OwnerEntity ownerEntity = new OwnerEntity();
+		
+		//initial owner
+		ownerEntity.setId(1);
+		ownerEntity.setFirstName("Tom");
+		ownerEntity.setLastName("Hagens");
+		ownerEntity.setAddress("shanghai xuhui");
+		ownerEntity.setCity("Shanghai");
+		ownerEntity.setTelephone("12345678");
+		ownerRepository.save(ownerEntity);
+		
+		
 		
 		//initial stock type 
 		stockType.setId(1);
@@ -55,7 +73,7 @@ public class StockLoader implements ApplicationListener<ContextRefreshedEvent>{
 		}else{
 			log.info("stockType : "+ stockType.getId());
 		}
-		
+		ownerEntity = ownerRepository.findOne(1);
 		//initial stock 
 		se.setId(1);
 		se.setStockCode("600000");
@@ -64,7 +82,7 @@ public class StockLoader implements ApplicationListener<ContextRefreshedEvent>{
 		se.setCurrentPrice(new BigDecimal("10.2"));
 		se.setAiPrice(new BigDecimal("12.2"));
 		se.setAiRoi(new BigDecimal("0.2"));
-		se.setOwner(null);
+		se.setOwner(ownerEntity);
 		
 		stockRepository.save(se);
 		
