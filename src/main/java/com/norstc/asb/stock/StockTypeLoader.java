@@ -17,18 +17,18 @@ public class StockTypeLoader implements ApplicationListener<ContextRefreshedEven
 	@Override
 	public void onApplicationEvent(ContextRefreshedEvent arg0) {
 		StockType st = new StockType();
-		st.setId(1);
-		st.setName("diamond");
+		st.setId(5);
+		st.setName("great");
 		
 		stockTypeRepository.save(st);
 		
-		st.setId(2);
-		st.setName("golden");
+		st.setId(6);
+		st.setName("minor");
 		
 		stockTypeRepository.save(st);
 		
-		st.setId(3);
-		st.setName("classic");
+		st.setId(7);
+		st.setName("strategy");
 		
 		stockTypeRepository.save(st);
 	}

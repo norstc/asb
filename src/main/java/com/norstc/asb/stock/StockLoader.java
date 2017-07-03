@@ -50,6 +50,14 @@ public class StockLoader implements ApplicationListener<ContextRefreshedEvent>{
 		ownerEntity.setTelephone("12345678");
 		ownerRepository.save(ownerEntity);
 		
+		ownerEntity.setId(2);
+		ownerEntity.setFirstName("Michele");
+		ownerEntity.setLastName("Conleon");
+		ownerEntity.setAddress("America");
+		ownerEntity.setCity("Newyork");
+		ownerEntity.setTelephone("11111111");
+		ownerRepository.save(ownerEntity);
+		
 		
 		
 		//initial stock type 
@@ -88,27 +96,32 @@ public class StockLoader implements ApplicationListener<ContextRefreshedEvent>{
 		
 		log.info("saved stockentity: "+ se.getId());
 		
+		
+		stockType = stockTypeRepository.findOne(2);
+		ownerEntity = ownerRepository.findOne(2);
 		se.setId(2);
 		se.setStockCode("600004");
 		se.setStockName("白云机场");
-		se.setType(null);
+		se.setType(stockType);
 		se.setCurrentPrice(new BigDecimal(1.2));
 		se.setAiPrice(new BigDecimal("1.5"));
 		se.setAiRoi(new BigDecimal("0.1"));
-		se.setOwner(null);
+		se.setOwner(ownerEntity);
 		
 		stockRepository.save(se);
 		
 		log.info("saved stockentity: "+ se.getId());
 		
+		stockType = stockTypeRepository.findOne(3);
+		ownerEntity = ownerRepository.findOne(2);
 		se.setId(3);
 		se.setStockCode("600005");
 		se.setStockName("武汉钢铁");
-		se.setType(null);
+		se.setType(stockType);
 		se.setCurrentPrice(new BigDecimal(20.2));
 		se.setAiPrice(new BigDecimal("22.3"));
 		se.setAiRoi(new BigDecimal("0.4"));
-		se.setOwner(null);
+		se.setOwner(ownerEntity);
 		
 		stockRepository.save(se);
 		
