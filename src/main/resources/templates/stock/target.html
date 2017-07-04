@@ -9,10 +9,31 @@
 		
 		<div class="jumbotron">
 			<h1>target</h1>
-			<p>stock code: </p><br/>
-			<p th:text="${stock.stockCode}">stock code</p><br/>
-			<p>stock name: </p><br/>
-			<p th:text="${stock.stockName}">stock name</p><br/>
+			<div class="table-responsive">
+				<table class="table table-striped">
+				<thead>
+					<tr>
+						<th>Id</th>
+						<th>Stock Code</th>
+						<th>Stock Name</th>
+						<th>Current Price</th>
+						<th>AI Price</th>
+						<th>AI ROI</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td th:text="${stock.id}">[stock id]</td>
+						<td th:text="${stock.stockCode}">[stock code]</td>
+						<td th:text="${stock.stockName}">[stock name]</td>
+						<td th:text="${stock.currentPrice}">[current price]</td>
+						<td th:text="${stock.aiPrice}">[ai price]</td>
+						<td th:text="${stock.aiRoi}">[ai roi]</td>
+					</tr>
+				</tbody>
+				</table>
+			</div>
+
 		</div>
 		
 		
