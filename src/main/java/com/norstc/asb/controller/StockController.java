@@ -27,7 +27,6 @@ public class StockController {
 	@RequestMapping("/stock/target")
 	public String allTargetHandler(Model model){
 		model.addAttribute("stocks",stockService.findAll());
-		model.addAttribute("stock",stockService.getStockById(1));
 		return "/stock/target";
 	}
 	

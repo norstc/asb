@@ -8,8 +8,9 @@
 		<nav th:replace="/fragments/layout::navbar"></nav>
 		
 		<div class="jumbotron">
-			<h1>target</h1>
-			<div class="table-responsive" >
+			
+			<div class="table-responsive" th:if="${stock != null }">
+				<h1>target</h1>
 				<table class="table table-striped">
 				<thead>
 					<tr>
@@ -34,8 +35,9 @@
 				</table>
 			</div>
 
-			<h1>targets</h1>
+			
 			<div class="table-responsive" th:if="${not #lists.isEmpty(stocks)}">
+				<h1>targets</h1>
 				<table class="table table-striped">
 				<thead>
 					<tr>
