@@ -24,6 +24,13 @@ public class StockController {
 		return "/stock/select";
 	}
 	
+	@RequestMapping("/stock/target")
+	public String allTargetHandler(Model model){
+		model.addAttribute("stocks",stockService.findAll());
+		model.addAttribute("stock",stockService.getStockById(1));
+		return "/stock/target";
+	}
+	
 	@RequestMapping("/stock/target/{id}")
 	public String mainTargetHandler(@PathVariable Integer id, Model model){
 		model.addAttribute("stock",stockService.getStockById(id));

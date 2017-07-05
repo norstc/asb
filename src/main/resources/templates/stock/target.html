@@ -9,7 +9,7 @@
 		
 		<div class="jumbotron">
 			<h1>target</h1>
-			<div class="table-responsive">
+			<div class="table-responsive" >
 				<table class="table table-striped">
 				<thead>
 					<tr>
@@ -34,6 +34,31 @@
 				</table>
 			</div>
 
+			<h1>targets</h1>
+			<div class="table-responsive" th:if="${not #lists.isEmpty(stocks)}">
+				<table class="table table-striped">
+				<thead>
+					<tr>
+						<th>Id</th>
+						<th>Stock Code</th>
+						<th>Stock Name</th>
+						<th>Current Price</th>
+						<th>AI Price</th>
+						<th>AI ROI</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="stock:${stocks}">
+						<td th:text="${stock.id}">[stock id]</td>
+						<td th:text="${stock.stockCode}">[stock code]</td>
+						<td th:text="${stock.stockName}">[stock name]</td>
+						<td th:text="${stock.currentPrice}">[current price]</td>
+						<td th:text="${stock.aiPrice}">[ai price]</td>
+						<td th:text="${stock.aiRoi}">[ai roi]</td>
+					</tr>
+				</tbody>
+				</table>
+			</div>
 		</div>
 		
 		
