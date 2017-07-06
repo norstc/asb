@@ -52,7 +52,9 @@
 				<tbody>
 					<tr th:each="stock:${stocks}">
 						<td th:text="${stock.id}">[stock id]</td>
-						<td th:text="${stock.stockCode}">[stock code]</td>
+						<td><a href="#" 
+							th:href="@{'/stock/target/' + ${stock.id}}"
+							th:text="${stock.stockCode}">[stock code]</a></td>
 						<td th:text="${stock.stockName}">[stock name]</td>
 						<td th:text="${stock.currentPrice}">[current price]</td>
 						<td th:text="${stock.aiPrice}">[ai price]</td>
