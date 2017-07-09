@@ -13,16 +13,19 @@
 				<div class="form-group">
 					<label for="stockId">stockId</label>
 					<input type="text" class="form-control" id="stockId"  th:field="${stockEntity.id}" placeholder="请输入stockId" />
+					<p th:if="${#fields.hasErrors('id')}" th:errors="*{id}">id error</p>
 				</div>
 				
 				<div class="form-group">
 					<label for="stockCode">code</label>
 					<input type="text" class="form-control" id="stockCode" th:field="${stockEntity.stockCode}" placeholder="请输入stockCode" />
+					<p th:if="${#fields.hasErrors('stockCode')}" th:errors="${stockEntity.stockCode}">stockCode error</p>
 				</div>
 				
 				<div class="form-group">
 					<label for="stockName">名称</label>
 					<input type="text" class="form-control" id="stockName" th:field="${stockEntity.stockName}" placeholder="请输入stockName" />
+					<p th:if="${#fields.hasErrors('stockName')}" th:errors="*{stockName}">stock name error</p>
 				</div>
 				
 				

@@ -17,6 +17,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Digits;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 import org.springframework.beans.support.MutableSortDefinition;
 import org.springframework.beans.support.PropertyComparator;
@@ -30,9 +33,13 @@ import com.norstc.asb.owner.OwnerEntity;
 public class StockEntity extends NamedEntity{
 
 	@Column(name = "stock_code")
+	@NotNull
+	@Pattern(regexp = "[0-9]{6}",message="请输入正确的股票代码（6位数字）")
 	private String stockCode;
 	
 	@Column(name = "stock_name")
+	@NotNull
+	@Size(min=2,max=4)
 	private String stockName;
 	
 	//use BigDecimal to present currency
