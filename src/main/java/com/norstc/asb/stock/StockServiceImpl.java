@@ -25,4 +25,10 @@ public class StockServiceImpl implements StockService{
 		return stockRepository.findAll();
 	}
 
+	@Override
+	public void add(StockEntity stockEntity) {
+		this.stockRepository.save(stockEntity);
+		
+	}
+
 }

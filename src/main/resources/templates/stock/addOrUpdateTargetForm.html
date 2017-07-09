@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" >
+
+<head th:replace="/fragments/layout :: common_header"></head>
+
+<body>
+	<div class="container">
+		<nav th:replace="/fragments/layout::navbar"></nav>
+		
+		<div class="jumbotron">
+			<h1>add new target</h1>
+			<form th:object="${stockEntity}" id="add_new_target" method="post" role="form">
+				<div class="form-group">
+					<label for="stockId">stockId</label>
+					<input type="text" class="form-control" id="stockId"  th:field="${stockEntity.id}" placeholder="请输入stockId" />
+				</div>
+				
+				<div class="form-group">
+					<label for="stockCode">code</label>
+					<input type="text" class="form-control" id="stockCode" th:field="${stockEntity.stockCode}" placeholder="请输入stockCode" />
+				</div>
+				
+				<div class="form-group">
+					<label for="stockName">名称</label>
+					<input type="text" class="form-control" id="stockName" th:field="${stockEntity.stockName}" placeholder="请输入stockName" />
+				</div>
+				
+				
+				<button type="submit" class="btn btn-default">提交</button>
+				
+			</form>
+		</div>
+		
+		
+		<div th:replace="fragments/footer :: footer"></div>
+	
+	
+	</div> <!-- /container -->
+	
+	
+	
+	<!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="/js/jquery-3.2.1.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="/js/ie10-viewport-bug-workaround.js"></script>
+    
+    
+</body>
+</html>
