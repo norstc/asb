@@ -8,7 +8,7 @@
 		<nav th:replace="/fragments/layout::navbar"></nav>
 		
 		<div class="jumbotron">
-			<h1>add new target</h1>
+			<h1 th:with="text='add a real target'" th:text="${text}">add new target</h1>
 			<form th:object="${stockEntity}" id="add_new_target" method="post" role="form">
 				<div class="form-group">
 					<label for="stockId">stockId</label>
