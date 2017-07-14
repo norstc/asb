@@ -31,4 +31,10 @@ public class StockServiceImpl implements StockService{
 		
 	}
 
+	@Override
+	public void deleteStock(StockEntity stockEntity) {
+		this.stockRepository.delete(stockEntity);
+		
+	}
+
 }

@@ -18,4 +18,7 @@ public interface StockRepository extends Repository<StockEntity, Integer>{
 	void save(StockEntity stockEntity);
 	
 	List<StockEntity> findAll();
+	
+	
+	void delete(StockEntity stockEntity);
 }

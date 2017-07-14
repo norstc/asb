@@ -83,6 +83,14 @@ public class StockController {
 	}
 	
 	
+	//删除target
+	@RequestMapping(value="/stock/target/{id}/delete",method=RequestMethod.GET)
+	public String deleteTargetHandler(@PathVariable Integer id){
+		StockEntity stockEntity = stockService.getStockById(id);
+		stockService.deleteStock(stockEntity);
+		return "redirect:/stock/target";
+	}
+	
 	@RequestMapping("/stock/recorder")
 	public String mainRecorderHandler(){
 		return "/stock/recorder";

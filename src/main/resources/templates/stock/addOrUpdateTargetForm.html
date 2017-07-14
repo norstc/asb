@@ -10,11 +10,7 @@
 		<div class="jumbotron">
 			<h1 th:with="text='add a real target'" th:text="${text}">add new target</h1>
 			<form th:object="${stockEntity}" id="add_new_target" method="post" role="form">
-				<div class="form-group">
-					<label for="stockId">stockId</label>
-					<input type="text" class="form-control" id="stockId"  th:field="${stockEntity.id}" placeholder="请输入stockId" />
-					<p th:if="${#fields.hasErrors('id')}" th:errors="*{id}">id error</p>
-				</div>
+				
 				
 				<div class="form-group">
 					<label for="stockCode">code</label>

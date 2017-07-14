@@ -12,7 +12,6 @@ import javax.validation.constraints.NotNull;
 public class BaseEntity implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@NotNull
 	private Integer id;
 
 	public Integer getId() {
