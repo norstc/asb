@@ -44,6 +44,7 @@ public class StockController {
 		return "/stock/target";
 	}
 	
+	//增加target
 	//显示表单
 	@RequestMapping(value = "/stock/target/add", method = RequestMethod.GET)
 	public String actionTargetHandler(Map<String, Object> model){
@@ -62,6 +63,25 @@ public class StockController {
 			return "redirect:/stock/target/"+stockEntity.getId();
 		}
 	}
+	
+	//修改target
+	@RequestMapping(value="/stock/target/{id}/update", method= RequestMethod.GET)
+	public String updateTargetHandler(@PathVariable Integer id, Map<String,Object> model){
+		StockEntity stockEntity = new StockEntity();
+		stockEntity = stockService.getStockById(id);
+		model.put("stockEntity", stockEntity);
+		return VIEWS_TARGET_ADD_OR_UPDATE_FORM;
+	}
+	@RequestMapping(value="/stock/target/{id}/update",method=RequestMethod.POST)
+	public String processUpdateTargetHandler(@Valid StockEntity stockEntity,BindingResult result){
+		if(result.hasErrors()){
+			return VIEWS_TARGET_ADD_OR_UPDATE_FORM;
+		}else{
+			this.stockService.add(stockEntity);
+			return "redirect:/stock/target/" + stockEntity.getId();
+		}
+	}
+	
 	
 	@RequestMapping("/stock/recorder")
 	public String mainRecorderHandler(){
