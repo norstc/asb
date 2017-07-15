@@ -91,11 +91,6 @@ public class StockController {
 		return "redirect:/stock/target";
 	}
 	
-	@RequestMapping("/stock/recorder")
-	public String mainRecorderHandler(){
-		return "/stock/recorder";
-	}
-	
 	@RequestMapping("/stock/balance")
 	public String mainBalanceHandler(){
 		return "/stock/balance";
