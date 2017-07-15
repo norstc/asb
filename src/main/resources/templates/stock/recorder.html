@@ -8,7 +8,7 @@
 		<nav th:replace="/fragments/layout::navbar"></nav>
 		
 		<div class="jumbotron">
-			<div class="table-responsive" >
+			<div class="table-responsive" th:if="${deal != null}">
 				<h1>recorder</h1>
 				<table class="table table-striped">
 					<thead>
@@ -23,24 +23,24 @@
 					</thead>
 					<tbody>
 						<tr>
-							<td>[id]</td>
-							<td>[stockCode]</td>
-							<td>[dealTime]</td>
-							<td>[buyOrSell]</td>
-							<td>[dealPrice]</td>
-							<td>[dealRoi]</td>
+							<td th:text="${deal.id}">[id]</td>
+							<td th:text="${deal.stockCode}">[stockCode]</td>
+							<td th:text="${deal.dealTime}">[dealTime]</td>
+							<td th:text="${deal.buyOrSell}">[buyOrSell]</td>
+							<td th:text="${deal.dealPrice}">[dealPrice]</td>
+							<td th:text="${deal.dealRoi}">[dealRoi]</td>
 							
 						</tr>
 					</tbody>
 					
 				</table>
 				<ul class="nav nav-pills">
-					<li><a class="btn btn-warning" >明细</a></li>
+					<li><a class="btn btn-warning" th:href="@{'/stock/deal/' + ${deal.id} + '/detail'}">明细</a></li>
 					<li><a class="btn btn-danger">返回</a></li>
 				</ul>
 			</div>
 			
-			<div class="table-responsive">
+			<div class="table-responsive" th:if="${not #lists.isEmpty(deals)}">
 				<h1>recorders</h1>
 				<table class="table table-striped">
 					<thead>
@@ -54,17 +54,23 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr>
-							<td>[id]</td>
-							<td>[stockCode]</td>
-							<td>[dealTime]</td>
-							<td>[buyOrSell]</td>
-							<td>[dealPrice]</td>
-							<td>[dealRoi]</td>
+						<tr th:each="deal:${deals}">
+							<td th:text="${deal.id}">[id]</td>
+							<td ><a th:href="@{'/stock/recorder/' + ${deal.id}}"
+								th:text="${deal.stockCode}"
+							>[stockCode]</a></td>
+							<td th:text="${deal.dealTime}">[dealTime]</td>
+							<td th:text="${deal.buyOrSell}">[buyOrSell]</td>
+							<td th:text="${deal.dealPrice}">[dealPrice]</td>
+							<td th:text="${deal.dealRoi}">[dealRoi]</td>
 						</tr>
 					</tbody>
 				
 				</table>
+				<ul class="nav nav-pills">
+					<li><a class="btn btn-default" href="/stock/recoder/add">增加</a></li>
+					<li><a class="btn btn-info" href="/">返回</a></li>
+				</ul>
 			</div>
 			
 		</div>

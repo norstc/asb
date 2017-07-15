@@ -142,11 +142,23 @@ public class StockLoader implements ApplicationListener<ContextRefreshedEvent>{
 		dealEntity.setStockCode("600000");
 		dealEntity.setBuyOrSell(true);
 		dealEntity.setDealPrice(new BigDecimal(12.2));
-		dealEntity.setDealTime(new Date("1980/9/9"));
+		dealEntity.setDealTime(new Date("1980/9/9 14:30:00"));
+		
+		
+		dealRepository.save(dealEntity);
+		log.info("saved dealEntity: " + dealEntity.getId());
+		
+		dealEntity.setId(2);
+		dealEntity.setStockCode("600000");
+		dealEntity.setBuyOrSell(false);
+		dealEntity.setDealPrice(new BigDecimal(13.2));
+		dealEntity.setDealTime(new Date("1980/10/9 14:30:00"));
 		dealEntity.setDealRoi(new BigDecimal(0.2));
 		
 		dealRepository.save(dealEntity);
 		log.info("saved dealEntity: " + dealEntity.getId());
+		
+		
 	}
 
 }
