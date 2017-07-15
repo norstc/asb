@@ -1,6 +1,7 @@
 package com.norstc.asb.stock;
 
 import java.math.BigDecimal;
+import java.util.Date;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,8 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 
+import com.norstc.asb.deal.DealEntity;
+import com.norstc.asb.deal.DealRepository;
 import com.norstc.asb.owner.OwnerEntity;
 import com.norstc.asb.owner.OwnerRepository;
 
@@ -17,8 +20,14 @@ public class StockLoader implements ApplicationListener<ContextRefreshedEvent>{
 	private StockRepository stockRepository;
 	private StockTypeRepository stockTypeRepository;
 	private OwnerRepository ownerRepository;
+	private DealRepository dealRepository;
 	
 	private Logger log = Logger.getLogger(StockLoader.class);
+	
+	@Autowired
+	public void setDealRepository(DealRepository dealRepository){
+		this.dealRepository = dealRepository;
+	}
 	
 	@Autowired
 	public void setStockRepository(StockRepository stockRepository){
@@ -40,6 +49,7 @@ public class StockLoader implements ApplicationListener<ContextRefreshedEvent>{
 		StockEntity se = new StockEntity();
 		StockType stockType = new StockType();
 		OwnerEntity ownerEntity = new OwnerEntity();
+		DealEntity dealEntity = new DealEntity();
 		
 		//initial owner
 		ownerEntity.setId(1);
@@ -127,6 +137,16 @@ public class StockLoader implements ApplicationListener<ContextRefreshedEvent>{
 		
 		log.info("saved stockentity: "+ se.getId());
 		
+		//init dealRepository
+		dealEntity.setId(1);
+		dealEntity.setStockCode("600000");
+		dealEntity.setBuyOrSell(true);
+		dealEntity.setDealPrice(new BigDecimal(12.2));
+		dealEntity.setDealTime(new Date("1980/9/9"));
+		dealEntity.setDealRoi(new BigDecimal(0.2));
+		
+		dealRepository.save(dealEntity);
+		log.info("saved dealEntity: " + dealEntity.getId());
 	}
 
 }
