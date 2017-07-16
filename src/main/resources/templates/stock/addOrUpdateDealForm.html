@@ -19,7 +19,7 @@
 				<div class="form-group">
 					<label for="dealTime">dealTime</label>
 					<input type="text" class="form-control" id="dealTime" th:field="${dealEntity.dealTime}" placeholder="dealTime"/>
-					<p th:if="${#fields.hasErrors('dealTime')}" th:errors="*{dealTime}" >deal time error</p>
+					<p th:if="${#fields.hasErrors('dealTime')}" th:text="#{date.error}" >deal time error</p>
 					
 				</div>
 				
