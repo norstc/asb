@@ -25,8 +25,8 @@
 						<tr>
 							<td th:text="${deal.id}">[id]</td>
 							<td th:text="${deal.stockCode}">[stockCode]</td>
-							<td th:text="${deal.dealTime}">[dealTime]</td>
-							<td th:text="${deal.buyOrSell}">[buyOrSell]</td>
+							<td th:text="${#calendars.format(deal.dealTime,'yyyy/MM/dd')}">[dealTime]</td>
+							<td th:text="${deal.buyOrSell}?'buy':'sell'">[buyOrSell]</td>
 							<td th:text="${deal.dealPrice}">[dealPrice]</td>
 							<td th:text="${deal.dealRoi}">[dealRoi]</td>
 							
@@ -60,7 +60,7 @@
 								th:text="${deal.stockCode}"
 							>[stockCode]</a></td>
 							<td th:text="${deal.dealTime}">[dealTime]</td>
-							<td th:text="${deal.buyOrSell}">[buyOrSell]</td>
+							<td th:text="${deal.buyOrSell}?'buy':'sell'">[buyOrSell]</td>
 							<td th:text="${deal.dealPrice}">[dealPrice]</td>
 							<td th:text="${deal.dealRoi}">[dealRoi]</td>
 						</tr>

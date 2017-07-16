@@ -1,11 +1,18 @@
 package com.norstc.asb.controller;
 
+import java.util.Map;
+
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.norstc.asb.deal.DealEntity;
 import com.norstc.asb.deal.DealService;
 
 @Controller
@@ -31,8 +38,22 @@ public class DealController {
 		return "/stock/recorder";
 	}
 	
-	@RequestMapping("/stock/recoder/add")
-	public String addDealHandler(){
+	//显示表单
+	@RequestMapping(value="/stock/recoder/add" ,method=RequestMethod.GET)
+	public String addDealHandler(Map<String,Object> model){
+		DealEntity dealEntity = new DealEntity();
+		model.put("dealEntity", dealEntity);
 		return VIEWS_DEAL_ADD_OR_UPDATE_FORM;
+	}
+	
+	//提交表单
+	@RequestMapping(value="/stock/recoder/add", method=RequestMethod.POST)
+	public String processAddForm(@Valid DealEntity dealEntity, BindingResult result){
+		if(result.hasErrors()){
+			return VIEWS_DEAL_ADD_OR_UPDATE_FORM;
+		}else{
+			this.dealService.add(dealEntity);
+			return "redirect:/stock/recorder/"+dealEntity.getId();
+		}
 	}
 }

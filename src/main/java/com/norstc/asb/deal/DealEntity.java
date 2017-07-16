@@ -6,7 +6,11 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 import com.norstc.asb.model.BaseEntity;
 
@@ -20,6 +24,8 @@ public class DealEntity extends BaseEntity{
 	
 	@Column(name = "deal_time")
 	@NotNull
+	@Temporal(TemporalType.DATE)
+	@DateTimeFormat(pattern="yyyy/MM/dd")
 	private Date dealTime;
 	
 	@Column(name = "buy_or_sell")

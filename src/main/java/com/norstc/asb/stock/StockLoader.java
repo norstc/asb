@@ -142,7 +142,7 @@ public class StockLoader implements ApplicationListener<ContextRefreshedEvent>{
 		dealEntity.setStockCode("600000");
 		dealEntity.setBuyOrSell(true);
 		dealEntity.setDealPrice(new BigDecimal(12.2));
-		dealEntity.setDealTime(new Date("1980/9/9 14:30:00"));
+		dealEntity.setDealTime(new Date("1980/9/9"));
 		
 		
 		dealRepository.save(dealEntity);
@@ -152,12 +152,54 @@ public class StockLoader implements ApplicationListener<ContextRefreshedEvent>{
 		dealEntity.setStockCode("600000");
 		dealEntity.setBuyOrSell(false);
 		dealEntity.setDealPrice(new BigDecimal(13.2));
-		dealEntity.setDealTime(new Date("1980/10/9 14:30:00"));
+		dealEntity.setDealTime(new Date("1980/2/2"));
 		dealEntity.setDealRoi(new BigDecimal(0.2));
 		
 		dealRepository.save(dealEntity);
 		log.info("saved dealEntity: " + dealEntity.getId());
 		
+		
+		dealEntity.setId(3);
+		dealEntity.setStockCode("600001");
+		dealEntity.setBuyOrSell(true);
+		dealEntity.setDealPrice(new BigDecimal(13.2));
+		dealEntity.setDealTime(new Date("1980/12/9"));
+		dealEntity.setDealRoi(new BigDecimal(0.2));
+		
+		dealRepository.save(dealEntity);
+		log.info("saved dealEntity: " + dealEntity.getId());
+		
+		
+		dealEntity.setId(4);
+		dealEntity.setStockCode("600001");
+		dealEntity.setBuyOrSell(false);
+		dealEntity.setDealPrice(new BigDecimal(13.2));
+		dealEntity.setDealTime(new Date("2014/3/2"));
+		dealEntity.setDealRoi(new BigDecimal(0.2));
+		
+		dealRepository.save(dealEntity);
+		log.info("saved dealEntity: " + dealEntity.getId());
+		
+		
+		dealEntity.setId(5);
+		dealEntity.setStockCode("600002");
+		dealEntity.setBuyOrSell(true);
+		dealEntity.setDealPrice(new BigDecimal(13.2));
+		dealEntity.setDealTime(new Date("2016/3/3"));
+		dealEntity.setDealRoi(new BigDecimal(0.2));
+		
+		dealRepository.save(dealEntity);
+		log.info("saved dealEntity: " + dealEntity.getId());
+		
+		dealEntity.setId(6);
+		dealEntity.setStockCode("600002");
+		dealEntity.setBuyOrSell(false);
+		dealEntity.setDealPrice(new BigDecimal(13.2));
+		dealEntity.setDealTime(new Date("2014/4/4"));
+		dealEntity.setDealRoi(new BigDecimal(0.2));
+		
+		dealRepository.save(dealEntity);
+		log.info("saved dealEntity: " + dealEntity.getId());
 		
 	}
 
