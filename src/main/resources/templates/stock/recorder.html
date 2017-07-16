@@ -35,8 +35,9 @@
 					
 				</table>
 				<ul class="nav nav-pills">
-					<li><a class="btn btn-warning" th:href="@{'/stock/deal/' + ${deal.id} + '/detail'}">明细</a></li>
-					<li><a class="btn btn-danger">返回</a></li>
+					<li><a class="btn btn-danger" th:href="@{'/stock/deal/' + ${deal.id} + '/update'}">修改</a></li>
+					<li><a class="btn btn-warning" th:href="@{'/stock/deal/' + ${deal.id} + '/delete'}">删除</a></li>
+					<li><a class="btn btn-danger" th:href="@{'/stock/recorder/'}">返回</a></li>
 				</ul>
 			</div>
 			

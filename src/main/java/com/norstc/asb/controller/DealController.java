@@ -56,4 +56,31 @@ public class DealController {
 			return "redirect:/stock/recorder/"+dealEntity.getId();
 		}
 	}
+	
+	//修改deal
+	@RequestMapping(value="/stock/deal/{id}/update",method=RequestMethod.GET)
+	public String updatedealHandler(@PathVariable Integer id, Map<String,Object> model){
+		DealEntity dealEntity = new DealEntity();
+		dealEntity = dealService.getDealById(id);
+		model.put("dealEntity", dealEntity);
+		return VIEWS_DEAL_ADD_OR_UPDATE_FORM;
+	}
+	
+	//修改deal， 处理
+	@RequestMapping(value= "/stock/deal/{id}/update",method=RequestMethod.POST)
+	public String precessUpdateHandler(@Valid DealEntity dealEntity, BindingResult result){
+		if(result.hasErrors()){
+			return VIEWS_DEAL_ADD_OR_UPDATE_FORM;
+		}else{
+			this.dealService.add(dealEntity);
+			return "redirect:/stock/recorder/" + dealEntity.getId();
+		}
+	}
+	//删除deal
+	@RequestMapping(value="/stock/deal/{id}/delete",method=RequestMethod.GET)
+	public String deleteDealHandler(@PathVariable Integer id){
+		DealEntity dealEntity = dealService.getDealById(id);
+		dealService.deleteDeal(dealEntity);
+		return "redirect:/stock/recorder/";
+	}
 }
