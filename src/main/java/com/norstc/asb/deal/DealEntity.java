@@ -36,9 +36,15 @@ public class DealEntity extends BaseEntity{
 	@NotNull
 	private BigDecimal dealPrice;
 	
+	@Column(name = "deal_quantity")
+	@NotNull
+	private Integer dealQuantity;
+	
 	@Column(name = "deal_roi")
 	private BigDecimal dealRoi;
 
+	
+	
 	public String getStockCode() {
 		return stockCode;
 	}
@@ -77,6 +83,14 @@ public class DealEntity extends BaseEntity{
 
 	public void setDealRoi(BigDecimal dealRoi) {
 		this.dealRoi = dealRoi;
+	}
+
+	public Integer getDealQuantity() {
+		return dealQuantity;
+	}
+
+	public void setDealQuantity(Integer dealQuantity) {
+		this.dealQuantity = dealQuantity;
 	}
 	
 	
