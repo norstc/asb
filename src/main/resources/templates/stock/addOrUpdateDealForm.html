@@ -30,6 +30,12 @@
 				</div>
 				
 				<div class="form-group">
+				
+					<label for="dealQuantity">dealQuantity</label>
+					<input type="text" class="form-control" id="dealQuantity" th:field="${dealEntity.dealQuantity}" placeholder="请输入交易数量dealQuantity"/>
+					<p th:if="${#fields.hasErrors('dealQuantity')}" th:errors="*{dealQuantity}">deal quantity error </p>
+				</div>
+				<div class="form-group">
 					<label for="buyOrSell">buyOrSell</label>
 					<select  class="form-control" id="buyOrSell" th:field="${dealEntity.buyOrSell}" >
 						<option value="true">买入[buy]</option>

@@ -18,6 +18,7 @@
 							<th>Deal Time</th>
 							<th>Buy or Sell</th>
 							<th>Deal Price</th>
+							<th>Deal Quantity</th>
 							<th>Deal ROI</th>
 						</tr>
 					</thead>
@@ -28,6 +29,7 @@
 							<td th:text="${#calendars.format(deal.dealTime,'yyyy/MM/dd')}">[dealTime]</td>
 							<td th:text="${deal.buyOrSell}?'buy':'sell'">[buyOrSell]</td>
 							<td th:text="${deal.dealPrice}">[dealPrice]</td>
+							<td th:text="${deal.dealQuantity}">[dealQuantity]</td>
 							<td th:text="${deal.dealRoi}">[dealRoi]</td>
 							
 						</tr>
@@ -51,6 +53,7 @@
 							<th>Deal Time</th>
 							<th>Buy or Sell</th>
 							<th>Deal Price</th>
+							<th>Deal Quantity</th>
 							<th>Deal ROI</th>
 						</tr>
 					</thead>
@@ -63,6 +66,7 @@
 							<td th:text="${deal.dealTime}">[dealTime]</td>
 							<td th:text="${deal.buyOrSell}?'buy':'sell'">[buyOrSell]</td>
 							<td th:text="${deal.dealPrice}">[dealPrice]</td>
+							<td th:text="${deal.dealQuantity}">[dealQuantity]</td>
 							<td th:text="${deal.dealRoi}">[dealRoi]</td>
 						</tr>
 					</tbody>
