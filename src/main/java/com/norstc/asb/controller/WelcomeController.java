@@ -6,10 +6,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class WelcomeController {
 	@RequestMapping("/")
+	public String homeHandler(){
+		return "redirect:/welcome";
+	}
+	
+	@RequestMapping("/welcome")
 	public String welcomeHandler(){
 		return "welcome";
 	}
-	
 	@RequestMapping("/index")
 	public String indexHandler(){
 		return "index";

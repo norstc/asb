@@ -50,12 +50,12 @@
             </button>
             <a class="navbar-brand" href="/h2console">漫步记账</a>
           </div>
-          <div id="navbar" class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-              <li class="active"><a href="/">主页</a></li>
-              <li><a href="/stock/target">股票池</a></li>
-              <li><a href="/stock/recorder">记一笔</a></li>
-              <li><a href="/stock/balance">帐目表</a></li>
+          <div id="navbar" class="navbar-collapse collapse" th:with="view=${#httpServletRequest.getServletPath()}">
+            <ul class="nav navbar-nav" >
+              <li th:class="${#strings.startsWith(view,'/welcome')?'active':''}"><a href="/welcome">主页</a></li>
+              <li th:class="${#strings.startsWith(view,'/stock/target')?'active':''}"><a href="/stock/target">股票池</a></li>
+              <li th:class="${#strings.startsWith(view,'/stock/recorder')?'active':''}"><a href="/stock/recorder">记一笔</a></li>
+              <li th:class="${#strings.startsWith(view,'/stock/balance')?'active':''}"><a href="/stock/balance">帐目表</a></li>
               <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">其他 <span class="caret"></span></a>
                 <ul class="dropdown-menu">
@@ -70,9 +70,9 @@
               </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-              <li class="active"><a href="/owner/login">登录<span class="sr-only">(current)</span></a></li>
-              <li><a href="/owner/regist">注册</a></li>
-              <li><a href="/owner/logout">退出</a></li>
+              <li th:class="${#strings.startsWith(view,'/owner/login')?'active':''}"><a href="/owner/login">登录<span class="sr-only">(current)</span></a></li>
+              <li th:class="${#strings.startsWith(view,'/owner/regist')?'active':''}"><a href="/owner/regist">注册</a></li>
+              <li th:class="${#strings.startsWith(view,'/owner/logout')?'active':''}"><a href="/owner/logout">退出</a></li>
             </ul>
           </div><!--/.nav-collapse -->
         </div><!--/.container-fluid -->
