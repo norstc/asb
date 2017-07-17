@@ -12,28 +12,28 @@
 			<form th:object="${dealEntity}" id="add_new_deal" method="post" role="form">
 				<div class="form-group">
 					<label for="stockCode">stockCode</label>
-					<input type="text" class="form-control" id="stockCode" th:field="${dealEntity.stockCode}" placeholder="stockCode"/>
+					<input type="text" class="form-control" id="stockCode" th:field="${dealEntity.stockCode}" placeholder="请输入股票代码stockCode[6位股票代码]"/>
 					<p th:if="${#fields.hasErrors('stockCode')}" th:errors="${dealEntity.stockCode}">stockCode error</p>
 				</div>
 				
 				<div class="form-group">
 					<label for="dealTime">dealTime</label>
-					<input type="text" class="form-control" id="dealTime" th:field="${dealEntity.dealTime}" placeholder="dealTime"/>
+					<input type="text" class="form-control" id="dealTime" th:field="${dealEntity.dealTime}" placeholder="请输入交易时间dealTime[yyyy/mm/dd]"/>
 					<p th:if="${#fields.hasErrors('dealTime')}" th:text="#{date.error}" >deal time error</p>
 					
 				</div>
 				
 				<div class="form-group">
 					<label for="dealPrice">dealPrice</label>
-					<input type="text" class="form-control" id="dealPrice" th:field="${dealEntity.dealPrice}" placeholder="dealPrice"/>
+					<input type="text" class="form-control" id="dealPrice" th:field="${dealEntity.dealPrice}" placeholder="请输入交易价格dealPrice"/>
 					<p th:if="${#fields.hasErrors('dealPrice')}" th:errors="*{dealPrice}">deal price error</p>
 				</div>
 				
 				<div class="form-group">
 					<label for="buyOrSell">buyOrSell</label>
 					<select  class="form-control" id="buyOrSell" th:field="${dealEntity.buyOrSell}" >
-						<option value="true">buy</option>
-						<option value="false">sell</option>
+						<option value="true">买入[buy]</option>
+						<option value="false">卖出[sell]</option>
 					</select>
 					
 				</div>
