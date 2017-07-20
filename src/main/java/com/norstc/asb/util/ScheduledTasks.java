@@ -4,6 +4,7 @@ package com.norstc.asb.util;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.math.BigDecimal;
 import java.net.ConnectException;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -12,8 +13,12 @@ import java.util.Date;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
+
+import com.norstc.asb.stock.StockEntity;
+import com.norstc.asb.stock.StockService;
 
 @Component
 public class ScheduledTasks {
@@ -22,6 +27,28 @@ public class ScheduledTasks {
 	private static final SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
 	
 
+	private StockService stockService ;
+	
+	
+	@Autowired
+	public void setStockService(StockService stockService){
+		this.stockService = stockService;
+	}
+	
+	@Scheduled(fixedDelay = 15000)
+	public void updateStockEntity(){
+		StockEntity stockEntity = new StockEntity();
+		
+		BigDecimal stockCurrentPrice = new BigDecimal(100.0);
+		log.info("current price is {}", stockCurrentPrice.longValue());
+		//stockCurrentPrice.add(new BigDecimal(10));
+		log.info("stock code is {}", stockService.getStockById(1).getStockCode());
+		stockEntity = stockService.getStockById(1);
+		stockEntity.setCurrentPrice(stockCurrentPrice);
+		stockService.add(stockEntity);
+		
+	}
+	
 	@Scheduled(initialDelay = 10000, fixedDelay=5000)
 	public void reportCurrentTime(){
 		System.out.println("test for scheduled task");
