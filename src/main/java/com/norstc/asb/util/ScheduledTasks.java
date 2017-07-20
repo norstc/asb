@@ -20,13 +20,23 @@ public class ScheduledTasks {
 	private static final Logger log = LoggerFactory.getLogger(ScheduledTasks.class);
 	
 	private static final SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
-	@Scheduled(fixedDelay=5000)
+	
+
+	@Scheduled(initialDelay = 10000, fixedDelay=5000)
 	public void reportCurrentTime(){
 		System.out.println("test for scheduled task");
 		log.info("The time is now {}",dateFormat.format(new Date()));
 	}
-	
-	@Scheduled(fixedDelay=10000)
+	//cron = 秒 分 时 日 月 星期
+	// "0 0 * * * *" = the top of every hour of every day.
+    // "*/10 * * * * *" = every ten seconds.
+    // "0 0 8-10 * * *" = 8, 9 and 10 o'clock of every day.
+    // "0 0 6,19 * * *" = 6:00 AM and 7:00 PM every day.
+    // "0 0/30 8-10 * * *" = 8:00, 8:30, 9:00, 9:30, 10:00 and 10:30 every day.
+    // "0 0 9-17 * * MON-FRI" = on the hour nine-to-five weekdays
+    // "0 0 0 25 12 ?" = every Christmas Day at midnight
+
+	@Scheduled(cron = "*/15 * 9-15 * * MON-FRI")
 	public void getStockPrice(){
 		System.out.println("test for stock price");
 		String stockCode="600000";
@@ -38,7 +48,7 @@ public class ScheduledTasks {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		log.info("the quote is {}",result );
+		log.info("the current price is {}",result );
 	}
 
 	private String doGetQuote(String quoteUrl) throws Exception {
@@ -60,7 +70,10 @@ public class ScheduledTasks {
 			while((line = reader.readLine()) != null){
 				stringBuilder.append(line + "\n");
 			}
-			return stringBuilder.toString();
+			String ret = stringBuilder.toString();
+			String[] aret = ret.split(",");
+			//按 ‘，’ 拆分后，第4个元素是当前价格，第一元素中是证券名称，有乱码，待解决
+			return aret[3];
 		} catch (ConnectException ce){
 			return null;
 		}catch(Exception e){
