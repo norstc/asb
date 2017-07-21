@@ -10,6 +10,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,20 +36,30 @@ public class ScheduledTasks {
 		this.stockService = stockService;
 	}
 	
+	//更新到数据库
 	@Scheduled(fixedDelay = 15000)
 	public void updateStockEntity(){
-		StockEntity stockEntity = new StockEntity();
-		
 		BigDecimal stockCurrentPrice = new BigDecimal(100.0);
-		log.info("current price is {}", stockCurrentPrice.longValue());
-		//stockCurrentPrice.add(new BigDecimal(10));
-		log.info("stock code is {}", stockService.getStockById(1).getStockCode());
-		stockEntity = stockService.getStockById(1);
-		stockEntity.setCurrentPrice(stockCurrentPrice);
-		stockService.add(stockEntity);
-		
+		StockEntity stockEntity = new StockEntity();
+		List<StockEntity> listStockEntity = stockService.findAll();
+		for (StockEntity oneStockEntity :listStockEntity){
+			log.info("stock code is {}", oneStockEntity.getStockCode());
+			String stockCode = oneStockEntity.getStockCode();
+			String quoteUrl="http://hq.sinajs.cn/list=sh" + stockCode;
+			String result = null;
+			try {
+				result = doGetQuote(quoteUrl);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			stockCurrentPrice = new BigDecimal(result);
+			oneStockEntity.setCurrentPrice(stockCurrentPrice);
+			stockService.add(oneStockEntity);
+		}
 	}
 	
+	//定时任务示例
 	@Scheduled(initialDelay = 10000, fixedDelay=5000)
 	public void reportCurrentTime(){
 		System.out.println("test for scheduled task");
@@ -63,6 +74,7 @@ public class ScheduledTasks {
     // "0 0 9-17 * * MON-FRI" = on the hour nine-to-five weekdays
     // "0 0 0 25 12 ?" = every Christmas Day at midnight
 
+	//定时任务示例2：从sina获取股票价格
 	@Scheduled(cron = "*/15 * 9-15 * * MON-FRI")
 	public void getStockPrice(){
 		System.out.println("test for stock price");
