@@ -141,9 +141,9 @@ public class StockLoader implements ApplicationListener<ContextRefreshedEvent>{
 		dealEntity.setId(1);
 		dealEntity.setStockCode("600000");
 		dealEntity.setBuyOrSell(true);
-		dealEntity.setDealPrice(new BigDecimal(12.2));
-		dealEntity.setDealQuantity(1000);
-		dealEntity.setDealTime(new Date("1980/9/9"));
+		dealEntity.setBuyPrice(new BigDecimal(12.2));
+		dealEntity.setBuyQuantity(1000);
+		dealEntity.setBuyTime(new Date("1980/9/9"));
 		
 		
 		dealRepository.save(dealEntity);
@@ -152,9 +152,12 @@ public class StockLoader implements ApplicationListener<ContextRefreshedEvent>{
 		dealEntity.setId(2);
 		dealEntity.setStockCode("600000");
 		dealEntity.setBuyOrSell(false);
-		dealEntity.setDealPrice(new BigDecimal(13.2));
-		dealEntity.setDealTime(new Date("1980/2/2"));
-		dealEntity.setDealQuantity(1000);
+		dealEntity.setBuyPrice(new BigDecimal(13.2));
+		dealEntity.setBuyTime(new Date("1982/2/2"));
+		dealEntity.setBuyQuantity(1000);
+		dealEntity.setSellTime(new Date("1982/3/3"));
+		dealEntity.setSellPrice(new BigDecimal(15.2));
+		dealEntity.setSellQuantity(1000);
 		dealEntity.setDealRoi(new BigDecimal(0.2));
 		
 		dealRepository.save(dealEntity);
@@ -164,10 +167,13 @@ public class StockLoader implements ApplicationListener<ContextRefreshedEvent>{
 		dealEntity.setId(3);
 		dealEntity.setStockCode("600001");
 		dealEntity.setBuyOrSell(true);
-		dealEntity.setDealPrice(new BigDecimal(13.2));
-		dealEntity.setDealTime(new Date("1980/12/9"));
-		dealEntity.setDealQuantity(2000);
-		dealEntity.setDealRoi(new BigDecimal(0.2));
+		dealEntity.setBuyPrice(new BigDecimal(13.2));
+		dealEntity.setBuyTime(new Date("2013/12/9"));
+		dealEntity.setBuyQuantity(2000);
+		dealEntity.setSellTime(null);
+		dealEntity.setSellPrice(null);
+		dealEntity.setSellQuantity(null);
+		dealEntity.setDealRoi(null);
 		
 		dealRepository.save(dealEntity);
 		log.info("saved dealEntity: " + dealEntity.getId());
@@ -175,11 +181,14 @@ public class StockLoader implements ApplicationListener<ContextRefreshedEvent>{
 		
 		dealEntity.setId(4);
 		dealEntity.setStockCode("600001");
-		dealEntity.setBuyOrSell(false);
-		dealEntity.setDealPrice(new BigDecimal(13.2));
-		dealEntity.setDealTime(new Date("2014/3/2"));
-		dealEntity.setDealQuantity(2000);
-		dealEntity.setDealRoi(new BigDecimal(0.2));
+		dealEntity.setBuyOrSell(true);
+		dealEntity.setBuyPrice(new BigDecimal(13.2));
+		dealEntity.setBuyTime(new Date("2014/3/2"));
+		dealEntity.setBuyQuantity(2000);
+		dealEntity.setSellTime(null);
+		dealEntity.setSellPrice(null);
+		dealEntity.setSellQuantity(null);
+		dealEntity.setDealRoi(null);
 		
 		dealRepository.save(dealEntity);
 		log.info("saved dealEntity: " + dealEntity.getId());
@@ -188,21 +197,27 @@ public class StockLoader implements ApplicationListener<ContextRefreshedEvent>{
 		dealEntity.setId(5);
 		dealEntity.setStockCode("600002");
 		dealEntity.setBuyOrSell(true);
-		dealEntity.setDealPrice(new BigDecimal(13.2));
-		dealEntity.setDealTime(new Date("2016/3/3"));
-		dealEntity.setDealQuantity(3000);
-		dealEntity.setDealRoi(new BigDecimal(0.2));
+		dealEntity.setBuyPrice(new BigDecimal(13.2));
+		dealEntity.setBuyTime(new Date("2016/3/3"));
+		dealEntity.setBuyQuantity(3000);
+		dealEntity.setSellTime(null);
+		dealEntity.setSellPrice(null);
+		dealEntity.setSellQuantity(null);
+		dealEntity.setDealRoi(null);
 		
 		dealRepository.save(dealEntity);
 		log.info("saved dealEntity: " + dealEntity.getId());
 		
 		dealEntity.setId(6);
 		dealEntity.setStockCode("600002");
-		dealEntity.setBuyOrSell(false);
-		dealEntity.setDealPrice(new BigDecimal(13.2));
-		dealEntity.setDealQuantity(3000);
-		dealEntity.setDealTime(new Date("2014/4/4"));
-		dealEntity.setDealRoi(new BigDecimal(0.2));
+		dealEntity.setBuyOrSell(true);
+		dealEntity.setBuyPrice(new BigDecimal(13.2));
+		dealEntity.setBuyQuantity(3000);
+		dealEntity.setBuyTime(new Date("2017/4/4"));
+		dealEntity.setSellTime(null);
+		dealEntity.setSellPrice(null);
+		dealEntity.setSellQuantity(null);
+		dealEntity.setDealRoi(null);
 		
 		dealRepository.save(dealEntity);
 		log.info("saved dealEntity: " + dealEntity.getId());

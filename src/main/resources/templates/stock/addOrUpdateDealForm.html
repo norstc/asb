@@ -8,40 +8,59 @@
 		<nav th:replace="/fragments/layout::navbar"></nav>
 		
 		<div class = "jumbotron">
-			<h1 th:with="text='add a deal'" th:text="${text}">add a deal</h1>
+			<h1 th:with="text=${buyOrSell}?'add a deal':'sell some'" th:text="${text}">add a deal</h1>
 			<form th:object="${dealEntity}" id="add_new_deal" method="post" role="form">
-				<div class="form-group">
+				<div class="form-group" >
 					<label for="stockCode">stockCode</label>
 					<input type="text" class="form-control" id="stockCode" th:field="${dealEntity.stockCode}" placeholder="请输入股票代码stockCode[6位股票代码]"/>
 					<p th:if="${#fields.hasErrors('stockCode')}" th:errors="${dealEntity.stockCode}">stockCode error</p>
 				</div>
 				
 				<div class="form-group">
-					<label for="dealTime">dealTime</label>
-					<input type="text" class="form-control" id="dealTime" th:field="${dealEntity.dealTime}" placeholder="请输入交易时间dealTime[yyyy/mm/dd]"/>
-					<p th:if="${#fields.hasErrors('dealTime')}" th:text="#{date.error}" >deal time error</p>
-					
-				</div>
-				
-				<div class="form-group">
-					<label for="dealPrice">dealPrice</label>
-					<input type="text" class="form-control" id="dealPrice" th:field="${dealEntity.dealPrice}" placeholder="请输入交易价格dealPrice"/>
-					<p th:if="${#fields.hasErrors('dealPrice')}" th:errors="*{dealPrice}">deal price error</p>
-				</div>
-				
-				<div class="form-group">
-				
-					<label for="dealQuantity">dealQuantity</label>
-					<input type="text" class="form-control" id="dealQuantity" th:field="${dealEntity.dealQuantity}" placeholder="请输入交易数量dealQuantity"/>
-					<p th:if="${#fields.hasErrors('dealQuantity')}" th:errors="*{dealQuantity}">deal quantity error </p>
-				</div>
-				<div class="form-group">
 					<label for="buyOrSell">buyOrSell</label>
 					<select  class="form-control" id="buyOrSell" th:field="${dealEntity.buyOrSell}" >
-						<option value="true">买入[buy]</option>
-						<option value="false">卖出[sell]</option>
+						<option value="true" th:if="${buyOrSell}">买入[buy]</option>
+						<option value="false" th:if="${not buyOrSell}">卖出[sell]</option>
 					</select>
 					
+				</div>
+				
+				<div class="form-group" >
+					<label for="buyTime">buyTime</label>
+					<input type="text" class="form-control" id="buyTime" th:field="${dealEntity.buyTime}" placeholder="请输入买入时间buyTime[yyyy/mm/dd]"/>
+					<p th:if="${#fields.hasErrors('buyTime')}" th:text="#{date.error}" >buy time error</p>
+					
+				</div>
+				
+				<div class="form-group" >
+					<label for="buyPrice">buyPrice</label>
+					<input type="text" class="form-control" id="buyPrice" th:field="${dealEntity.buyPrice}" placeholder="请输入买入价格buyPrice"/>
+					<p th:if="${#fields.hasErrors('buyPrice')}" th:errors="*{buyPrice}">buy price error</p>
+				</div>
+				
+				<div class="form-group" >
+					<label for="buyQuantity">buyQuantity</label>
+					<input type="text" class="form-control" id="buyQuantity" th:field="${dealEntity.buyQuantity}" placeholder="请输入买入数量buyQuantity"/>
+					<p th:if="${#fields.hasErrors('buyQuantity')}" th:errors="*{buyQuantity}">buy quantity error </p>
+				</div>
+				
+				<div class="form-group" th:if="${not buyOrSell}">
+					<label for="sellTime">sellTime</label>
+					<input type="text" class="form-control" id="sellTime" th:field="${dealEntity.sellTime}" placeholder="请输入卖出时间sellTime[yyyy/mm/dd]"/>
+					<p th:if="${#fields.hasErrors('sellTime')}" th:text="#{date.error}" >sell time error</p>
+					
+				</div>
+				
+				<div class = "form-group" th:if="${not buyOrSell}">
+					<label for="sellPrice">sellPrice</label>
+					<input type="text" class="form-control" id="sellPrice" th:field="${dealEntity.sellPrice}" placeholder="请输入卖出价格sellPrice"/>
+					<p th:if="${#fields.hasErrors('sellPrice')}" th:errors="*{sellPrice}">sell price error</p>
+				</div>
+				
+				<div class="form-group" th:if="${not buyOrSell}">
+					<label for="sellQuantity">sellQuantity</label>
+					<input type="text" class="form-control" id="sellQuantity" th:field="${dealEntity.sellQuantity}" placeholder="请输入卖出数量sellQuantity"/>
+					<p th:if="${#fields.hasErrors('sellQuantity')}" th:errors="*{sellQuantity}">sell quantity error </p>
 				</div>
 				
 				<button type="submit" class="btn btn-default">提交</button>

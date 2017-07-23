@@ -38,16 +38,17 @@ public class DealController {
 		return "/stock/recorder";
 	}
 	
-	//显示表单
-	@RequestMapping(value="/stock/recoder/add" ,method=RequestMethod.GET)
+	//显示买入表单
+	@RequestMapping(value="/stock/recoder/buy" ,method=RequestMethod.GET)
 	public String addDealHandler(Map<String,Object> model){
 		DealEntity dealEntity = new DealEntity();
 		model.put("dealEntity", dealEntity);
+		model.put("buyOrSell", true);
 		return VIEWS_DEAL_ADD_OR_UPDATE_FORM;
 	}
 	
-	//提交表单
-	@RequestMapping(value="/stock/recoder/add", method=RequestMethod.POST)
+	//提交买入表单
+	@RequestMapping(value="/stock/recoder/buy", method=RequestMethod.POST)
 	public String processAddForm(@Valid DealEntity dealEntity, BindingResult result){
 		if(result.hasErrors()){
 			return VIEWS_DEAL_ADD_OR_UPDATE_FORM;
@@ -57,6 +58,26 @@ public class DealController {
 		}
 	}
 	
+	//显示卖出表单
+	@RequestMapping(value="/stock/deal/{id}/sell",method=RequestMethod.GET)
+	public String sellHandler(@PathVariable Integer id, Map<String,Object> model){
+		DealEntity dealEntity = new DealEntity();
+		dealEntity = dealService.getDealById(id);
+		model.put("dealEntity", dealEntity);
+		model.put("buyOrSell",false);
+		return VIEWS_DEAL_ADD_OR_UPDATE_FORM;
+	}
+	
+	//提交卖出表单
+	@RequestMapping(value = "/stock/deal/{id}/sell", method=RequestMethod.POST)
+	public String processSellHandler(@Valid DealEntity dealEntity, BindingResult result){
+		if(result.hasErrors()){
+			return VIEWS_DEAL_ADD_OR_UPDATE_FORM;
+		}else{
+			this.dealService.add(dealEntity);
+			return "redirect:/stock/recorder/" + dealEntity.getId();
+		}
+	}
 	//修改deal
 	@RequestMapping(value="/stock/deal/{id}/update",method=RequestMethod.GET)
 	public String updatedealHandler(@PathVariable Integer id, Map<String,Object> model){

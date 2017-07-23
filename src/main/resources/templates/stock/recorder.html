@@ -15,10 +15,13 @@
 						<tr>
 							<th>Id</th>
 							<th>Stock Code</th>
-							<th>Deal Time</th>
 							<th>Buy or Sell</th>
-							<th>Deal Price</th>
-							<th>Deal Quantity</th>
+							<th>Buy Time</th>
+							<th>Buy Price</th>
+							<th>Buy Quantity</th>
+							<th>Sell Time</th>
+							<th>Sell Price</th>
+							<th>Sell Quantity</th>
 							<th>Deal ROI</th>
 						</tr>
 					</thead>
@@ -26,10 +29,13 @@
 						<tr>
 							<td th:text="${deal.id}">[id]</td>
 							<td th:text="${deal.stockCode}">[stockCode]</td>
-							<td th:text="${#calendars.format(deal.dealTime,'yyyy/MM/dd')}">[dealTime]</td>
 							<td th:text="${deal.buyOrSell}?'buy':'sell'">[buyOrSell]</td>
-							<td th:text="${deal.dealPrice}">[dealPrice]</td>
-							<td th:text="${deal.dealQuantity}">[dealQuantity]</td>
+							<td th:text="${#calendars.format(deal.buyTime,'yyyy/MM/dd')}">[buyTime]</td>
+							<td th:text="${deal.buyPrice}">[buyPrice]</td>
+							<td th:text="${deal.buyQuantity}">[buyQuantity]</td>
+							<td th:text="${(deal.sellTime != null)?(#calendars.format(deal.sellTime,'yyyy/MM/dd')):('')}">[sellTime]</td>
+							<td th:text="${deal.sellPrice}">[sellPrice]</td>
+							<td th:text="${deal.sellQuantity}">[sellQuantity]</td>
 							<td th:text="${deal.dealRoi}">[dealRoi]</td>
 							
 						</tr>
@@ -37,6 +43,7 @@
 					
 				</table>
 				<ul class="nav nav-pills">
+					<li><a class="btn btn-default" th:href="@{'/stock/deal/' + ${deal.id} + '/sell'}">卖出</a></li>
 					<li><a class="btn btn-danger" th:href="@{'/stock/deal/' + ${deal.id} + '/update'}">修改</a></li>
 					<li><a class="btn btn-warning" th:href="@{'/stock/deal/' + ${deal.id} + '/delete'}">删除</a></li>
 					<li><a class="btn btn-danger" th:href="@{'/stock/recorder/'}">返回</a></li>
@@ -50,10 +57,13 @@
 						<tr>
 							<th>Id</th>
 							<th>Stock Code</th>
-							<th>Deal Time</th>
 							<th>Buy or Sell</th>
-							<th>Deal Price</th>
-							<th>Deal Quantity</th>
+							<th>Buy Time</th>
+							<th>Buy Price</th>
+							<th>Buy Quantity</th>
+							<th>Sell Time</th>
+							<th>Sell Price</th>
+							<th>Sell Quantity</th>
 							<th>Deal ROI</th>
 						</tr>
 					</thead>
@@ -63,17 +73,21 @@
 							<td ><a th:href="@{'/stock/recorder/' + ${deal.id}}"
 								th:text="${deal.stockCode}"
 							>[stockCode]</a></td>
-							<td th:text="${deal.dealTime}">[dealTime]</td>
 							<td th:text="${deal.buyOrSell}?'buy':'sell'">[buyOrSell]</td>
-							<td th:text="${deal.dealPrice}">[dealPrice]</td>
-							<td th:text="${deal.dealQuantity}">[dealQuantity]</td>
+							<td th:text="${deal.buyTime}">[buyTime]</td>
+							<td th:text="${deal.buyPrice}">[buyPrice]</td>
+							<td th:text="${deal.buyQuantity}">[buyQuantity]</td>
+							<td th:text="${deal.sellTime}">[sellTime]</td>
+							<td th:text="${deal.sellPrice}">[sellPrice]</td>
+							<td th:text="${deal.sellQuantity}">[sellQuantity]</td>
 							<td th:text="${deal.dealRoi}">[dealRoi]</td>
 						</tr>
 					</tbody>
 				
 				</table>
 				<ul class="nav nav-pills">
-					<li><a class="btn btn-default" href="/stock/recoder/add">增加</a></li>
+					<li><a class="btn btn-default" href="/stock/recoder/buy">买入</a></li>
+
 					<li><a class="btn btn-info" href="/">返回</a></li>
 				</ul>
 			</div>
