@@ -2,6 +2,7 @@ package com.norstc.asb.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 public class WelcomeController {
@@ -39,17 +40,21 @@ public class WelcomeController {
 	
 	//user part
 	
-	@RequestMapping("owner/login")
+	@RequestMapping(value = "/owner/login", method =  RequestMethod.GET)
 	public String userLoginHandler(){
 		return "owner/login";
 	}
 	
-	@RequestMapping("owner/logout")
+	@RequestMapping(value = "/owner/login", method = RequestMethod.POST)
+	public String processLoginHandler(){
+		return "redirect:/";
+	}
+	@RequestMapping("/owner/logout")
 	public String userLogoutHandler(){
 		return "owner/logout";
 	}
 	
-	@RequestMapping("owner/regist")
+	@RequestMapping("/owner/regist")
 	public String userRegistHandler(){
 		return "owner/regist";
 	}
