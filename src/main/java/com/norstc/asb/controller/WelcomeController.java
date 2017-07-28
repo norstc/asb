@@ -1,11 +1,16 @@
 package com.norstc.asb.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+
 @Controller
 public class WelcomeController {
+	private static final Logger log = LoggerFactory.getLogger(WelcomeController.class);
+	
 	@RequestMapping("/")
 	public String homeHandler(){
 		return "redirect:/welcome";
@@ -42,13 +47,11 @@ public class WelcomeController {
 	
 	@RequestMapping(value = "/owner/login", method =  RequestMethod.GET)
 	public String userLoginHandler(){
+		log.info("enter login form");
 		return "owner/login";
 	}
 	
-	@RequestMapping(value = "/owner/login", method = RequestMethod.POST)
-	public String processLoginHandler(){
-		return "redirect:/";
-	}
+	
 	@RequestMapping("/owner/logout")
 	public String userLogoutHandler(){
 		return "owner/logout";

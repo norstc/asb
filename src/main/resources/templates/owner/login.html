@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" >
+<html xmlns:th="http://www.thymeleaf.org"  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head th:replace="/fragments/layout :: common_header"></head>
 
@@ -8,8 +8,14 @@
 		<nav th:replace="/fragments/layout::navbar"></nav>
 		
 		<div class="jumbotron">
+			<div th:if="${param.error}">
+				<label style="color:red">无效的用户名 和 密码</label>
+			</div>
+			<div th:if="${param.logout}">
+				<label style="color:green">已经登出</label>
+			</div>
 			<h1>login</h1>
-			<form id="loginform" method = "post"  role="form">
+			<form th:action="@{/owner/login}"  id="loginform" method = "post"  role="form">
 				<div class="form-group">
 					<lable for="ownername">ownerName</lable>
 					<input type = "text" class="form-control"  id="ownerName" placeholder="ownerName" />

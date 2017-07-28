@@ -5,6 +5,8 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -13,6 +15,7 @@ import javax.validation.constraints.NotNull;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.norstc.asb.model.BaseEntity;
+import com.norstc.asb.owner.OwnerEntity;
 
 @Entity
 @Table(name = "deals")
@@ -58,7 +61,20 @@ public class DealEntity extends BaseEntity{
 	private BigDecimal dealRoi;
 
 	
+	@ManyToOne
+	@JoinColumn(name = "owner_id")
+	private OwnerEntity owner;
 	
+	
+	
+	public OwnerEntity getOwner() {
+		return owner;
+	}
+
+	public void setOwner(OwnerEntity owner) {
+		this.owner = owner;
+	}
+
 	public String getStockCode() {
 		return stockCode;
 	}

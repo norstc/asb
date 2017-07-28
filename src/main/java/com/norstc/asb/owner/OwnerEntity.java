@@ -18,6 +18,7 @@ import org.springframework.beans.support.MutableSortDefinition;
 import org.springframework.beans.support.PropertyComparator;
 import org.springframework.core.style.ToStringCreator;
 
+import com.norstc.asb.deal.DealEntity;
 import com.norstc.asb.model.PersonEntity;
 import com.norstc.asb.stock.StockEntity;
 
@@ -39,9 +40,17 @@ public class OwnerEntity extends PersonEntity{
 	@Digits(fraction = 0, integer = 10)
 	private String telephone;
 	
+	//交易目标
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "owner")
 	private Set<StockEntity> stocks;
 
+	//交易记录
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "owner")
+	private Set<DealEntity> deals;
+	
+	//帐号明细
+	//todo
+	
 	public String getAddress() {
 		return address;
 	}
@@ -121,6 +130,16 @@ public class OwnerEntity extends PersonEntity{
 		return null;
 	}
 	
+	
+	
+	public Set<DealEntity> getDeals() {
+		return deals;
+	}
+
+	public void setDeals(Set<DealEntity> deals) {
+		this.deals = deals;
+	}
+
 	@Override
 	public String toString() {
 		return new ToStringCreator(this)
