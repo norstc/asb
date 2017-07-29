@@ -52,6 +52,7 @@ public class WelcomeController {
 	}
 	
 	
+	
 	@RequestMapping("/owner/logout")
 	public String userLogoutHandler(){
 		return "owner/logout";

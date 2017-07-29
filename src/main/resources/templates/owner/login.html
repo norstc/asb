@@ -17,12 +17,13 @@
 			<h1>login</h1>
 			<form th:action="@{/owner/login}"  id="loginform" method = "post"  role="form">
 				<div class="form-group">
-					<lable for="ownername">ownerName</lable>
-					<input type = "text" class="form-control"  id="ownerName" placeholder="ownerName" />
+					<label for="username">ownerName</label>
+					<!-- must use name="username" for spring boot default security settings -->
+					<input type = "text" class="form-control"  id="username"  name="username"  placeholder="ownerName" />
 				</div>
 				<div class="form-group">
 					<label for="password">password</label>
-					<input type="password" class="form-control"  id="password" placeholder="password" />
+					<input type="password" class="form-control"  id="password" name="password" placeholder="password" />
 				</div>
 				
 				<button type="submit" class="btn btn-default">登录</button>
@@ -40,10 +41,10 @@
 	<!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="js/jquery-3.2.1.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
+    <script src="/js/jquery-3.2.1.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script src="js/ie10-viewport-bug-workaround.js"></script>
+    <script src="/js/ie10-viewport-bug-workaround.js"></script>
     
     
 </body>

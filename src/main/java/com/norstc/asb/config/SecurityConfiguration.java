@@ -22,7 +22,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 			.antMatchers("/","/welcome","/stock/*","/owner/regist").permitAll()
 			.anyRequest().authenticated()
 			.and()
-			.formLogin().permitAll()
+			.formLogin().loginPage("/owner/login").permitAll()
 			.and()
 			.logout().logoutUrl("/owner/logout").permitAll()
 			.and()
