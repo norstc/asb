@@ -9,8 +9,12 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.Digits;
 
 import org.hibernate.validator.constraints.NotEmpty;
@@ -25,6 +29,22 @@ import com.norstc.asb.stock.StockEntity;
 @Entity
 @Table(name = "owners")
 public class OwnerEntity extends PersonEntity{
+	
+	@Transient
+	private String password;
+	
+	private String encryptedPassword;
+	private Boolean enabled = true;
+	
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable
+	private List<RoleEntity> roles = new ArrayList<>();
+	
+	
+	
+	private Integer failedLoginAttempts = 0;
+	
+	
 	
 	@Column(name = "address")
 	@NotEmpty
@@ -48,8 +68,67 @@ public class OwnerEntity extends PersonEntity{
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "owner")
 	private Set<DealEntity> deals;
 	
-	//帐号明细
+	//帐户明细
 	//todo
+	
+	//login
+	
+	
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getEncryptedPassword() {
+		return encryptedPassword;
+	}
+
+	public void setEncryptedPassword(String encryptedPassword) {
+		this.encryptedPassword = encryptedPassword;
+	}
+
+	public Boolean getEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(Boolean enabled) {
+		this.enabled = enabled;
+	}
+
+	public List<RoleEntity> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(List<RoleEntity> roles) {
+		this.roles = roles;
+	}
+
+	public Integer getFailedLoginAttempts() {
+		return failedLoginAttempts;
+	}
+
+	public void setFailedLoginAttempts(Integer failedLoginAttempts) {
+		this.failedLoginAttempts = failedLoginAttempts;
+	}
+
+	public void addRole(RoleEntity roleEntity){
+		if(!this.roles.contains(roleEntity)){
+			this.roles.add(roleEntity);
+		}
+		
+		if(!roleEntity.getOwners().contains(this)){
+			roleEntity.getOwners().add(this);
+		}
+	}
+	
+	public void removeRole(RoleEntity roleEntity){
+		this.roles.remove(roleEntity);
+		roleEntity.getOwners().remove(this);
+	}
+	
 	
 	public String getAddress() {
 		return address;

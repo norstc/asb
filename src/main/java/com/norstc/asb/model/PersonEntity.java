@@ -6,7 +6,7 @@ import javax.persistence.MappedSuperclass;
 import org.hibernate.validator.constraints.NotEmpty;
 
 @MappedSuperclass
-public class PersonEntity extends BaseEntity{
+public class PersonEntity extends NamedEntity{
 	@Column(name="first_name")
 	@NotEmpty
 	private String firstName;
