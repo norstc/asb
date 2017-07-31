@@ -19,9 +19,14 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 @Configuration
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 	
-	
-	
 	private AuthenticationProvider authenticationProvider;
+	
+	@Autowired
+	@Qualifier("daoAuthenticationProvider")
+	public void setAuthenticationProvider(AuthenticationProvider authenticationProvider){
+		this.authenticationProvider = authenticationProvider;
+	}
+	
 	
 	@Bean
 	public PasswordEncoder  passwordEncoder(StrongPasswordEncryptor passwordEncryptor){
@@ -38,11 +43,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 		return daoAuthenticationProvider;
 	}
 	
-	@Autowired
-	@Qualifier("daoAuthenticationProvider")
-	public void setAuthenticationProvider(AuthenticationProvider authenticationProvider){
-		this.authenticationProvider = authenticationProvider;
-	}
 	
 	@Autowired
 	public void configureAuthManager(AuthenticationManagerBuilder authenticationManagerBuilder){
@@ -53,7 +53,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 	protected void configure(HttpSecurity httpSecurity) throws Exception {
 		httpSecurity
 			.authorizeRequests()
-			.antMatchers("/","/welcome","/stock/*","/owner/regist","/console","/console/**").permitAll()
+			.antMatchers("/","/welcome","/stock/*","/owner/regist","/h2console/**").permitAll()
 			.anyRequest().authenticated()
 			.and()
 			.formLogin().loginPage("/owner/login").permitAll()

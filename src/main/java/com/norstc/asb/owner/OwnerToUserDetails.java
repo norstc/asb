@@ -15,7 +15,7 @@ public class OwnerToUserDetails implements Converter<OwnerEntity, UserDetails>{
 	public UserDetails convert(OwnerEntity ownerEntity) {
 		UserDetailsImpl userDetails  = new UserDetailsImpl();
 		if(ownerEntity != null){
-			userDetails.setUsername(ownerEntity.getName());
+			userDetails.setUsername(ownerEntity.getUsername());
 			userDetails.setPassword(ownerEntity.getPassword());
 			userDetails.setEnabled(ownerEntity.getEnabled());
 			Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();

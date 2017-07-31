@@ -29,6 +29,7 @@ import com.norstc.asb.stock.StockEntity;
 @Entity
 @Table(name = "owners")
 public class OwnerEntity extends PersonEntity{
+	private String username;
 	
 	@Transient
 	private String password;
@@ -76,6 +77,14 @@ public class OwnerEntity extends PersonEntity{
 	
 	public String getPassword() {
 		return password;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 	public void setPassword(String password) {

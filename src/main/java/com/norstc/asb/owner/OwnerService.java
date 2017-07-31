@@ -8,5 +8,5 @@ public interface OwnerService {
 	OwnerEntity saveOrUpdate(OwnerEntity ownerEntity);
 	void delete(Integer id);
 	
-	OwnerEntity findByName(String name);
+	OwnerEntity findByUsername(String username);
 }

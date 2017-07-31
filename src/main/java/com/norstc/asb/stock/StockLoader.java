@@ -71,10 +71,10 @@ public class StockLoader implements ApplicationListener<ContextRefreshedEvent>{
 		List<OwnerEntity> owners = (List<OwnerEntity>) ownerService.listAll();
 		roles.forEach(role -> {
 			if(role.getRole().equalsIgnoreCase("ADMIN")){
-				owners.forEach(o -> {
-					if(o.getName().equals("admin")){
-						o.addRole(role);
-						ownerService.saveOrUpdate(o);
+				owners.forEach(ownerEntity -> {
+					if(ownerEntity.getUsername().equals("admin")){
+						ownerEntity.addRole(role);
+						ownerService.saveOrUpdate(ownerEntity);
 					}
 				});
 			}
@@ -86,10 +86,10 @@ public class StockLoader implements ApplicationListener<ContextRefreshedEvent>{
 		List<OwnerEntity> owners = (List<OwnerEntity>)ownerService.listAll();
 		roles.forEach(role ->{
 			if(role.getRole().equalsIgnoreCase("USER")){
-				owners.forEach(o -> {
-					if(o.getName().equals("users")){
-						o.addRole(role);
-						ownerService.saveOrUpdate(o);
+				owners.forEach(ownerEntity -> {
+					if(ownerEntity.getUsername().equals("user")){
+						ownerEntity.addRole(role);
+						ownerService.saveOrUpdate(ownerEntity);
 					}
 				});
 			}
@@ -186,9 +186,11 @@ public class StockLoader implements ApplicationListener<ContextRefreshedEvent>{
 
 	private void loadRoles() {
 		RoleEntity role = new RoleEntity();
+		role.setId(1);
 		role.setRole("USER");
 		roleService.saveOrUpdate(role);
 		
+		role.setId(2);
 		role.setRole("ADMIN");
 		roleService.saveOrUpdate(role);
 		
@@ -198,7 +200,7 @@ public class StockLoader implements ApplicationListener<ContextRefreshedEvent>{
 		OwnerEntity ownerEntity = new OwnerEntity();
 		//initial owner
 		ownerEntity.setId(1);
-		ownerEntity.setName("tom");
+		ownerEntity.setUsername("tom");
 		ownerEntity.setPassword("tom");
 		ownerEntity.setFirstName("Tom");
 		ownerEntity.setLastName("Hagens");
@@ -208,7 +210,7 @@ public class StockLoader implements ApplicationListener<ContextRefreshedEvent>{
 		ownerService.saveOrUpdate(ownerEntity);
 		
 		ownerEntity.setId(2);
-		ownerEntity.setName("michele");
+		ownerEntity.setUsername("michele");
 		ownerEntity.setPassword("micchele");
 		ownerEntity.setFirstName("Michele");
 		ownerEntity.setLastName("Conleon");
@@ -218,7 +220,7 @@ public class StockLoader implements ApplicationListener<ContextRefreshedEvent>{
 		ownerService.saveOrUpdate(ownerEntity);
 		
 		ownerEntity.setId(3);
-		ownerEntity.setName("user");
+		ownerEntity.setUsername("user");
 		ownerEntity.setPassword("user");
 		ownerEntity.setFirstName("u2");
 		ownerEntity.setLastName("u3");
@@ -228,7 +230,7 @@ public class StockLoader implements ApplicationListener<ContextRefreshedEvent>{
 		ownerService.saveOrUpdate(ownerEntity);
 		
 		ownerEntity.setId(4);
-		ownerEntity.setName("admin");
+		ownerEntity.setUsername("admin");
 		ownerEntity.setPassword("admin");
 		ownerEntity.setFirstName("u4");
 		ownerEntity.setLastName("u5");

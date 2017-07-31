@@ -54,10 +54,12 @@ public class OwnerServiceImpl implements OwnerService {
 		
 	}
 
+
+
 	@Override
-	public OwnerEntity findByName(String name) {
-	
-		return ownerRepository.findByName(name);
+	public OwnerEntity findByUsername(String username) {
+		
+		return ownerRepository.findByUsername(username);
 	}
 
 }
