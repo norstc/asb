@@ -155,7 +155,7 @@ public class StockLoader implements ApplicationListener<ContextRefreshedEvent>{
 		
 		
 		dealEntity.setId(5);
-		dealEntity.setStockCode("600002");
+		dealEntity.setStockCode("600027");
 		dealEntity.setBuyOrSell(true);
 		dealEntity.setBuyPrice(new BigDecimal(13.2));
 		dealEntity.setBuyTime(new Date("2016/3/3"));
@@ -169,7 +169,7 @@ public class StockLoader implements ApplicationListener<ContextRefreshedEvent>{
 		log.info("saved dealEntity: " + dealEntity.getId());
 		
 		dealEntity.setId(6);
-		dealEntity.setStockCode("600002");
+		dealEntity.setStockCode("600027");
 		dealEntity.setBuyOrSell(true);
 		dealEntity.setBuyPrice(new BigDecimal(13.2));
 		dealEntity.setBuyQuantity(3000);
@@ -275,8 +275,8 @@ public class StockLoader implements ApplicationListener<ContextRefreshedEvent>{
 		ownerEntity = ownerService.getById(1);
 		//initial stock 
 		se.setId(1);
-		se.setStockCode("600000");
-		se.setStockName("浦发银行");
+		se.setStockCode("600027");
+		se.setStockName("华电国际");
 		se.setType(stockType);
 		se.setCurrentPrice(new BigDecimal("10.2"));
 		se.setAiPrice(new BigDecimal("12.2"));
@@ -291,8 +291,8 @@ public class StockLoader implements ApplicationListener<ContextRefreshedEvent>{
 		stockType = stockTypeRepository.findOne(2);
 		ownerEntity = ownerService.getById(2);
 		se.setId(2);
-		se.setStockCode("600004");
-		se.setStockName("白云机场");
+		se.setStockCode("601006");
+		se.setStockName("大秦铁路");
 		se.setType(stockType);
 		se.setCurrentPrice(new BigDecimal(1.2));
 		se.setAiPrice(new BigDecimal("1.5"));
@@ -306,8 +306,8 @@ public class StockLoader implements ApplicationListener<ContextRefreshedEvent>{
 		stockType = stockTypeRepository.findOne(3);
 		ownerEntity = ownerService.getById(2);
 		se.setId(3);
-		se.setStockCode("600005");
-		se.setStockName("武汉钢铁");
+		se.setStockCode("600694");
+		se.setStockName("大商股份");
 		se.setType(stockType);
 		se.setCurrentPrice(new BigDecimal(20.2));
 		se.setAiPrice(new BigDecimal("22.3"));

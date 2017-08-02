@@ -8,21 +8,36 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.norstc.asb.owner.OwnerEntity;
+import com.norstc.asb.owner.OwnerService;
 import com.norstc.asb.stock.StockEntity;
 import com.norstc.asb.stock.StockService;
 
 @Controller
+
 public class StockController {
 	private static final String VIEWS_TARGET_ADD_OR_UPDATE_FORM = "stock/addOrUpdateTargetForm";
 	private StockService stockService;
+	private OwnerService ownerService;
+	
+	@Autowired
+	public void setOwnerService(OwnerService ownerService){
+		this.ownerService = ownerService;
+	}
 	
 	@Autowired
 	public void setStockService(StockService stockService){
 		this.stockService = stockService;
+	}
+	
+	@ModelAttribute("owner")
+	public OwnerEntity findOwner(){
+		return this.ownerService.getById(1);
 	}
 	
 	// main part
