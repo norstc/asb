@@ -43,7 +43,7 @@ public class ScheduledTasks {
 		StockEntity stockEntity = new StockEntity();
 		List<StockEntity> listStockEntity = stockService.findAll();
 		for (StockEntity oneStockEntity :listStockEntity){
-			log.info("stock code is {}", oneStockEntity.getStockCode());
+			//log.info("stock code is {}", oneStockEntity.getStockCode());
 			String stockCode = oneStockEntity.getStockCode();
 			String quoteUrl="http://hq.sinajs.cn/list=sh" + stockCode;
 			String result = null;
@@ -63,7 +63,7 @@ public class ScheduledTasks {
 	@Scheduled(initialDelay = 10000, fixedDelay=5000)
 	public void reportCurrentTime(){
 		System.out.println("test for scheduled task");
-		log.info("The time is now {}",dateFormat.format(new Date()));
+		//log.info("The time is now {}",dateFormat.format(new Date()));
 	}
 	//cron = 秒 分 时 日 月 星期
 	// "0 0 * * * *" = the top of every hour of every day.
@@ -77,7 +77,7 @@ public class ScheduledTasks {
 	//定时任务示例2：从sina获取股票价格
 	@Scheduled(cron = "*/15 * 9-15 * * MON-FRI")
 	public void getStockPrice(){
-		System.out.println("test for stock price");
+		//System.out.println("test for stock price");
 		String stockCode="600000";
 		String quoteUrl="http://hq.sinajs.cn/list=sh" + stockCode;
 		String result = null;
@@ -87,7 +87,7 @@ public class ScheduledTasks {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		log.info("the current price is {}",result );
+		//log.info("the current price is {}",result );
 	}
 
 	private String doGetQuote(String quoteUrl) throws Exception {

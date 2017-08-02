@@ -29,12 +29,15 @@ import com.norstc.asb.stock.StockEntity;
 @Entity
 @Table(name = "owners")
 public class OwnerEntity extends PersonEntity{
+	@Column(name = "username")
 	private String username;
 	
 	@Transient
 	private String password;
 	
+	@Column(name = "encrypted_password")
 	private String encryptedPassword;
+	@Column(name ="enabled")
 	private Boolean enabled = true;
 	
 	@ManyToMany(fetch = FetchType.EAGER)
@@ -42,7 +45,7 @@ public class OwnerEntity extends PersonEntity{
 	private List<RoleEntity> roles = new ArrayList<>();
 	
 	
-	
+	@Column(name="failed_login_attempts")
 	private Integer failedLoginAttempts = 0;
 	
 	
