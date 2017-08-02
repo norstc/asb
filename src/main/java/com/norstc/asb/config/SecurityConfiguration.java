@@ -21,12 +21,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 	
 	private AuthenticationProvider authenticationProvider;
 	
-	@Autowired
-	@Qualifier("daoAuthenticationProvider")
-	public void setAuthenticationProvider(AuthenticationProvider authenticationProvider){
-		this.authenticationProvider = authenticationProvider;
-	}
-	
+
 	
 	@Bean
 	public PasswordEncoder  passwordEncoder(StrongPasswordEncryptor passwordEncryptor){
@@ -41,6 +36,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 		daoAuthenticationProvider.setPasswordEncoder(passwordEncoder);
 		daoAuthenticationProvider.setUserDetailsService(userDetailsService);
 		return daoAuthenticationProvider;
+	}
+	
+	@Autowired
+	@Qualifier("daoAuthenticationProvider")
+	public void setAuthenticationProvider(AuthenticationProvider authenticationProvider){
+		this.authenticationProvider = authenticationProvider;
 	}
 	
 	

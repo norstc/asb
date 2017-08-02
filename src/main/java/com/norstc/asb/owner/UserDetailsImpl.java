@@ -2,6 +2,7 @@ package com.norstc.asb.owner;
 
 import java.util.Collection;
 
+import org.apache.log4j.Logger;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -11,7 +12,7 @@ public class UserDetailsImpl implements UserDetails{
 	private String username;
 	private String password;
 	private Boolean enabled = true;
-	
+	private  Logger log = Logger.getLogger(UserDetailsImpl.class);
 
 	public void setAuthorities(Collection<SimpleGrantedAuthority> authorities){
 		this.authorities = authorities;
@@ -42,7 +43,7 @@ public class UserDetailsImpl implements UserDetails{
 
 	@Override
 	public String getUsername() {
-		
+		log.info("get user name " + username);
 		return username;
 	}
 

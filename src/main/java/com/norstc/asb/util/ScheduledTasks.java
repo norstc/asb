@@ -62,7 +62,7 @@ public class ScheduledTasks {
 	//定时任务示例
 	@Scheduled(initialDelay = 10000, fixedDelay=5000)
 	public void reportCurrentTime(){
-		System.out.println("test for scheduled task");
+		//System.out.println("test for scheduled task");
 		//log.info("The time is now {}",dateFormat.format(new Date()));
 	}
 	//cron = 秒 分 时 日 月 星期

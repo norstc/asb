@@ -1,5 +1,6 @@
 package com.norstc.asb.owner;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.core.convert.converter.Converter;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 public class UserDetailsServiceImpl implements UserDetailsService{
 	private OwnerService ownerService;
 	private Converter<OwnerEntity, UserDetails> ownerUserDetailsConverter;
+	private Logger log = Logger.getLogger(UserDetailsServiceImpl.class);
 	
 	@Autowired
 	public void setOwnerService(OwnerService ownerService){
@@ -26,7 +28,7 @@ public class UserDetailsServiceImpl implements UserDetailsService{
 	
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		
+		log.info("UserDetailsService loadUserByUsername: " + username);
 		return ownerUserDetailsConverter.convert(ownerService.findByUsername(username));
 	}
 
