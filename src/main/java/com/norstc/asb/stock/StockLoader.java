@@ -304,7 +304,7 @@ public class StockLoader implements ApplicationListener<ContextRefreshedEvent>{
 		log.info("saved stockentity: "+ se.getId());
 		
 		stockType = stockTypeRepository.findOne(3);
-		ownerEntity = ownerService.getById(2);
+		ownerEntity = ownerService.getById(3);
 		se.setId(3);
 		se.setStockCode("600694");
 		se.setStockName("大商股份");
@@ -318,6 +318,37 @@ public class StockLoader implements ApplicationListener<ContextRefreshedEvent>{
 		
 		log.info("saved stockentity: "+ se.getId());
 		
+		
+		stockType = stockTypeRepository.findOne(3);
+		ownerEntity = ownerService.getById(3);
+		se.setId(4);
+		se.setStockCode("601001");
+		se.setStockName("大同煤业");
+		se.setType(stockType);
+		se.setCurrentPrice(new BigDecimal(6.2));
+		se.setAiPrice(new BigDecimal("7.7"));
+		se.setAiRoi(new BigDecimal("0.4"));
+		se.setOwner(ownerEntity);
+		
+		stockRepository.save(se);
+		
+		log.info("saved stockentity: "+ se.getId());
+		
+		
+		stockType = stockTypeRepository.findOne(3);
+		ownerEntity = ownerService.getById(3);
+		se.setId(5);
+		se.setStockCode("600348");
+		se.setStockName("阳泉煤业");
+		se.setType(stockType);
+		se.setCurrentPrice(new BigDecimal(8.2));
+		se.setAiPrice(new BigDecimal("9.7"));
+		se.setAiRoi(new BigDecimal("0.4"));
+		se.setOwner(ownerEntity);
+		
+		stockRepository.save(se);
+		
+		log.info("saved stockentity: "+ se.getId());
 		
 		
 	}

@@ -75,6 +75,9 @@
               <li th:class="${#strings.startsWith(view,'/owner/logout')?'active':''}"><a href="/owner/logout">退出</a></li>
             </ul>
           </div><!--/.nav-collapse -->
+          <div sec:authorize="isAuthenticated()">
+          		欢迎：<span sec:authentication="name">username</span>
+          </div>
         </div><!--/.container-fluid -->
       </nav>
 
