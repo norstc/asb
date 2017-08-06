@@ -361,7 +361,7 @@ public class StockLoader implements ApplicationListener<ContextRefreshedEvent>{
 		
 		stockType = stockTypeRepository.findOne(2);
 		ownerEntity = ownerService.getById(4);
-		se.setId(5);
+		se.setId(6);
 		se.setStockCode("600863");
 		se.setStockName("内蒙华电");
 		se.setType(stockType);
@@ -373,6 +373,23 @@ public class StockLoader implements ApplicationListener<ContextRefreshedEvent>{
 		stockRepository.save(se);
 		
 		log.info("saved stockentity: "+ se.getId());
+		
+		
+		stockType = stockTypeRepository.findOne(2);
+		ownerEntity = ownerService.getById(4);
+		se.setId(7);
+		se.setStockCode("600348");
+		se.setStockName("阳泉煤业");
+		se.setType(stockType);
+		se.setCurrentPrice(new BigDecimal(8.2));
+		se.setAiPrice(new BigDecimal("9.7"));
+		se.setAiRoi(new BigDecimal("0.4"));
+		se.setOwner(ownerEntity);
+		
+		stockRepository.save(se);
+		
+		log.info("saved stockentity: "+ se.getId());
+		
 		
 		
 	}
