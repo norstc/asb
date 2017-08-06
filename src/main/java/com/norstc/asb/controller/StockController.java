@@ -4,7 +4,10 @@ import java.util.Map;
 
 import javax.validation.Valid;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -21,6 +24,8 @@ import com.norstc.asb.stock.StockService;
 @Controller
 
 public class StockController {
+	private Logger log = Logger.getLogger(StockController.class);
+	
 	private static final String VIEWS_TARGET_ADD_OR_UPDATE_FORM = "stock/addOrUpdateTargetForm";
 	private StockService stockService;
 	private OwnerService ownerService;
@@ -35,10 +40,6 @@ public class StockController {
 		this.stockService = stockService;
 	}
 	
-	@ModelAttribute("owner")
-	public OwnerEntity findOwner(){
-		return this.ownerService.getById(1);
-	}
 	
 	// main part
 	
@@ -49,7 +50,17 @@ public class StockController {
 	
 	@RequestMapping("/stock/target")
 	public String allTargetHandler(Model model){
-		model.addAttribute("stocks",stockService.findAll());
+		Authentication authentication  =  SecurityContextHolder.getContext().getAuthentication();
+		if(authentication == null){
+			log.info("not log in ");
+			model.addAttribute("stocks",stockService.findAll());
+		}else{
+			String username = authentication.getName();
+			log.info("have logged in as :  " + username);
+			OwnerEntity owner = this.ownerService.findByUsername(username);
+			model.addAttribute("stocks",stockService.findByOwner(owner));
+		}
+		
 		return "/stock/target";
 	}
 	
