@@ -57,13 +57,17 @@ public class StockLoader implements ApplicationListener<ContextRefreshedEvent>{
 
 	@Override
 	public void onApplicationEvent(ContextRefreshedEvent event) {
-		loadStocks();
+		//StockTypes and Owners should go first before Stocks and Deals
 		loadStockTypes();
 		loadOwners();
 		loadRoles();
-		loadDeals();
 		assignUsersToUserRole();
 		assignUsersToAdminRole();
+		
+		//load after Owners and StockTypes
+		loadStocks();
+		loadDeals();
+		
 	}
 
 	private void assignUsersToAdminRole() {
@@ -273,6 +277,11 @@ public class StockLoader implements ApplicationListener<ContextRefreshedEvent>{
 			log.info("stockType : "+ stockType.getId());
 		}
 		ownerEntity = ownerService.getById(1);
+		if(ownerEntity == null ){
+			log.info("ownerEntity is null");
+		}else{
+			log.info("ownerEntity is : " + ownerEntity.getUsername());
+		}
 		//initial stock 
 		se.setId(1);
 		se.setStockCode("600027");
