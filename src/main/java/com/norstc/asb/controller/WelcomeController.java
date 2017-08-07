@@ -1,17 +1,32 @@
 package com.norstc.asb.controller;
 
+import java.util.Map;
+
+import javax.validation.Valid;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
+import com.norstc.asb.owner.OwnerEntity;
+import com.norstc.asb.owner.OwnerService;
 
 
 @Controller
 public class WelcomeController {
 	private static final Logger log = LoggerFactory.getLogger(WelcomeController.class);
+	private OwnerService ownerService;
+	
+	@Autowired
+	public void setOwnerService(OwnerService ownerService){
+		this.ownerService = ownerService;
+	}
 	
 	@RequestMapping("/")
 	public String homeHandler(){
@@ -68,8 +83,23 @@ public class WelcomeController {
 		return "owner/logout";
 	}
 	
-	@RequestMapping("/owner/regist")
-	public String userRegistHandler(){
+	//注册用户
+	//显示表单
+	@RequestMapping(value = "/owner/regist", method = RequestMethod.GET)
+	public String userRegistHandler(Map<String, Object> model){
+		OwnerEntity ownerEntity = new OwnerEntity();
+		model.put("ownerEntity",  ownerEntity);
 		return "owner/regist";
 	}
+	//提交表单
+	@RequestMapping(value  = "/owner/regist", method = RequestMethod.POST)
+	public String processRegist(@Valid OwnerEntity ownerEntity, BindingResult result){
+		if(result.hasErrors()){
+			return "owner/regist";
+		}else{
+			this.ownerService.saveOrUpdate(ownerEntity);
+			return "redirect:/welcome";
+		}
+	}
+	
 }

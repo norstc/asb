@@ -30,6 +30,7 @@ import com.norstc.asb.stock.StockEntity;
 @Table(name = "owners")
 public class OwnerEntity extends PersonEntity{
 	@Column(name = "username")
+	@NotEmpty
 	private String username;
 	
 	@Transient
@@ -51,11 +52,9 @@ public class OwnerEntity extends PersonEntity{
 	
 	
 	@Column(name = "address")
-	@NotEmpty
 	private String address;
 	
 	@Column(name = "city")
-	@NotEmpty
 	private String city;
 	
 
