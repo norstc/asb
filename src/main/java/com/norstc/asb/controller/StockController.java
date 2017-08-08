@@ -84,6 +84,11 @@ public class StockController {
 		if(result.hasErrors()){
 			return VIEWS_TARGET_ADD_OR_UPDATE_FORM;
 		}else{
+			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+			String username = authentication.getName();
+			OwnerEntity ownerEntity = ownerService.findByUsername(username);
+			stockEntity.setOwner(ownerEntity);
+			
 			this.stockService.add(stockEntity);
 			System.out.println("stockEntity is " + stockEntity.getStockCode());
 			return "redirect:/stock/target/"+stockEntity.getId();
