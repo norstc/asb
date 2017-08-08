@@ -18,16 +18,19 @@
 				<div class="form-group">
 					<label for="password">password</label>
 					<input type="password" class="form-control" id="password"  th:field="${ownerEntity.password}" placeholder="password" />
+					<p th:if="${#fields.hasErrors('password')}" th:errors="${ownerEntity.password}">password error</p>
 				</div>
 				
 				<div class="form-group">
-					<label for="password2">password2</label>
-					<input type="password2" class="form-control" id="password2" name="password2" placeholder="password2" />
+					<label for="comfirmPassword">comfirmPassword</label>
+					<input type="password" class="form-control" id="comfirmPassword" th:field="${ownerEntity.confirmPassword}" placeholder="confirmPassword" />
+					<p th:if="${#fields.hasErrors('confirmPassword')}" th:errors="${ownerEntity.confirmPassword}">confirmPassword error</p>
 				</div>
 				
 				<div class="form-group">
-					<label for="phone">phone</label>
-					<input type="text" class="form-control" id="phone"  th:field="${ownerEntity.telephone}" placeholder="phone" />
+					<label for="telephone">phone</label>
+					<input type="text" class="form-control" id="telephone"  th:field="${ownerEntity.telephone}" placeholder="phone" />
+					<p th:if="${#fields.hasErrors('telephone')}" th:errors="${ownerEntity.telephone}">telephone error</p>
 				</div>
 				<button type="submit" class="btn btn-default">注册</button>
 			</form>

@@ -206,42 +206,50 @@ public class StockLoader implements ApplicationListener<ContextRefreshedEvent>{
 		ownerEntity.setId(1);
 		ownerEntity.setUsername("tom");
 		ownerEntity.setPassword("tom");
+		ownerEntity.setConfirmPassword("tom");
 		ownerEntity.setFirstName("Tom");
 		ownerEntity.setLastName("Hagens");
 		ownerEntity.setAddress("shanghai xuhui");
 		ownerEntity.setCity("Shanghai");
-		ownerEntity.setTelephone("12345678");
+		ownerEntity.setTelephone("13312345678");
 		ownerService.saveOrUpdate(ownerEntity);
+		log.info("saved ownerEntity: " + ownerEntity.getUsername());
 		
 		ownerEntity.setId(2);
 		ownerEntity.setUsername("michele");
-		ownerEntity.setPassword("micchele");
+		ownerEntity.setPassword("michele");
+		ownerEntity.setConfirmPassword("michele");
 		ownerEntity.setFirstName("Michele");
 		ownerEntity.setLastName("Conleon");
 		ownerEntity.setAddress("America");
 		ownerEntity.setCity("Newyork");
-		ownerEntity.setTelephone("11111111");
+		ownerEntity.setTelephone("13312345678");
 		ownerService.saveOrUpdate(ownerEntity);
+		log.info("saved ownerEntity: " + ownerEntity.getUsername());
 		
 		ownerEntity.setId(3);
 		ownerEntity.setUsername("user");
 		ownerEntity.setPassword("user");
+		ownerEntity.setConfirmPassword("user");
 		ownerEntity.setFirstName("u2");
 		ownerEntity.setLastName("u3");
 		ownerEntity.setAddress("America");
 		ownerEntity.setCity("Newyork");
-		ownerEntity.setTelephone("11111111");
+		ownerEntity.setTelephone("13312345678");
 		ownerService.saveOrUpdate(ownerEntity);
+		log.info("saved ownerEntity: " + ownerEntity.getUsername());
 		
 		ownerEntity.setId(4);
 		ownerEntity.setUsername("admin");
 		ownerEntity.setPassword("admin");
+		ownerEntity.setConfirmPassword("admin");
 		ownerEntity.setFirstName("u4");
 		ownerEntity.setLastName("u5");
 		ownerEntity.setAddress("America");
 		ownerEntity.setCity("Newyork");
-		ownerEntity.setTelephone("11111111");
+		ownerEntity.setTelephone("13312345678");
 		ownerService.saveOrUpdate(ownerEntity);
+		log.info("saved ownerEntity: " + ownerEntity.getUsername());
 		
 		
 				

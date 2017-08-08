@@ -36,8 +36,12 @@ public class OwnerEntity extends PersonEntity{
 	@Transient
 	private String password;
 	
+	@Transient
+	private String confirmPassword;
+	
 	@Column(name = "encrypted_password")
 	private String encryptedPassword;
+	
 	@Column(name ="enabled")
 	private Boolean enabled = true;
 	
@@ -60,7 +64,7 @@ public class OwnerEntity extends PersonEntity{
 
 	@Column(name = "telephone")
 	@NotEmpty
-	@Digits(fraction = 0, integer = 10)
+	@Digits(fraction = 0, integer = 11)
 	private String telephone;
 	
 	//交易目标
@@ -77,8 +81,22 @@ public class OwnerEntity extends PersonEntity{
 	//login
 	
 	
+	
 	public String getPassword() {
 		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	
+	
+	public String getConfirmPassword() {
+		return confirmPassword;
+	}
+
+	public void setConfirmPassword(String confirmPassword) {
+		this.confirmPassword = confirmPassword;
 	}
 
 	public String getUsername() {
@@ -89,9 +107,7 @@ public class OwnerEntity extends PersonEntity{
 		this.username = username;
 	}
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
+	
 
 	public String getEncryptedPassword() {
 		return encryptedPassword;
