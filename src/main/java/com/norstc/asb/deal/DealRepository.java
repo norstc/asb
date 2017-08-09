@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.springframework.data.repository.Repository;
 
+import com.norstc.asb.owner.OwnerEntity;
+
 public interface DealRepository extends Repository<DealEntity, Integer>{
 	List<DealEntity> findAll();
 	
@@ -14,6 +16,6 @@ public interface DealRepository extends Repository<DealEntity, Integer>{
 	
 	void delete(DealEntity dealEntity);
 	
-	
+	List<DealEntity> findByOwner(OwnerEntity ownerEntity);
 
 }

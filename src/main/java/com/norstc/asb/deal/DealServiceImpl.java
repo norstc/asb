@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.norstc.asb.owner.OwnerEntity;
+
 @Service
 public class DealServiceImpl implements DealService{
 
@@ -37,6 +39,12 @@ public class DealServiceImpl implements DealService{
 	public void deleteDeal(DealEntity dealEntity) {
 		this.dealRepository.delete(dealEntity);
 		
+	}
+
+	@Override
+	public List<DealEntity> findByOwner(OwnerEntity ownerEntity) {
+		
+		return dealRepository.findByOwner(ownerEntity);
 	}
 
 }
