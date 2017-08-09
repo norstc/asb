@@ -16,6 +16,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.Digits;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.beans.support.MutableSortDefinition;
@@ -67,6 +68,11 @@ public class OwnerEntity extends PersonEntity{
 	@Digits(fraction = 0, integer = 11)
 	private String telephone;
 	
+	@Column(name ="owner_level")
+	@NotNull
+	private Integer ownerLevel;
+	
+	
 	//交易目标
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "owner")
 	private Set<StockEntity> stocks;
@@ -81,6 +87,14 @@ public class OwnerEntity extends PersonEntity{
 	//login
 	
 	
+	public Integer getOwnerLevel() {
+		return ownerLevel;
+	}
+
+	public void setOwnerLevel(Integer ownerLevel) {
+		this.ownerLevel = ownerLevel;
+	}
+	
 	
 	public String getPassword() {
 		return password;
@@ -89,7 +103,6 @@ public class OwnerEntity extends PersonEntity{
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
 	
 	public String getConfirmPassword() {
 		return confirmPassword;

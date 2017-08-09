@@ -62,6 +62,7 @@ public class StockEntity extends NamedEntity{
 	
 	@ManyToOne
 	@JoinColumn(name = "owner_id")
+	@NotNull
 	private OwnerEntity owner;
 	
 	

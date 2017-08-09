@@ -101,7 +101,12 @@ public class StockLoader implements ApplicationListener<ContextRefreshedEvent>{
 	}
 	private void loadDeals() {
 		DealEntity dealEntity = new DealEntity();
+		OwnerEntity ownerEntity = new OwnerEntity();
+		
+		
 		//init dealRepository
+		ownerEntity = ownerService.getById(3);
+		dealEntity.setOwner(ownerEntity);
 		dealEntity.setId(1);
 		dealEntity.setStockCode("600000");
 		dealEntity.setBuyOrSell(true);
@@ -110,9 +115,12 @@ public class StockLoader implements ApplicationListener<ContextRefreshedEvent>{
 		dealEntity.setBuyTime(new Date("1980/9/9"));
 		
 		
+		
 		dealRepository.save(dealEntity);
 		log.info("saved dealEntity: " + dealEntity.getId());
 		
+		ownerEntity  = ownerService.getById(3);
+		dealEntity.setOwner(ownerEntity);
 		dealEntity.setId(2);
 		dealEntity.setStockCode("600000");
 		dealEntity.setBuyOrSell(false);
@@ -127,7 +135,8 @@ public class StockLoader implements ApplicationListener<ContextRefreshedEvent>{
 		dealRepository.save(dealEntity);
 		log.info("saved dealEntity: " + dealEntity.getId());
 		
-		
+		ownerEntity = ownerService.getById(3);
+		dealEntity.setOwner(ownerEntity);
 		dealEntity.setId(3);
 		dealEntity.setStockCode("600001");
 		dealEntity.setBuyOrSell(true);
@@ -142,7 +151,8 @@ public class StockLoader implements ApplicationListener<ContextRefreshedEvent>{
 		dealRepository.save(dealEntity);
 		log.info("saved dealEntity: " + dealEntity.getId());
 		
-		
+		ownerEntity = ownerService.getById(4);
+		dealEntity.setOwner(ownerEntity);
 		dealEntity.setId(4);
 		dealEntity.setStockCode("600001");
 		dealEntity.setBuyOrSell(true);
@@ -157,7 +167,8 @@ public class StockLoader implements ApplicationListener<ContextRefreshedEvent>{
 		dealRepository.save(dealEntity);
 		log.info("saved dealEntity: " + dealEntity.getId());
 		
-		
+		ownerEntity = ownerService.getById(3);
+		dealEntity.setOwner(ownerEntity);
 		dealEntity.setId(5);
 		dealEntity.setStockCode("600027");
 		dealEntity.setBuyOrSell(true);
@@ -172,6 +183,8 @@ public class StockLoader implements ApplicationListener<ContextRefreshedEvent>{
 		dealRepository.save(dealEntity);
 		log.info("saved dealEntity: " + dealEntity.getId());
 		
+		ownerEntity  = ownerService.getById(4);
+		dealEntity.setOwner(ownerEntity);
 		dealEntity.setId(6);
 		dealEntity.setStockCode("600027");
 		dealEntity.setBuyOrSell(true);
@@ -212,6 +225,7 @@ public class StockLoader implements ApplicationListener<ContextRefreshedEvent>{
 		ownerEntity.setAddress("shanghai xuhui");
 		ownerEntity.setCity("Shanghai");
 		ownerEntity.setTelephone("13312345678");
+		ownerEntity.setOwnerLevel(new Integer(0));
 		ownerService.saveOrUpdate(ownerEntity);
 		log.info("saved ownerEntity: " + ownerEntity.getUsername());
 		
@@ -224,6 +238,7 @@ public class StockLoader implements ApplicationListener<ContextRefreshedEvent>{
 		ownerEntity.setAddress("America");
 		ownerEntity.setCity("Newyork");
 		ownerEntity.setTelephone("13312345678");
+		ownerEntity.setOwnerLevel(new Integer(0));
 		ownerService.saveOrUpdate(ownerEntity);
 		log.info("saved ownerEntity: " + ownerEntity.getUsername());
 		
@@ -236,6 +251,7 @@ public class StockLoader implements ApplicationListener<ContextRefreshedEvent>{
 		ownerEntity.setAddress("America");
 		ownerEntity.setCity("Newyork");
 		ownerEntity.setTelephone("13312345678");
+		ownerEntity.setOwnerLevel(new Integer(0));
 		ownerService.saveOrUpdate(ownerEntity);
 		log.info("saved ownerEntity: " + ownerEntity.getUsername());
 		
@@ -248,6 +264,7 @@ public class StockLoader implements ApplicationListener<ContextRefreshedEvent>{
 		ownerEntity.setAddress("America");
 		ownerEntity.setCity("Newyork");
 		ownerEntity.setTelephone("13312345678");
+		ownerEntity.setOwnerLevel(new Integer(8));
 		ownerService.saveOrUpdate(ownerEntity);
 		log.info("saved ownerEntity: " + ownerEntity.getUsername());
 		

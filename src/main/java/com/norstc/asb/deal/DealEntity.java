@@ -63,6 +63,7 @@ public class DealEntity extends BaseEntity{
 	
 	@ManyToOne
 	@JoinColumn(name = "owner_id")
+	@NotNull
 	private OwnerEntity owner;
 	
 	
