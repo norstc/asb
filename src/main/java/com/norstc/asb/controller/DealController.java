@@ -4,7 +4,10 @@ import java.util.Map;
 
 import javax.validation.Valid;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -14,13 +17,20 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.norstc.asb.deal.DealEntity;
 import com.norstc.asb.deal.DealService;
+import com.norstc.asb.owner.OwnerEntity;
+import com.norstc.asb.owner.OwnerService;
 
 @Controller
 public class DealController {
 
 	private static final String VIEWS_DEAL_ADD_OR_UPDATE_FORM = "stock/addOrUpdateDealForm";
 	private DealService dealService;
+	private OwnerService ownerService;
 	
+	@Autowired
+	public void setOwnerService(OwnerService ownerService){
+		this.ownerService = ownerService;
+	}
 	@Autowired
 	public void setDealService(DealService dealService){
 		this.dealService = dealService;
@@ -28,7 +38,10 @@ public class DealController {
 
 	@RequestMapping("/stock/recorder")
 	public String mainRecorderHandler(Model model){
-		model.addAttribute("deals",dealService.findAll());
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String username = authentication.getName();
+		OwnerEntity owner = this.ownerService.findByUsername(username);
+		model.addAttribute("deals",dealService.findByOwner(owner));
 		return "/stock/recorder";
 	}
 	
@@ -53,6 +66,11 @@ public class DealController {
 		if(result.hasErrors()){
 			return VIEWS_DEAL_ADD_OR_UPDATE_FORM;
 		}else{
+			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+			String username = authentication.getName();
+			OwnerEntity ownerEntity = ownerService.findByUsername(username);
+			dealEntity.setOwner(ownerEntity);
+			dealEntity.setBuyOrSell(true);
 			this.dealService.add(dealEntity);
 			return "redirect:/stock/recorder/"+dealEntity.getId();
 		}
@@ -74,6 +92,7 @@ public class DealController {
 		if(result.hasErrors()){
 			return VIEWS_DEAL_ADD_OR_UPDATE_FORM;
 		}else{
+			dealEntity.setBuyOrSell(false);
 			this.dealService.add(dealEntity);
 			return "redirect:/stock/recorder/" + dealEntity.getId();
 		}
