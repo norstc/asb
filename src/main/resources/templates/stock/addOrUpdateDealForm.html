@@ -7,9 +7,9 @@
 	
 		<nav th:replace="/fragments/layout::navbar"></nav>
 		
-		<div class = "jumbotron">
+		<div class = "jumbotron" th:object="${dealEntity}">
 			<h1 th:with="text=${buyOrSell}?'add a deal':'sell some'" th:text="${text}">add a deal</h1>
-			<form th:object="${dealEntity}" id="add_new_deal" method="post" role="form">
+			<form  id="add_new_deal" method="post" role="form">
 				<div class="form-group" >
 					<label for="stockCode">stockCode</label>
 					<input type="text" class="form-control" id="stockCode" th:field="${dealEntity.stockCode}" placeholder="请输入股票代码stockCode[6位股票代码]"/>
@@ -22,7 +22,6 @@
 						<option value="true" th:if="${buyOrSell}">买入[buy]</option>
 						<option value="false" th:if="${not  buyOrSell}">卖出[sell]</option>
 					</select>
-					
 				</div>
 				
 				<div class="form-group" >

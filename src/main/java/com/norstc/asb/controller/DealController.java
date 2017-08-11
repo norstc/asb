@@ -70,7 +70,6 @@ public class DealController {
 			String username = authentication.getName();
 			OwnerEntity ownerEntity = ownerService.findByUsername(username);
 			dealEntity.setOwner(ownerEntity);
-			dealEntity.setBuyOrSell(true);
 			this.dealService.add(dealEntity);
 			return "redirect:/stock/recorder/"+dealEntity.getId();
 		}
@@ -82,7 +81,6 @@ public class DealController {
 		DealEntity dealEntity = new DealEntity();
 		dealEntity = dealService.getDealById(id);
 		model.put("dealEntity", dealEntity);
-		model.put("buyOrSell",false);
 		return VIEWS_DEAL_ADD_OR_UPDATE_FORM;
 	}
 	
