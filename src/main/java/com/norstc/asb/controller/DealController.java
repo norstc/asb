@@ -1,10 +1,11 @@
 package com.norstc.asb.controller;
 
+import java.security.Principal;
 import java.util.Map;
 
 import javax.validation.Valid;
 
-
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -22,10 +23,10 @@ import com.norstc.asb.owner.OwnerService;
 
 @Controller
 public class DealController {
-
+	private Logger log = Logger.getLogger(DealController.class);
 	private static final String VIEWS_DEAL_ADD_OR_UPDATE_FORM = "stock/addOrUpdateDealForm";
 	private DealService dealService;
-	private OwnerService ownerService;
+	private OwnerService ownerService;	
 	
 	@Autowired
 	public void setOwnerService(OwnerService ownerService){
@@ -36,12 +37,14 @@ public class DealController {
 		this.dealService = dealService;
 	}
 
+	
+	
+	
 	@RequestMapping("/stock/recorder")
-	public String mainRecorderHandler(Model model){
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		String username = authentication.getName();
-		OwnerEntity owner = this.ownerService.findByUsername(username);
-		model.addAttribute("deals",dealService.findByOwner(owner));
+	public String mainRecorderHandler(Model model,Principal principal){
+		String username = principal.getName();
+		OwnerEntity ownerEntity = this.ownerService.findByUsername(username);
+		model.addAttribute("deals",dealService.findByOwner(ownerEntity));
 		return "/stock/recorder";
 	}
 	
@@ -52,23 +55,26 @@ public class DealController {
 	}
 	
 	//显示买入表单
-	@RequestMapping(value="/stock/recoder/buy" ,method=RequestMethod.GET)
+	@RequestMapping(value="/stock/recoder/buy",method=RequestMethod.GET)
 	public String addDealHandler(Map<String,Object> model){
 		DealEntity dealEntity = new DealEntity();
+		dealEntity.setBuyOrSell(true);
+		log.info("addDealHandler: dealEntity.getBuyOrSell(): " + dealEntity.getBuyOrSell());
 		model.put("dealEntity", dealEntity);
-		model.put("buyOrSell", true);
+		
 		return VIEWS_DEAL_ADD_OR_UPDATE_FORM;
 	}
 	
 	//提交买入表单
-	@RequestMapping(value="/stock/recoder/buy", method=RequestMethod.POST)
-	public String processAddForm(@Valid DealEntity dealEntity, BindingResult result){
+	@RequestMapping(value="/stock/recoder/buy",method=RequestMethod.POST)
+	public String processAddForm(@Valid DealEntity dealEntity, BindingResult result, Principal principal){
 		if(result.hasErrors()){
+			log.info("processAddForm result has error: dealEntity.getBuyOrSell(): " + dealEntity.getBuyOrSell() +"results : " + result.toString());
 			return VIEWS_DEAL_ADD_OR_UPDATE_FORM;
 		}else{
-			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-			String username = authentication.getName();
-			OwnerEntity ownerEntity = ownerService.findByUsername(username);
+			log.info("processAddForm without error: dealEntity.getBuyOrSell(): " + dealEntity.getBuyOrSell());
+			String username = principal.getName();
+			OwnerEntity ownerEntity = this.ownerService.findByUsername(username);
 			dealEntity.setOwner(ownerEntity);
 			this.dealService.add(dealEntity);
 			return "redirect:/stock/recorder/"+dealEntity.getId();
@@ -80,6 +86,7 @@ public class DealController {
 	public String sellHandler(@PathVariable Integer id, Map<String,Object> model){
 		DealEntity dealEntity = new DealEntity();
 		dealEntity = dealService.getDealById(id);
+		dealEntity.setBuyOrSell(false);
 		model.put("dealEntity", dealEntity);
 		return VIEWS_DEAL_ADD_OR_UPDATE_FORM;
 	}

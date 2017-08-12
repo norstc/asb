@@ -1,5 +1,6 @@
 package com.norstc.asb.controller;
 
+import java.security.Principal;
 import java.util.Map;
 
 import javax.validation.Valid;
@@ -49,13 +50,13 @@ public class StockController {
 	}
 	
 	@RequestMapping("/stock/target")
-	public String allTargetHandler(Model model){
-		Authentication authentication  =  SecurityContextHolder.getContext().getAuthentication();
-		if(authentication == null){
-			log.info("not log in ");
+	public String allTargetHandler(Model model, Principal principal){
+		String username = principal.getName();
+		if(username.equals("annymouseUser")){
+			log.info("log in as:  " + username);
 			model.addAttribute("stocks",stockService.findAll());
 		}else{
-			String username = authentication.getName();
+			
 			log.info("have logged in as :  " + username);
 			OwnerEntity owner = this.ownerService.findByUsername(username);
 			model.addAttribute("stocks",stockService.findByOwner(owner));
@@ -80,12 +81,12 @@ public class StockController {
 	}
 	//提交表单
 	@RequestMapping(value="/stock/target/add", method = RequestMethod.POST)
-	public String processAddForm(@Valid StockEntity stockEntity, BindingResult result){
+	public String processAddForm(@Valid StockEntity stockEntity, BindingResult result,Principal principal){
 		if(result.hasErrors()){
 			return VIEWS_TARGET_ADD_OR_UPDATE_FORM;
 		}else{
-			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-			String username = authentication.getName();
+			
+			String username = principal.getName();
 			OwnerEntity ownerEntity = ownerService.findByUsername(username);
 			stockEntity.setOwner(ownerEntity);
 			

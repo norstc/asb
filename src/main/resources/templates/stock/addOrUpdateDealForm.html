@@ -8,7 +8,7 @@
 		<nav th:replace="/fragments/layout::navbar"></nav>
 		
 		<div class = "jumbotron" th:object="${dealEntity}">
-			<h1 th:with="text=${buyOrSell}?'add a deal':'sell some'" th:text="${text}">add a deal</h1>
+			<h1 th:with="text=${dealEntity.buyOrSell}?'add a deal':'sell some'" th:text="${text}">add a deal</h1>
 			<form  id="add_new_deal" method="post" role="form">
 				<div class="form-group" >
 					<label for="stockCode">stockCode</label>
@@ -17,13 +17,10 @@
 				</div>
 				
 				<div class="form-group">
-					<label for="buyOrSell">buyOrSell</label>
-					<select  class="form-control" id="buyOrSell" th:field="${dealEntity.buyOrSell}" >
-						<option value="true" th:if="${buyOrSell}">买入[buy]</option>
-						<option value="false" th:if="${not  buyOrSell}">卖出[sell]</option>
-					</select>
+					<input type="hidden" class="form-control" id="buyOrSell" th:field="${dealEntity.buyOrSell}" th:value="${dealEntity.buyOrSell}?'true':'false'" />
 				</div>
 				
+
 				<div class="form-group" >
 					<label for="buyTime">buyTime</label>
 					<input type="text" class="form-control" id="buyTime" th:field="${dealEntity.buyTime}" placeholder="请输入买入时间buyTime[yyyy/mm/dd]"/>
@@ -43,20 +40,20 @@
 					<p th:if="${#fields.hasErrors('buyQuantity')}" th:errors="*{buyQuantity}">buy quantity error </p>
 				</div>
 				
-				<div class="form-group" th:if="${not buyOrSell}">
+				<div class="form-group" th:if="${dealEntity.buyOrSell } == fasle">
 					<label for="sellTime">sellTime</label>
 					<input type="text" class="form-control" id="sellTime" th:field="${dealEntity.sellTime}" placeholder="请输入卖出时间sellTime[yyyy/mm/dd]"/>
 					<p th:if="${#fields.hasErrors('sellTime')}" th:text="#{date.error}" >sell time error</p>
 					
 				</div>
 				
-				<div class = "form-group" th:if="${not buyOrSell}">
+				<div class = "form-group" th:if="${dealEntity.buyOrSell}  == false">
 					<label for="sellPrice">sellPrice</label>
 					<input type="text" class="form-control" id="sellPrice" th:field="${dealEntity.sellPrice}" placeholder="请输入卖出价格sellPrice"/>
 					<p th:if="${#fields.hasErrors('sellPrice')}" th:errors="*{sellPrice}">sell price error</p>
 				</div>
 				
-				<div class="form-group" th:if="${not buyOrSell}">
+				<div class="form-group" th:if="${dealEntity.buyOrSell}  == false">
 					<label for="sellQuantity">sellQuantity</label>
 					<input type="text" class="form-control" id="sellQuantity" th:field="${dealEntity.sellQuantity}" placeholder="请输入卖出数量sellQuantity"/>
 					<p th:if="${#fields.hasErrors('sellQuantity')}" th:errors="*{sellQuantity}">sell quantity error </p>
