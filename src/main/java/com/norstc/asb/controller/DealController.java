@@ -1,5 +1,6 @@
 package com.norstc.asb.controller;
 
+import java.math.BigDecimal;
 import java.security.Principal;
 import java.util.Map;
 
@@ -93,13 +94,43 @@ public class DealController {
 	
 	//提交卖出表单
 	@RequestMapping(value = "/stock/deal/{id}/sell", method=RequestMethod.POST)
-	public String processSellHandler(@Valid DealEntity dealEntity, BindingResult result){
+	public String processSellHandler(@Valid DealEntity dealEntity, BindingResult result, @PathVariable Integer id, Principal principal){
 		if(result.hasErrors()){
 			return VIEWS_DEAL_ADD_OR_UPDATE_FORM;
 		}else{
-			dealEntity.setBuyOrSell(false);
-			this.dealService.add(dealEntity);
-			return "redirect:/stock/recorder/" + dealEntity.getId();
+			log.info("process sell , after post dealEntity id is: " + dealEntity.getId());
+			String username = principal.getName();
+			OwnerEntity ownerEntity = this.ownerService.findByUsername(username);
+			dealEntity.setId(id);
+			log.info("process sell dealEntity id is : " + dealEntity.getId());
+			DealEntity oldDeal = dealService.getDealById(id);
+			oldDeal.setSellTime(dealEntity.getSellTime());
+			oldDeal.setSellPrice(dealEntity.getSellPrice());
+			oldDeal.setSellQuantity(dealEntity.getSellQuantity());
+			oldDeal.setBuyOrSell(dealEntity.getBuyOrSell());
+			if(oldDeal.getBuyQuantity() > dealEntity.getSellQuantity()){  //not sell all
+				DealEntity newDeal = new DealEntity();
+				newDeal.setStockCode(oldDeal.getStockCode());
+				newDeal.setBuyOrSell(true);
+				newDeal.setBuyQuantity(oldDeal.getBuyQuantity() - dealEntity.getSellQuantity());
+				newDeal.setBuyPrice(oldDeal.getBuyPrice());
+				newDeal.setBuyTime(oldDeal.getBuyTime());
+				newDeal.setOwner(ownerEntity);
+				this.dealService.add(newDeal);
+				oldDeal.setBuyQuantity(dealEntity.getSellQuantity());
+				oldDeal.setDealRoi(oldDeal.getSellPrice().multiply(new BigDecimal(oldDeal.getSellQuantity())).subtract(oldDeal.getBuyPrice().multiply(new BigDecimal(oldDeal.getBuyQuantity()))));
+				this.dealService.add(oldDeal);
+			}else if(oldDeal.getBuyQuantity() == dealEntity.getSellQuantity()){
+				oldDeal.setDealRoi(oldDeal.getSellPrice().multiply(new BigDecimal(oldDeal.getSellQuantity())).subtract(oldDeal.getBuyPrice().multiply(new BigDecimal(oldDeal.getBuyQuantity()))));
+				
+				this.dealService.add(oldDeal);
+			}else{
+				oldDeal.setSellQuantity(oldDeal.getBuyQuantity());
+				oldDeal.setDealRoi(oldDeal.getSellPrice().multiply(new BigDecimal(oldDeal.getSellQuantity())).subtract(oldDeal.getBuyPrice().multiply(new BigDecimal(oldDeal.getBuyQuantity()))));
+				this.dealService.add(oldDeal);
+			}
+			
+			return "redirect:/stock/recorder/" + oldDeal.getId();
 		}
 	}
 	//修改deal
@@ -113,11 +144,24 @@ public class DealController {
 	
 	//修改deal， 处理
 	@RequestMapping(value= "/stock/deal/{id}/update",method=RequestMethod.POST)
-	public String precessUpdateHandler(@Valid DealEntity dealEntity, BindingResult result){
+	public String precessUpdateHandler(@PathVariable Integer id, @Valid DealEntity dealEntity, BindingResult result,Principal principal){
 		if(result.hasErrors()){
 			return VIEWS_DEAL_ADD_OR_UPDATE_FORM;
 		}else{
-			this.dealService.add(dealEntity);
+			String username = principal.getName();
+			OwnerEntity ownerEntity = this.ownerService.findByUsername(username);
+			DealEntity oldDeal = this.dealService.getDealById(id);
+			oldDeal.setBuyOrSell(dealEntity.getBuyOrSell());
+			oldDeal.setBuyPrice(dealEntity.getBuyPrice());
+			oldDeal.setBuyQuantity(dealEntity.getBuyQuantity());
+			oldDeal.setBuyTime(dealEntity.getBuyTime());
+			if(! dealEntity.getBuyOrSell()){
+				oldDeal.setSellPrice(dealEntity.getSellPrice());
+				oldDeal.setSellQuantity(dealEntity.getSellQuantity());
+				oldDeal.setSellTime(dealEntity.getSellTime());
+				oldDeal.setDealRoi(oldDeal.getSellPrice().multiply(new BigDecimal(oldDeal.getSellQuantity())).subtract(oldDeal.getBuyPrice().multiply(new BigDecimal(oldDeal.getBuyQuantity()))));
+			}
+			this.dealService.add(oldDeal);
 			return "redirect:/stock/recorder/" + dealEntity.getId();
 		}
 	}

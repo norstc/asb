@@ -40,7 +40,7 @@
 					<p th:if="${#fields.hasErrors('buyQuantity')}" th:errors="*{buyQuantity}">buy quantity error </p>
 				</div>
 				
-				<div class="form-group" th:if="${dealEntity.buyOrSell } == fasle">
+				<div class="form-group" th:if="${dealEntity.buyOrSell } == false">
 					<label for="sellTime">sellTime</label>
 					<input type="text" class="form-control" id="sellTime" th:field="${dealEntity.sellTime}" placeholder="请输入卖出时间sellTime[yyyy/mm/dd]"/>
 					<p th:if="${#fields.hasErrors('sellTime')}" th:text="#{date.error}" >sell time error</p>
