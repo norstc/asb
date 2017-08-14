@@ -1,5 +1,6 @@
 package com.norstc.asb.owner;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
@@ -82,11 +83,46 @@ public class OwnerEntity extends PersonEntity{
 	private Set<DealEntity> deals;
 	
 	//帐户明细
-	//todo
+	@Column(name="cash_start")
+	@NotNull
+	private BigDecimal cashStart;
+	
+	@Column(name="cash_left")
+	@NotNull
+	private BigDecimal cashLeft;
+	
+	@Column(name="market_left")
+	@NotNull
+	private BigDecimal marketLeft;
+	
 	
 	//login
 	
 	
+	public BigDecimal getCashStart() {
+		return cashStart;
+	}
+
+	public void setCashStart(BigDecimal cashStart) {
+		this.cashStart = cashStart;
+	}
+
+	public BigDecimal getCashLeft() {
+		return cashLeft;
+	}
+
+	public void setCashLeft(BigDecimal cashLeft) {
+		this.cashLeft = cashLeft;
+	}
+
+	public BigDecimal getMarketLeft() {
+		return marketLeft;
+	}
+
+	public void setMarketLeft(BigDecimal marketLeft) {
+		this.marketLeft = marketLeft;
+	}
+
 	public Integer getOwnerLevel() {
 		return ownerLevel;
 	}

@@ -8,7 +8,31 @@
 		<nav th:replace="/fragments/layout::navbar"></nav>
 		
 		<div class="jumbotron">
-			<h1>balance</h1>
+			<div class="table-responsive" >
+				<h1>balance</h1>
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<th>cash Start</th>
+							<th>cash Left</th>
+							<th>market Left</th>
+							<th>profit</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td th:text = "${owner.cashStart}">[cash start]</td>
+							<td th:text="${owner.cashLeft}">[cash left]</td>
+							<td th:text="${owner.marketLeft}">[market left]</td>
+							<td th:text="${owner.cashLeft} + ${owner.marketLeft} - ${owner.cashStart}">[profit]</td>
+						</tr>
+					</tbody>
+				</table>
+				<ul class="nav nav-pills">
+					<li><a class="btn btn-info" th:href="@{'/stock/target/'}">返回</a></li>
+				</ul>
+			</div>
+			
 		</div>
 		
 		

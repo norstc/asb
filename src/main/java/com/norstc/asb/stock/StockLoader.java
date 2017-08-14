@@ -226,6 +226,10 @@ public class StockLoader implements ApplicationListener<ContextRefreshedEvent>{
 		ownerEntity.setCity("Shanghai");
 		ownerEntity.setTelephone("13312345678");
 		ownerEntity.setOwnerLevel(new Integer(0));
+		ownerEntity.setCashStart(new BigDecimal(50000));
+		ownerEntity.setCashLeft(new BigDecimal(50000));
+		ownerEntity.setMarketLeft(new BigDecimal(0));
+		
 		ownerService.saveOrUpdate(ownerEntity);
 		log.info("saved ownerEntity: " + ownerEntity.getUsername());
 		
@@ -239,6 +243,9 @@ public class StockLoader implements ApplicationListener<ContextRefreshedEvent>{
 		ownerEntity.setCity("Newyork");
 		ownerEntity.setTelephone("13312345678");
 		ownerEntity.setOwnerLevel(new Integer(0));
+		ownerEntity.setCashStart(new BigDecimal(150000));
+		ownerEntity.setCashLeft(new BigDecimal(150000));
+		ownerEntity.setMarketLeft(new BigDecimal(0));
 		ownerService.saveOrUpdate(ownerEntity);
 		log.info("saved ownerEntity: " + ownerEntity.getUsername());
 		
@@ -252,6 +259,9 @@ public class StockLoader implements ApplicationListener<ContextRefreshedEvent>{
 		ownerEntity.setCity("Newyork");
 		ownerEntity.setTelephone("13312345678");
 		ownerEntity.setOwnerLevel(new Integer(0));
+		ownerEntity.setCashStart(new BigDecimal(50000));
+		ownerEntity.setCashLeft(new BigDecimal(10000));
+		ownerEntity.setMarketLeft(new BigDecimal(50000));
 		ownerService.saveOrUpdate(ownerEntity);
 		log.info("saved ownerEntity: " + ownerEntity.getUsername());
 		
@@ -265,6 +275,9 @@ public class StockLoader implements ApplicationListener<ContextRefreshedEvent>{
 		ownerEntity.setCity("Newyork");
 		ownerEntity.setTelephone("13312345678");
 		ownerEntity.setOwnerLevel(new Integer(8));
+		ownerEntity.setCashStart(new BigDecimal(250000));
+		ownerEntity.setCashLeft(new BigDecimal(250000));
+		ownerEntity.setMarketLeft(new BigDecimal(0));
 		ownerService.saveOrUpdate(ownerEntity);
 		log.info("saved ownerEntity: " + ownerEntity.getUsername());
 		

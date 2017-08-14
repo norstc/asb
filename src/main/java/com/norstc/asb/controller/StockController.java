@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.norstc.asb.deal.DealService;
 import com.norstc.asb.owner.OwnerEntity;
 import com.norstc.asb.owner.OwnerService;
 import com.norstc.asb.stock.StockEntity;
@@ -30,6 +31,12 @@ public class StockController {
 	private static final String VIEWS_TARGET_ADD_OR_UPDATE_FORM = "stock/addOrUpdateTargetForm";
 	private StockService stockService;
 	private OwnerService ownerService;
+	private DealService dealService;
+	
+	@Autowired
+	public void setDealService(DealService dealService){
+		this.dealService = dealService;
+	}
 	
 	@Autowired
 	public void setOwnerService(OwnerService ownerService){
@@ -124,7 +131,11 @@ public class StockController {
 	}
 	
 	@RequestMapping("/stock/balance")
-	public String mainBalanceHandler(){
+	public String mainBalanceHandler(Model model, Principal principal){
+		String username = principal.getName();
+		OwnerEntity ownerEntity = this.ownerService.findByUsername(username);
+		model.addAttribute("owner", ownerEntity);
+		model.addAttribute("deals",dealService.findByOwner(ownerEntity));
 		return "/stock/balance";
 	}
 	
