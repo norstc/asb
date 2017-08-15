@@ -46,8 +46,7 @@ public class StockEntity extends NamedEntity{
 	@Column(name = "current_price")
 	private BigDecimal currentPrice;
 	
-	@NotNull
-	@Digits(integer=3,fraction = 3)
+
 	@Column(name = "ai_price")
 	private BigDecimal aiPrice;
 	

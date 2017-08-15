@@ -21,6 +21,7 @@ import com.norstc.asb.deal.DealEntity;
 import com.norstc.asb.deal.DealService;
 import com.norstc.asb.owner.OwnerEntity;
 import com.norstc.asb.owner.OwnerService;
+import com.norstc.asb.stock.StockService;
 
 @Controller
 public class DealController {
@@ -28,6 +29,12 @@ public class DealController {
 	private static final String VIEWS_DEAL_ADD_OR_UPDATE_FORM = "stock/addOrUpdateDealForm";
 	private DealService dealService;
 	private OwnerService ownerService;	
+	private StockService stockService;
+	
+	@Autowired
+	public void setStockService(StockService stockService){
+		this.stockService = stockService;
+	}
 	
 	@Autowired
 	public void setOwnerService(OwnerService ownerService){
@@ -57,11 +64,14 @@ public class DealController {
 	
 	//显示买入表单
 	@RequestMapping(value="/stock/recoder/buy",method=RequestMethod.GET)
-	public String addDealHandler(Map<String,Object> model){
+	public String addDealHandler(Map<String,Object> modelMap, Model model,Principal principal){
+		String username = principal.getName();
+		OwnerEntity ownerEntity = ownerService.findByUsername(username);
 		DealEntity dealEntity = new DealEntity();
 		dealEntity.setBuyOrSell(true);
 		log.info("addDealHandler: dealEntity.getBuyOrSell(): " + dealEntity.getBuyOrSell());
-		model.put("dealEntity", dealEntity);
+		modelMap.put("dealEntity", dealEntity);
+		model.addAttribute("stocks", stockService.findByOwner(ownerEntity));
 		
 		return VIEWS_DEAL_ADD_OR_UPDATE_FORM;
 	}

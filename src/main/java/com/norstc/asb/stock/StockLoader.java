@@ -138,9 +138,9 @@ public class StockLoader implements ApplicationListener<ContextRefreshedEvent>{
 		ownerEntity = ownerService.getById(3);
 		dealEntity.setOwner(ownerEntity);
 		dealEntity.setId(3);
-		dealEntity.setStockCode("600001");
+		dealEntity.setStockCode("600398");
 		dealEntity.setBuyOrSell(true);
-		dealEntity.setBuyPrice(new BigDecimal(13.2));
+		dealEntity.setBuyPrice(new BigDecimal(8.2));
 		dealEntity.setBuyTime(new Date("2013/12/9"));
 		dealEntity.setBuyQuantity(2000);
 		dealEntity.setSellTime(null);
@@ -154,7 +154,7 @@ public class StockLoader implements ApplicationListener<ContextRefreshedEvent>{
 		ownerEntity = ownerService.getById(4);
 		dealEntity.setOwner(ownerEntity);
 		dealEntity.setId(4);
-		dealEntity.setStockCode("600001");
+		dealEntity.setStockCode("600398");
 		dealEntity.setBuyOrSell(true);
 		dealEntity.setBuyPrice(new BigDecimal(13.2));
 		dealEntity.setBuyTime(new Date("2014/3/2"));
@@ -428,7 +428,52 @@ public class StockLoader implements ApplicationListener<ContextRefreshedEvent>{
 		
 		log.info("saved stockentity: "+ se.getId());
 		
+		stockType = stockTypeRepository.findOne(3);
+		ownerEntity = ownerService.getById(3);
+		se.setId(8);
+		se.setStockCode("600000");
+		se.setStockName("浦发银行");
+		se.setType(stockType);
+		se.setCurrentPrice(new BigDecimal(8.2));
+		se.setAiPrice(new BigDecimal("15.7"));
+		se.setAiRoi(new BigDecimal("0.4"));
+		se.setOwner(ownerEntity);
 		
+		stockRepository.save(se);
+		
+		log.info("saved stockentity: "+ se.getId());
+		
+		
+		stockType = stockTypeRepository.findOne(3);
+		ownerEntity = ownerService.getById(3);
+		se.setId(9);
+		se.setStockCode("600398");
+		se.setStockName("海澜之家");
+		se.setType(stockType);
+		se.setCurrentPrice(new BigDecimal(8.2));
+		se.setAiPrice(new BigDecimal("10.7"));
+		se.setAiRoi(new BigDecimal("0.4"));
+		se.setOwner(ownerEntity);
+		
+		stockRepository.save(se);
+		
+		log.info("saved stockentity: "+ se.getId());
+		
+		
+		stockType = stockTypeRepository.findOne(3);
+		ownerEntity = ownerService.getById(3);
+		se.setId(10);
+		se.setStockCode("601566");
+		se.setStockName("九牧王");
+		se.setType(stockType);
+		se.setCurrentPrice(new BigDecimal(8.2));
+		se.setAiPrice(new BigDecimal("15.7"));
+		se.setAiRoi(new BigDecimal("0.4"));
+		se.setOwner(ownerEntity);
+		
+		stockRepository.save(se);
+		
+		log.info("saved stockentity: "+ se.getId());
 		
 	}
 

@@ -5,6 +5,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.net.ConnectException;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -40,7 +41,8 @@ public class ScheduledTasks {
 	@Scheduled(fixedDelay = 15000)
 	public void updateStockEntity(){
 		BigDecimal stockCurrentPrice = new BigDecimal(100.0);
-		StockEntity stockEntity = new StockEntity();
+		BigDecimal stockAiRoi = new BigDecimal(0);
+		BigDecimal stockAiPrice = new BigDecimal(0);
 		List<StockEntity> listStockEntity = stockService.findAll();
 		for (StockEntity oneStockEntity :listStockEntity){
 			//log.info("stock code is {}", oneStockEntity.getStockCode());
@@ -54,7 +56,12 @@ public class ScheduledTasks {
 				e.printStackTrace();
 			}
 			stockCurrentPrice = new BigDecimal(result);
+			stockAiPrice = oneStockEntity.getAiPrice();
+			stockAiRoi = stockAiPrice.subtract(stockCurrentPrice);
+			
+			stockAiRoi = stockAiRoi.divide(stockCurrentPrice,3,RoundingMode.CEILING);
 			oneStockEntity.setCurrentPrice(stockCurrentPrice);
+			oneStockEntity.setAiRoi(stockAiRoi);
 			stockService.add(oneStockEntity);
 		}
 	}

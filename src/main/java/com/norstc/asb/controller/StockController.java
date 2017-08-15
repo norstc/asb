@@ -81,8 +81,12 @@ public class StockController {
 	//增加target
 	//显示表单
 	@RequestMapping(value = "/stock/target/add", method = RequestMethod.GET)
-	public String actionTargetHandler(Map<String, Object> model){
+	public String actionTargetHandler(Map<String, Object> model, Principal principal){
 		StockEntity stockEntity = new StockEntity();
+		String username = principal.getName();
+		OwnerEntity ownerEntity = ownerService.findByUsername(username);
+		stockEntity.setOwner(ownerEntity);
+		
 		model.put("stockEntity", stockEntity);
 		return VIEWS_TARGET_ADD_OR_UPDATE_FORM;
 	}
@@ -90,34 +94,40 @@ public class StockController {
 	@RequestMapping(value="/stock/target/add", method = RequestMethod.POST)
 	public String processAddForm(@Valid StockEntity stockEntity, BindingResult result,Principal principal){
 		if(result.hasErrors()){
+			log.info("processAdd error: " + result.toString());
 			return VIEWS_TARGET_ADD_OR_UPDATE_FORM;
 		}else{
 			
-			String username = principal.getName();
-			OwnerEntity ownerEntity = ownerService.findByUsername(username);
-			stockEntity.setOwner(ownerEntity);
+			
 			
 			this.stockService.add(stockEntity);
-			System.out.println("stockEntity is " + stockEntity.getStockCode());
+			log.info("processAdd ok: , stockEntity is: " + stockEntity.getStockCode());
 			return "redirect:/stock/target/"+stockEntity.getId();
 		}
 	}
 	
 	//修改target
+	//显示修改表单
 	@RequestMapping(value="/stock/target/{id}/update", method= RequestMethod.GET)
 	public String updateTargetHandler(@PathVariable Integer id, Map<String,Object> model){
 		StockEntity stockEntity = new StockEntity();
 		stockEntity = stockService.getStockById(id);
+		log.info("updateTarget: " + stockEntity.getOwner());
 		model.put("stockEntity", stockEntity);
 		return VIEWS_TARGET_ADD_OR_UPDATE_FORM;
 	}
+	//提交修改表单
 	@RequestMapping(value="/stock/target/{id}/update",method=RequestMethod.POST)
-	public String processUpdateTargetHandler(@Valid StockEntity stockEntity,BindingResult result){
+	public String processUpdateTargetHandler(@PathVariable Integer id, @Valid StockEntity stockEntity,BindingResult result,Principal principal){
 		if(result.hasErrors()){
+			log.info("processUpdateTarget: " + result.toString());
 			return VIEWS_TARGET_ADD_OR_UPDATE_FORM;
 		}else{
-			this.stockService.add(stockEntity);
-			return "redirect:/stock/target/" + stockEntity.getId();
+			StockEntity oldStock = stockService.getStockById(id);
+			oldStock.setAiPrice(stockEntity.getAiPrice());
+			
+			this.stockService.add(oldStock);
+			return "redirect:/stock/target/" + oldStock.getId();
 		}
 	}
 	
