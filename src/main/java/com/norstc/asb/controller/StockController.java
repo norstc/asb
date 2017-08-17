@@ -1,6 +1,7 @@
 package com.norstc.asb.controller;
 
 import java.security.Principal;
+import java.util.List;
 import java.util.Map;
 
 import javax.validation.Valid;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.norstc.asb.deal.DealEntity;
 import com.norstc.asb.deal.DealService;
 import com.norstc.asb.owner.OwnerEntity;
 import com.norstc.asb.owner.OwnerService;
@@ -142,12 +144,14 @@ public class StockController {
 		return "redirect:/stock/target";
 	}
 	
+	//余额
 	@RequestMapping("/stock/balance")
 	public String mainBalanceHandler(Model model, Principal principal){
 		String username = principal.getName();
 		OwnerEntity ownerEntity = this.ownerService.findByUsername(username);
+		List<DealEntity> deals = this.dealService.findByOwnerAndIsBuy(ownerEntity,true);
 		model.addAttribute("owner", ownerEntity);
-		model.addAttribute("deals",dealService.findByOwner(ownerEntity));
+		model.addAttribute("deals",deals);
 		return "/stock/balance";
 	}
 	

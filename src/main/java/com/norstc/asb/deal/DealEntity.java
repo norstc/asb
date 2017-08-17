@@ -26,9 +26,9 @@ public class DealEntity extends BaseEntity{
 	private String stockCode;
 	
 
-	@Column(name = "buy_or_sell")
+	@Column(name = "is_Buy")
 	@NotNull
-	private Boolean buyOrSell;
+	private Boolean isBuy;
 	
 	
 	@Column(name = "buy_time")
@@ -85,11 +85,11 @@ public class DealEntity extends BaseEntity{
 
 
 	public Boolean getBuyOrSell() {
-		return buyOrSell;
+		return isBuy;
 	}
 
 	public void setBuyOrSell(Boolean buyOrSell) {
-		this.buyOrSell = buyOrSell;
+		this.isBuy = buyOrSell;
 	}
 
 

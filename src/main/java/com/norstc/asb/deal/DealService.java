@@ -10,4 +10,6 @@ public interface DealService {
 	void add(DealEntity dealEntity);
 	void deleteDeal(DealEntity dealEntity);
 	List<DealEntity> findByOwner(OwnerEntity ownerEntity);
+	
+	List<DealEntity> findByOwnerAndIsBuy(OwnerEntity ownerEntity, boolean buyOrSell);
 }

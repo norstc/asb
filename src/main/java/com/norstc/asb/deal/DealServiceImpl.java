@@ -47,4 +47,10 @@ public class DealServiceImpl implements DealService{
 		return dealRepository.findByOwner(ownerEntity);
 	}
 
+	@Override
+	public List<DealEntity> findByOwnerAndIsBuy(OwnerEntity ownerEntity, boolean buyOrSell) {
+		
+		return dealRepository.findByOwnerAndIsBuy(ownerEntity, buyOrSell);
+	}
+
 }

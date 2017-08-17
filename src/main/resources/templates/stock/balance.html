@@ -33,6 +33,46 @@
 				</ul>
 			</div>
 			
+			
+			<div class="table-responsive"  th:if="${not #lists.isEmpty(deals)}">
+				<h1>deals</h1>
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<th>Id</th>
+							<th>Stock Code</th>
+							<th>Buy or Sell</th>
+							<th>Buy Time</th>
+							<th>Buy Price</th>
+							<th>Buy Quantity</th>
+							<th>Sell Time</th>
+							<th>Sell Price</th>
+							<th>Sell Quantity</th>
+							<th>Deal ROI</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="deal:${deals}">
+							<td th:text="${deal.id}">[id]</td>
+							<td ><a th:href="@{'/stock/recorder/' + ${deal.id}}"
+								th:text="${deal.stockCode}"
+							>[stockCode]</a></td>
+							<td th:text="${deal.buyOrSell}?'buy':'sell'">[buyOrSell]</td>
+							<td th:text="${deal.buyTime}">[buyTime]</td>
+							<td th:text="${deal.buyPrice}">[buyPrice]</td>
+							<td th:text="${deal.buyQuantity}">[buyQuantity]</td>
+							<td th:text="${deal.sellTime}">[sellTime]</td>
+							<td th:text="${deal.sellPrice}">[sellPrice]</td>
+							<td th:text="${deal.sellQuantity}">[sellQuantity]</td>
+							<td th:text="${deal.dealRoi}">[dealRoi]</td>
+						</tr>
+					</tbody>
+				
+				</table>
+				<ul class="nav nav-pills">
+					<li><a class="btn btn-info" th:href="@{'/stock/target/'}">返回</a></li>
+				</ul>
+			</div>
 		</div>
 		
 		
