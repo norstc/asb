@@ -70,9 +70,11 @@ public class DealController {
 		DealEntity dealEntity = new DealEntity();
 		dealEntity.setBuyOrSell(true);
 		log.info("addDealHandler: dealEntity.getBuyOrSell(): " + dealEntity.getBuyOrSell());
+		Boolean isUpdate = false;
+		
 		modelMap.put("dealEntity", dealEntity);
 		model.addAttribute("stocks", stockService.findByOwner(ownerEntity));
-		
+		model.addAttribute("isUpdate", isUpdate);
 		return VIEWS_DEAL_ADD_OR_UPDATE_FORM;
 	}
 	
@@ -145,10 +147,12 @@ public class DealController {
 	}
 	//修改deal
 	@RequestMapping(value="/stock/deal/{id}/update",method=RequestMethod.GET)
-	public String updatedealHandler(@PathVariable Integer id, Map<String,Object> model){
+	public String updatedealHandler(@PathVariable Integer id, Map<String,Object> modelMap,Model model){
 		DealEntity dealEntity = new DealEntity();
 		dealEntity = dealService.getDealById(id);
-		model.put("dealEntity", dealEntity);
+		modelMap.put("dealEntity", dealEntity);
+		Boolean isUpdate = true;
+		model.addAttribute("isUpdate", isUpdate);
 		return VIEWS_DEAL_ADD_OR_UPDATE_FORM;
 	}
 	

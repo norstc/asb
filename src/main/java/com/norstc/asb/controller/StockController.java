@@ -109,11 +109,13 @@ public class StockController {
 	//修改target
 	//显示修改表单
 	@RequestMapping(value="/stock/target/{id}/update", method= RequestMethod.GET)
-	public String updateTargetHandler(@PathVariable Integer id, Map<String,Object> model){
+	public String updateTargetHandler(@PathVariable Integer id, Map<String,Object> modelMap,Model model){
 		StockEntity stockEntity = new StockEntity();
 		stockEntity = stockService.getStockById(id);
 		log.info("updateTarget: " + stockEntity.getOwner());
-		model.put("stockEntity", stockEntity);
+		modelMap.put("stockEntity", stockEntity);
+		Boolean isUpdate = true;
+		model.addAttribute("isUpdate", isUpdate);
 		return VIEWS_TARGET_ADD_OR_UPDATE_FORM;
 	}
 	//提交修改表单

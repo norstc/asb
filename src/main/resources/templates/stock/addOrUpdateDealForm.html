@@ -12,9 +12,10 @@
 			<form  id="add_new_deal" method="post" role="form">
 				<div class="form-group" >
 					<label for="stockCode">stockCode</label>
-					<select th:field="${dealEntity.stockCode}" th:if="${dealEntity.buyOrSell}">
+					<select th:field="${dealEntity.stockCode}" th:if="${dealEntity.buyOrSell and !isUpdate} ">
 						<option th:each="stock:${stocks}" th:value="${stock.stockCode}"  th:text="${stock.stockCode}" >[option] </option>
 					</select>
+					<input type="text" class="form-control" id="stockCode" th:field="${dealEntity.stockCode}"  th:if="${isUpdate}"/>
 					<input type="text" class="form-control" id="stockCode" th:field="${dealEntity.stockCode}"  th:if="${dealEntity.buyOrSell} == false" placeholder="请输入股票代码stockCode[6位股票代码]"/>
 				</div>
 				
