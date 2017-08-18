@@ -84,11 +84,11 @@ public class DealEntity extends BaseEntity{
 	}
 
 
-	public Boolean getBuyOrSell() {
+	public Boolean getIsBuy() {
 		return isBuy;
 	}
 
-	public void setBuyOrSell(Boolean buyOrSell) {
+	public void setIsBuy(Boolean buyOrSell) {
 		this.isBuy = buyOrSell;
 	}
 

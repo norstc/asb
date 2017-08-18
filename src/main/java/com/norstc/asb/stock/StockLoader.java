@@ -109,7 +109,7 @@ public class StockLoader implements ApplicationListener<ContextRefreshedEvent>{
 		dealEntity.setOwner(ownerEntity);
 		dealEntity.setId(1);
 		dealEntity.setStockCode("600000");
-		dealEntity.setBuyOrSell(true);
+		dealEntity.setIsBuy(true);
 		dealEntity.setBuyPrice(new BigDecimal(12.2));
 		dealEntity.setBuyQuantity(1000);
 		dealEntity.setBuyTime(new Date("1980/9/9"));
@@ -123,7 +123,7 @@ public class StockLoader implements ApplicationListener<ContextRefreshedEvent>{
 		dealEntity.setOwner(ownerEntity);
 		dealEntity.setId(2);
 		dealEntity.setStockCode("600000");
-		dealEntity.setBuyOrSell(false);
+		dealEntity.setIsBuy(false);
 		dealEntity.setBuyPrice(new BigDecimal(13.2));
 		dealEntity.setBuyTime(new Date("1982/2/2"));
 		dealEntity.setBuyQuantity(1000);
@@ -139,7 +139,7 @@ public class StockLoader implements ApplicationListener<ContextRefreshedEvent>{
 		dealEntity.setOwner(ownerEntity);
 		dealEntity.setId(3);
 		dealEntity.setStockCode("600398");
-		dealEntity.setBuyOrSell(true);
+		dealEntity.setIsBuy(true);
 		dealEntity.setBuyPrice(new BigDecimal(8.2));
 		dealEntity.setBuyTime(new Date("2013/12/9"));
 		dealEntity.setBuyQuantity(2000);
@@ -155,7 +155,7 @@ public class StockLoader implements ApplicationListener<ContextRefreshedEvent>{
 		dealEntity.setOwner(ownerEntity);
 		dealEntity.setId(4);
 		dealEntity.setStockCode("600398");
-		dealEntity.setBuyOrSell(true);
+		dealEntity.setIsBuy(true);
 		dealEntity.setBuyPrice(new BigDecimal(13.2));
 		dealEntity.setBuyTime(new Date("2014/3/2"));
 		dealEntity.setBuyQuantity(2000);
@@ -171,7 +171,7 @@ public class StockLoader implements ApplicationListener<ContextRefreshedEvent>{
 		dealEntity.setOwner(ownerEntity);
 		dealEntity.setId(5);
 		dealEntity.setStockCode("600027");
-		dealEntity.setBuyOrSell(true);
+		dealEntity.setIsBuy(true);
 		dealEntity.setBuyPrice(new BigDecimal(13.2));
 		dealEntity.setBuyTime(new Date("2016/3/3"));
 		dealEntity.setBuyQuantity(3000);
@@ -187,7 +187,7 @@ public class StockLoader implements ApplicationListener<ContextRefreshedEvent>{
 		dealEntity.setOwner(ownerEntity);
 		dealEntity.setId(6);
 		dealEntity.setStockCode("600027");
-		dealEntity.setBuyOrSell(true);
+		dealEntity.setIsBuy(true);
 		dealEntity.setBuyPrice(new BigDecimal(13.2));
 		dealEntity.setBuyQuantity(3000);
 		dealEntity.setBuyTime(new Date("2017/4/4"));

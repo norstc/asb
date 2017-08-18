@@ -68,8 +68,8 @@ public class DealController {
 		String username = principal.getName();
 		OwnerEntity ownerEntity = ownerService.findByUsername(username);
 		DealEntity dealEntity = new DealEntity();
-		dealEntity.setBuyOrSell(true);
-		log.info("addDealHandler: dealEntity.getBuyOrSell(): " + dealEntity.getBuyOrSell());
+		dealEntity.setIsBuy(true);
+		log.info("addDealHandler: dealEntity.getBuyOrSell(): " + dealEntity.getIsBuy());
 		Boolean isUpdate = false;
 		
 		modelMap.put("dealEntity", dealEntity);
@@ -82,10 +82,10 @@ public class DealController {
 	@RequestMapping(value="/stock/recoder/buy",method=RequestMethod.POST)
 	public String processAddForm(@Valid DealEntity dealEntity, BindingResult result, Principal principal){
 		if(result.hasErrors()){
-			log.info("processAddForm result has error: dealEntity.getBuyOrSell(): " + dealEntity.getBuyOrSell() +"results : " + result.toString());
+			log.info("processAddForm result has error: dealEntity.getBuyOrSell(): " + dealEntity.getIsBuy() +"results : " + result.toString());
 			return VIEWS_DEAL_ADD_OR_UPDATE_FORM;
 		}else{
-			log.info("processAddForm without error: dealEntity.getBuyOrSell(): " + dealEntity.getBuyOrSell());
+			log.info("processAddForm without error: dealEntity.getBuyOrSell(): " + dealEntity.getIsBuy());
 			String username = principal.getName();
 			OwnerEntity ownerEntity = this.ownerService.findByUsername(username);
 			dealEntity.setOwner(ownerEntity);
@@ -99,7 +99,7 @@ public class DealController {
 	public String sellHandler(@PathVariable Integer id, Map<String,Object> model){
 		DealEntity dealEntity = new DealEntity();
 		dealEntity = dealService.getDealById(id);
-		dealEntity.setBuyOrSell(false);
+		dealEntity.setIsBuy(false);
 		model.put("dealEntity", dealEntity);
 		return VIEWS_DEAL_ADD_OR_UPDATE_FORM;
 	}
@@ -119,11 +119,11 @@ public class DealController {
 			oldDeal.setSellTime(dealEntity.getSellTime());
 			oldDeal.setSellPrice(dealEntity.getSellPrice());
 			oldDeal.setSellQuantity(dealEntity.getSellQuantity());
-			oldDeal.setBuyOrSell(dealEntity.getBuyOrSell());
+			oldDeal.setIsBuy(dealEntity.getIsBuy());
 			if(oldDeal.getBuyQuantity() > dealEntity.getSellQuantity()){  //not sell all
 				DealEntity newDeal = new DealEntity();
 				newDeal.setStockCode(oldDeal.getStockCode());
-				newDeal.setBuyOrSell(true);
+				newDeal.setIsBuy(true);
 				newDeal.setBuyQuantity(oldDeal.getBuyQuantity() - dealEntity.getSellQuantity());
 				newDeal.setBuyPrice(oldDeal.getBuyPrice());
 				newDeal.setBuyTime(oldDeal.getBuyTime());
@@ -165,11 +165,11 @@ public class DealController {
 			String username = principal.getName();
 			OwnerEntity ownerEntity = this.ownerService.findByUsername(username);
 			DealEntity oldDeal = this.dealService.getDealById(id);
-			oldDeal.setBuyOrSell(dealEntity.getBuyOrSell());
+			oldDeal.setIsBuy(dealEntity.getIsBuy());
 			oldDeal.setBuyPrice(dealEntity.getBuyPrice());
 			oldDeal.setBuyQuantity(dealEntity.getBuyQuantity());
 			oldDeal.setBuyTime(dealEntity.getBuyTime());
-			if(! dealEntity.getBuyOrSell()){
+			if(! dealEntity.getIsBuy()){
 				oldDeal.setSellPrice(dealEntity.getSellPrice());
 				oldDeal.setSellQuantity(dealEntity.getSellQuantity());
 				oldDeal.setSellTime(dealEntity.getSellTime());
