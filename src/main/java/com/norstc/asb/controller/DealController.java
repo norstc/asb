@@ -71,10 +71,10 @@ public class DealController {
 		dealEntity.setIsBuy(true);
 		log.info("addDealHandler: dealEntity.getBuyOrSell(): " + dealEntity.getIsBuy());
 		Boolean isUpdate = false;
-		
-		modelMap.put("dealEntity", dealEntity);
-		model.addAttribute("stocks", stockService.findByOwner(ownerEntity));
 		model.addAttribute("isUpdate", isUpdate);
+		
+		model.addAttribute("stocks", stockService.findByOwner(ownerEntity));
+		modelMap.put("dealEntity", dealEntity);
 		return VIEWS_DEAL_ADD_OR_UPDATE_FORM;
 	}
 	
