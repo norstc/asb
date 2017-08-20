@@ -20,16 +20,14 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 	
 	private AuthenticationProvider authenticationProvider;
-	
 
-	
 	@Bean
 	public PasswordEncoder  passwordEncoder(StrongPasswordEncryptor passwordEncryptor){
 		PasswordEncoder passwordEncoder = new PasswordEncoder();
 		passwordEncoder.setPasswordEncryptor(passwordEncryptor);
 		return passwordEncoder;
 	}
-
+	
 	@Bean
 	public DaoAuthenticationProvider daoAuthenticationProvider(PasswordEncoder passwordEncoder,UserDetailsService userDetailsService){
 		DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
@@ -37,7 +35,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 		daoAuthenticationProvider.setUserDetailsService(userDetailsService);
 		return daoAuthenticationProvider;
 	}
-	
+
 	@Autowired
 	@Qualifier("daoAuthenticationProvider")
 	public void setAuthenticationProvider(AuthenticationProvider authenticationProvider){
@@ -49,6 +47,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 	public void configureAuthManager(AuthenticationManagerBuilder authenticationManagerBuilder){
 		authenticationManagerBuilder.authenticationProvider(authenticationProvider);
 	}
+	
+	
+
+	
+	
 	
 	@Override
 	protected void configure(HttpSecurity httpSecurity) throws Exception {

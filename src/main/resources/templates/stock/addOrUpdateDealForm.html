@@ -9,6 +9,29 @@
 		
 		<div class = "jumbotron" th:object="${dealEntity}">
 			<h1 th:with="text=${dealEntity.isBuy}?'add a deal':'sell some'" th:text="${text}">add a deal</h1>
+			
+			<div class="table-responsive" th:if="${dealEntity.isBuy}">
+				<h1>balance</h1>
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<th>cash Start</th>
+							<th>cash Left</th>
+							<th>market Left</th>
+							<th>profit</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td th:text = "${owner.cashStart}">[cash start]</td>
+							<td th:text="${owner.cashLeft}">[cash left]</td>
+							<td th:text="${owner.marketLeft}">[market left]</td>
+							<td th:text="${owner.cashLeft} + ${owner.marketLeft} - ${owner.cashStart}">[profit]</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			
 			<form  id="add_new_deal" method="post" role="form">
 				<div class="form-group" >
 					<label for="stockCode">stockCode</label>

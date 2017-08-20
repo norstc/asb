@@ -67,6 +67,8 @@ public class DealController {
 	public String addDealHandler(Map<String,Object> modelMap, Model model,Principal principal){
 		String username = principal.getName();
 		OwnerEntity ownerEntity = ownerService.findByUsername(username);
+		
+		model.addAttribute("owner", ownerEntity);
 		DealEntity dealEntity = new DealEntity();
 		dealEntity.setIsBuy(true);
 		log.info("addDealHandler: dealEntity.getBuyOrSell(): " + dealEntity.getIsBuy());
@@ -80,17 +82,39 @@ public class DealController {
 	
 	//提交买入表单
 	@RequestMapping(value="/stock/recoder/buy",method=RequestMethod.POST)
-	public String processAddForm(@Valid DealEntity dealEntity, BindingResult result, Principal principal){
+	public String processAddForm(@Valid DealEntity dealEntity, BindingResult result, Model model,Principal principal){
 		if(result.hasErrors()){
 			log.info("processAddForm result has error: dealEntity.getBuyOrSell(): " + dealEntity.getIsBuy() +"results : " + result.toString());
+			String username = principal.getName();
+			OwnerEntity ownerEntity = ownerService.findByUsername(username);
+			Boolean isUpdate = false;
+			model.addAttribute("isUpdate", isUpdate);
+			model.addAttribute("owner",ownerEntity);
+			model.addAttribute("stocks", stockService.findByOwner(ownerEntity));
 			return VIEWS_DEAL_ADD_OR_UPDATE_FORM;
 		}else{
 			log.info("processAddForm without error: dealEntity.getBuyOrSell(): " + dealEntity.getIsBuy());
 			String username = principal.getName();
 			OwnerEntity ownerEntity = this.ownerService.findByUsername(username);
 			dealEntity.setOwner(ownerEntity);
-			this.dealService.add(dealEntity);
-			return "redirect:/stock/recorder/"+dealEntity.getId();
+			BigDecimal cashLeft = ownerEntity.getCashLeft();
+			BigDecimal cashNeed = dealEntity.getBuyPrice().multiply(new BigDecimal(dealEntity.getBuyQuantity()));
+			
+			if(cashLeft.compareTo(cashNeed) == -1){
+				
+				model.addAttribute("owner",ownerEntity);
+				Boolean isUpdate = false;
+				model.addAttribute("isUpdate", isUpdate);
+				model.addAttribute("stocks", stockService.findByOwner(ownerEntity));
+				return VIEWS_DEAL_ADD_OR_UPDATE_FORM;
+			}else{
+				this.dealService.add(dealEntity);
+				ownerEntity.setCashLeft(cashLeft.subtract(cashNeed));
+				ownerEntity.setMarketLeft(ownerEntity.getMarketLeft().add(cashNeed));
+				this.ownerService.saveOrUpdate(ownerEntity);
+				return "redirect:/stock/recorder/"+dealEntity.getId();
+			}
+			
 		}
 	}
 	
