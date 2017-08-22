@@ -145,6 +145,7 @@ public class DealController {
 			oldDeal.setSellQuantity(dealEntity.getSellQuantity());
 			oldDeal.setIsBuy(dealEntity.getIsBuy());
 			if(oldDeal.getBuyQuantity() > dealEntity.getSellQuantity()){  //not sell all
+				//创建一个新的买入
 				DealEntity newDeal = new DealEntity();
 				newDeal.setStockCode(oldDeal.getStockCode());
 				newDeal.setIsBuy(true);
@@ -156,6 +157,7 @@ public class DealController {
 				oldDeal.setBuyQuantity(dealEntity.getSellQuantity());
 				oldDeal.setDealRoi(oldDeal.getSellPrice().multiply(new BigDecimal(oldDeal.getSellQuantity())).subtract(oldDeal.getBuyPrice().multiply(new BigDecimal(oldDeal.getBuyQuantity()))));
 				this.dealService.add(oldDeal);
+				
 			}else if(oldDeal.getBuyQuantity() == dealEntity.getSellQuantity()){
 				oldDeal.setDealRoi(oldDeal.getSellPrice().multiply(new BigDecimal(oldDeal.getSellQuantity())).subtract(oldDeal.getBuyPrice().multiply(new BigDecimal(oldDeal.getBuyQuantity()))));
 				
@@ -165,6 +167,11 @@ public class DealController {
 				oldDeal.setDealRoi(oldDeal.getSellPrice().multiply(new BigDecimal(oldDeal.getSellQuantity())).subtract(oldDeal.getBuyPrice().multiply(new BigDecimal(oldDeal.getBuyQuantity()))));
 				this.dealService.add(oldDeal);
 			}
+			
+			//更新balacne
+			ownerEntity.setCashLeft(ownerEntity.getCashLeft().add(oldDeal.getSellPrice().multiply(new BigDecimal(oldDeal.getSellQuantity()))));
+			ownerEntity.setMarketLeft(ownerEntity.getMarketLeft().subtract(oldDeal.getSellPrice().multiply(new BigDecimal(oldDeal.getSellQuantity()))));
+			this.ownerService.saveOrUpdate(ownerEntity);
 			
 			return "redirect:/stock/recorder/" + oldDeal.getId();
 		}
