@@ -95,9 +95,19 @@ public class OwnerEntity extends PersonEntity{
 	@NotNull
 	private BigDecimal marketLeft;
 	
+	@Column(name="cash_profit")
+	private BigDecimal cashProfit;
 	
 	//login
 	
+	
+	public BigDecimal getCashProfit() {
+		return cashProfit;
+	}
+
+	public void setCashProfit(BigDecimal cashProfit) {
+		this.cashProfit = cashProfit;
+	}
 	
 	public BigDecimal getCashStart() {
 		return cashStart;

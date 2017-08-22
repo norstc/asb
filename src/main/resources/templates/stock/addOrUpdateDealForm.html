@@ -11,7 +11,7 @@
 			<h1 th:with="text=${dealEntity.isBuy}?'add a deal':'sell some'" th:text="${text}">add a deal</h1>
 			
 			<div class="table-responsive" th:if="${dealEntity.isBuy}">
-				<h1>balance</h1>
+				<h2>balance</h2>
 				<table class="table table-striped">
 					<thead>
 						<tr>
@@ -31,7 +31,7 @@
 					</tbody>
 				</table>
 			</div>
-			
+			<h2>Deal</h2>
 			<form  id="add_new_deal" method="post" role="form">
 				<div class="form-group" >
 					<label for="stockCode">stockCode</label>

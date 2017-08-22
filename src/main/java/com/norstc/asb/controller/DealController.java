@@ -171,6 +171,7 @@ public class DealController {
 			//更新balacne
 			ownerEntity.setCashLeft(ownerEntity.getCashLeft().add(oldDeal.getSellPrice().multiply(new BigDecimal(oldDeal.getSellQuantity()))));
 			ownerEntity.setMarketLeft(ownerEntity.getMarketLeft().subtract(oldDeal.getSellPrice().multiply(new BigDecimal(oldDeal.getSellQuantity()))));
+			ownerEntity.setCashProfit(ownerEntity.getCashProfit().add(oldDeal.getDealRoi()));
 			this.ownerService.saveOrUpdate(ownerEntity);
 			
 			return "redirect:/stock/recorder/" + oldDeal.getId();
@@ -178,7 +179,10 @@ public class DealController {
 	}
 	//修改deal
 	@RequestMapping(value="/stock/deal/{id}/update",method=RequestMethod.GET)
-	public String updatedealHandler(@PathVariable Integer id, Map<String,Object> modelMap,Model model){
+	public String updatedealHandler(@PathVariable Integer id, Map<String,Object> modelMap,Model model, Principal principal){
+		String username = principal.getName();
+		OwnerEntity ownerEntity = this.ownerService.findByUsername(username);
+		model.addAttribute("owner",ownerEntity);
 		DealEntity dealEntity = new DealEntity();
 		dealEntity = dealService.getDealById(id);
 		modelMap.put("dealEntity", dealEntity);
@@ -196,25 +200,54 @@ public class DealController {
 			String username = principal.getName();
 			OwnerEntity ownerEntity = this.ownerService.findByUsername(username);
 			DealEntity oldDeal = this.dealService.getDealById(id);
-			oldDeal.setIsBuy(dealEntity.getIsBuy());
-			oldDeal.setBuyPrice(dealEntity.getBuyPrice());
-			oldDeal.setBuyQuantity(dealEntity.getBuyQuantity());
-			oldDeal.setBuyTime(dealEntity.getBuyTime());
-			if(! dealEntity.getIsBuy()){
+			if(dealEntity.getIsBuy()){
+				ownerEntity.setCashLeft(ownerEntity.getCashLeft().add(oldDeal.getBuyPrice().multiply(new BigDecimal(oldDeal.getBuyQuantity()))));
+				ownerEntity.setMarketLeft(ownerEntity.getMarketLeft().subtract(oldDeal.getBuyPrice().multiply(new BigDecimal(oldDeal.getBuyQuantity()))));
+				oldDeal.setIsBuy(dealEntity.getIsBuy());
+				oldDeal.setBuyPrice(dealEntity.getBuyPrice());
+				oldDeal.setBuyQuantity(dealEntity.getBuyQuantity());
+				oldDeal.setBuyTime(dealEntity.getBuyTime());
+				ownerEntity.setCashLeft(ownerEntity.getCashLeft().subtract(oldDeal.getBuyPrice().multiply(new BigDecimal(oldDeal.getBuyQuantity()))));
+				ownerEntity.setMarketLeft(ownerEntity.getMarketLeft().add(oldDeal.getBuyPrice().multiply(new BigDecimal(oldDeal.getBuyQuantity()))));
+			}else{
+				ownerEntity.setCashLeft(ownerEntity.getCashLeft().add(oldDeal.getBuyPrice().multiply(new BigDecimal(oldDeal.getBuyQuantity()))));
+				ownerEntity.setMarketLeft(ownerEntity.getMarketLeft().subtract(oldDeal.getBuyPrice().multiply(new BigDecimal(oldDeal.getBuyQuantity()))));
+				
+				oldDeal.setIsBuy(dealEntity.getIsBuy());
+				oldDeal.setBuyPrice(dealEntity.getBuyPrice());
+				oldDeal.setBuyQuantity(dealEntity.getBuyQuantity());
+				oldDeal.setBuyTime(dealEntity.getBuyTime());
 				oldDeal.setSellPrice(dealEntity.getSellPrice());
 				oldDeal.setSellQuantity(dealEntity.getSellQuantity());
 				oldDeal.setSellTime(dealEntity.getSellTime());
 				oldDeal.setDealRoi(oldDeal.getSellPrice().multiply(new BigDecimal(oldDeal.getSellQuantity())).subtract(oldDeal.getBuyPrice().multiply(new BigDecimal(oldDeal.getBuyQuantity()))));
+				
+				ownerEntity.setCashLeft(ownerEntity.getCashLeft().add(oldDeal.getDealRoi()));
 			}
+			
+			this.ownerService.saveOrUpdate(ownerEntity);
 			this.dealService.add(oldDeal);
 			return "redirect:/stock/recorder/" + dealEntity.getId();
 		}
 	}
 	//删除deal
 	@RequestMapping(value="/stock/deal/{id}/delete",method=RequestMethod.GET)
-	public String deleteDealHandler(@PathVariable Integer id){
-		DealEntity dealEntity = dealService.getDealById(id);
-		dealService.deleteDeal(dealEntity);
+	public String deleteDealHandler(@PathVariable Integer id,Principal principal){
+		String username = principal.getName();
+		OwnerEntity ownerEntity = this.ownerService.findByUsername(username);
+		
+		DealEntity oldDeal = this.dealService.getDealById(id);
+		if(oldDeal.getIsBuy()){
+			ownerEntity.setCashLeft(ownerEntity.getCashLeft().add(oldDeal.getBuyPrice().multiply(new BigDecimal(oldDeal.getBuyQuantity()))));
+			ownerEntity.setMarketLeft(ownerEntity.getMarketLeft().subtract(oldDeal.getBuyPrice().multiply(new BigDecimal(oldDeal.getBuyQuantity()))));
+			
+			this.ownerService.saveOrUpdate(ownerEntity);
+			
+		}else{
+			//已经卖出的交易直接删除即可
+		}
+		this.dealService.deleteDeal(oldDeal);
+		
 		return "redirect:/stock/recorder/";
 	}
 }

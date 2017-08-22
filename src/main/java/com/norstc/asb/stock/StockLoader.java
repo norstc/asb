@@ -122,15 +122,15 @@ public class StockLoader implements ApplicationListener<ContextRefreshedEvent>{
 		ownerEntity  = ownerService.getById(3);
 		dealEntity.setOwner(ownerEntity);
 		dealEntity.setId(2);
-		dealEntity.setStockCode("600000");
+		dealEntity.setStockCode("601006");
 		dealEntity.setIsBuy(false);
-		dealEntity.setBuyPrice(new BigDecimal(13.2));
+		dealEntity.setBuyPrice(new BigDecimal(5));
 		dealEntity.setBuyTime(new Date("1982/2/2"));
 		dealEntity.setBuyQuantity(1000);
 		dealEntity.setSellTime(new Date("1982/3/3"));
-		dealEntity.setSellPrice(new BigDecimal(15.2));
+		dealEntity.setSellPrice(new BigDecimal(10));
 		dealEntity.setSellQuantity(1000);
-		dealEntity.setDealRoi(new BigDecimal(0.2));
+		dealEntity.setDealRoi(new BigDecimal(5000));
 		
 		dealRepository.save(dealEntity);
 		log.info("saved dealEntity: " + dealEntity.getId());
@@ -229,6 +229,7 @@ public class StockLoader implements ApplicationListener<ContextRefreshedEvent>{
 		ownerEntity.setCashStart(new BigDecimal(50000));
 		ownerEntity.setCashLeft(new BigDecimal(50000));
 		ownerEntity.setMarketLeft(new BigDecimal(0));
+		ownerEntity.setCashProfit(new BigDecimal(0));
 		
 		ownerService.saveOrUpdate(ownerEntity);
 		log.info("saved ownerEntity: " + ownerEntity.getUsername());
@@ -246,6 +247,7 @@ public class StockLoader implements ApplicationListener<ContextRefreshedEvent>{
 		ownerEntity.setCashStart(new BigDecimal(150000));
 		ownerEntity.setCashLeft(new BigDecimal(150000));
 		ownerEntity.setMarketLeft(new BigDecimal(0));
+		ownerEntity.setCashProfit(new BigDecimal(0));
 		ownerService.saveOrUpdate(ownerEntity);
 		log.info("saved ownerEntity: " + ownerEntity.getUsername());
 		
@@ -262,6 +264,7 @@ public class StockLoader implements ApplicationListener<ContextRefreshedEvent>{
 		ownerEntity.setCashStart(new BigDecimal(50000));
 		ownerEntity.setCashLeft(new BigDecimal(10000));
 		ownerEntity.setMarketLeft(new BigDecimal(50000));
+		ownerEntity.setCashProfit(new BigDecimal(10000));
 		ownerService.saveOrUpdate(ownerEntity);
 		log.info("saved ownerEntity: " + ownerEntity.getUsername());
 		
@@ -278,6 +281,7 @@ public class StockLoader implements ApplicationListener<ContextRefreshedEvent>{
 		ownerEntity.setCashStart(new BigDecimal(250000));
 		ownerEntity.setCashLeft(new BigDecimal(250000));
 		ownerEntity.setMarketLeft(new BigDecimal(0));
+		ownerEntity.setCashProfit(new BigDecimal(-10000));
 		ownerService.saveOrUpdate(ownerEntity);
 		log.info("saved ownerEntity: " + ownerEntity.getUsername());
 		

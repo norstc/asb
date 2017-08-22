@@ -16,7 +16,7 @@
 							<th>cash Start</th>
 							<th>cash Left</th>
 							<th>market Left</th>
-							<th>profit</th>
+							<th>cash profit</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -24,7 +24,7 @@
 							<td th:text = "${owner.cashStart}">[cash start]</td>
 							<td th:text="${owner.cashLeft}">[cash left]</td>
 							<td th:text="${owner.marketLeft}">[market left]</td>
-							<td th:text="${owner.cashLeft} + ${owner.marketLeft} - ${owner.cashStart}">[profit]</td>
+							<td th:text="${owner.cashProfit} ">[cash profit]</td>
 						</tr>
 					</tbody>
 				</table>
