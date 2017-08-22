@@ -170,7 +170,7 @@ public class DealController {
 			
 			//更新balacne
 			ownerEntity.setCashLeft(ownerEntity.getCashLeft().add(oldDeal.getSellPrice().multiply(new BigDecimal(oldDeal.getSellQuantity()))));
-			ownerEntity.setMarketLeft(ownerEntity.getMarketLeft().subtract(oldDeal.getSellPrice().multiply(new BigDecimal(oldDeal.getSellQuantity()))));
+			ownerEntity.setMarketLeft(ownerEntity.getMarketLeft().subtract(oldDeal.getBuyPrice().multiply(new BigDecimal(oldDeal.getBuyQuantity()))));
 			ownerEntity.setCashProfit(ownerEntity.getCashProfit().add(oldDeal.getDealRoi()));
 			this.ownerService.saveOrUpdate(ownerEntity);
 			

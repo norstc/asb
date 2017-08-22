@@ -70,7 +70,6 @@ public class OwnerEntity extends PersonEntity{
 	private String telephone;
 	
 	@Column(name ="owner_level")
-	@NotNull
 	private Integer ownerLevel;
 	
 	
@@ -88,11 +87,9 @@ public class OwnerEntity extends PersonEntity{
 	private BigDecimal cashStart;
 	
 	@Column(name="cash_left")
-	@NotNull
 	private BigDecimal cashLeft;
 	
 	@Column(name="market_left")
-	@NotNull
 	private BigDecimal marketLeft;
 	
 	@Column(name="cash_profit")

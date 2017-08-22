@@ -1,5 +1,6 @@
 package com.norstc.asb.controller;
 
+import java.math.BigDecimal;
 import java.util.Map;
 
 import javax.validation.Valid;
@@ -100,6 +101,9 @@ public class WelcomeController {
 			return "owner/regist";
 		}else{
 			if(ownerEntity.getPassword().equals(ownerEntity.getConfirmPassword())){
+				ownerEntity.setCashLeft(ownerEntity.getCashStart());
+				ownerEntity.setMarketLeft(new BigDecimal(0));
+				ownerEntity.setCashProfit(new BigDecimal(0));
 				this.ownerService.saveOrUpdate(ownerEntity);
 				log.info("add new owner: " + ownerEntity.getUsername());
 				return "redirect:/welcome";
