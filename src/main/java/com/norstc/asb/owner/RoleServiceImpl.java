@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 @Service
-@Profile("springdatajpa")
+@Profile("mysql")
 public class RoleServiceImpl  implements RoleService{
 	private RoleRepository roleRepository;
 	@Autowired
