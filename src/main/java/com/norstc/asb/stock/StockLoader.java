@@ -7,6 +7,7 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
+import org.springframework.context.annotation.Profile;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 
@@ -18,6 +19,7 @@ import com.norstc.asb.owner.OwnerService;
 import com.norstc.asb.owner.RoleEntity;
 import com.norstc.asb.owner.RoleService;
 
+@Profile("debug")
 @Component
 public class StockLoader implements ApplicationListener<ContextRefreshedEvent>{
 	
