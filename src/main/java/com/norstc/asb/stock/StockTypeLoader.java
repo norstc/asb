@@ -2,9 +2,10 @@ package com.norstc.asb.stock;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
+import org.springframework.context.annotation.Profile;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
-
+@Profile("debug")
 @Component
 public class StockTypeLoader implements ApplicationListener<ContextRefreshedEvent>{
 	private StockTypeRepository stockTypeRepository;
