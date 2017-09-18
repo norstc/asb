@@ -9,7 +9,7 @@
 		
 		<div class="jumbotron">
 			<div class="table-responsive" th:if="${deal != null}">
-				<h1>recorder</h1>
+				<h1 th:text="#{deal.title}">recorder</h1>
 				<table class="table table-striped">
 					<thead>
 						<tr>
@@ -51,7 +51,7 @@
 			</div>
 			
 			<div class="table-responsive" th:if="${not #lists.isEmpty(deals)}">
-				<h1>recorders</h1>
+				<h1 th:text="#{deals.title}">recorders</h1>
 				<table class="table table-striped">
 					<thead>
 						<tr>
