@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" >
 
-<head th:replace="/fragments/layout :: common_header"></head>
+<head th:replace="fragments/layout :: common_header"></head>
 
 <body>
 	<div class="container">
-		<nav th:replace="/fragments/layout::navbar"></nav>
+		<nav th:replace="fragments/layout::navbar"></nav>
 		
 		<div class="jumbotron">
 			<h1 th:with="text='add a real target'" th:text="${text}">add new target</h1>

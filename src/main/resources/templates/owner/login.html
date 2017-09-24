@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
-<head th:replace="/fragments/layout :: common_header"></head>
+<head th:replace="fragments/layout :: common_header"></head>
 
 <body>
 	<div class="container">
-		<nav th:replace="/fragments/layout::navbar"></nav>
+		<nav th:replace="fragments/layout::navbar"></nav>
 		
 		<div class="jumbotron">
 			<div th:if="${param.error}">
