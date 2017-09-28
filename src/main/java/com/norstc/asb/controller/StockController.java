@@ -26,7 +26,6 @@ import com.norstc.asb.stock.StockEntity;
 import com.norstc.asb.stock.StockService;
 
 @Controller
-
 public class StockController {
 	private Logger log = Logger.getLogger(StockController.class);
 	

@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="/fragments/layout :: common_header"></head>
+<head th:replace="fragments/layout :: common_header"></head>
 
 <body>
 	<div class="container">
 	
-		<nav th:replace="/fragments/layout::navbar"></nav>
+		<nav th:replace="fragments/layout::navbar"></nav>
 		
 		<div class = "jumbotron" th:object="${dealEntity}">
 			<h1 th:with="text=${dealEntity.isBuy}?'add a deal':'sell some'" th:text="${text}">add a deal</h1>
