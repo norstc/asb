@@ -73,7 +73,7 @@ public class WelcomeController {
 			return "owner/login";
 		}else{
 			log.info("have logged in as :  " + username);
-			return "/welcome";
+			return "welcome";
 		}
 		
 	}
@@ -106,7 +106,7 @@ public class WelcomeController {
 				ownerEntity.setCashProfit(new BigDecimal(0));
 				this.ownerService.saveOrUpdate(ownerEntity);
 				log.info("add new owner: " + ownerEntity.getUsername());
-				return "redirect:/welcome";
+				return "redirect:welcome";
 			}else{
 				//ObjectError error = new ObjectError("confirmPassword", "should be same with password");
 				//result.addError(error);
