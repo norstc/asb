@@ -103,7 +103,7 @@ public class StockController {
 			
 			this.stockService.add(stockEntity);
 			log.info("processAdd ok: , stockEntity is: " + stockEntity.getStockCode());
-			return "redirect:stock/target/"+stockEntity.getId();
+			return "redirect:/stock/target/"+stockEntity.getId();
 		}
 	}
 	
@@ -130,7 +130,7 @@ public class StockController {
 			oldStock.setAiPrice(stockEntity.getAiPrice());
 			
 			this.stockService.add(oldStock);
-			return "redirect:stock/target/" + oldStock.getId();
+			return "redirect:/stock/target/" + oldStock.getId();
 		}
 	}
 	
@@ -140,7 +140,7 @@ public class StockController {
 	public String deleteTargetHandler(@PathVariable Integer id){
 		StockEntity stockEntity = stockService.getStockById(id);
 		stockService.deleteStock(stockEntity);
-		return "redirect:stock/target";
+		return "redirect:/stock/target";
 	}
 	
 	//余额
