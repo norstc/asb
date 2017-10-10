@@ -53,13 +53,13 @@ public class DealController {
 		String username = principal.getName();
 		OwnerEntity ownerEntity = this.ownerService.findByUsername(username);
 		model.addAttribute("deals",dealService.findByOwner(ownerEntity));
-		return "/stock/recorder";
+		return "stock/recorder";
 	}
 	
 	@RequestMapping("/stock/recorder/{id}")
 	public String recorderDetailHandler(@PathVariable Integer id, Model model){
 		model.addAttribute("deal",dealService.getDealById(id));
-		return "/stock/recorder";
+		return "stock/recorder";
 	}
 	
 	//显示买入表单
@@ -112,7 +112,7 @@ public class DealController {
 				ownerEntity.setCashLeft(cashLeft.subtract(cashNeed));
 				ownerEntity.setMarketLeft(ownerEntity.getMarketLeft().add(cashNeed));
 				this.ownerService.saveOrUpdate(ownerEntity);
-				return "redirect:/stock/recorder/"+dealEntity.getId();
+				return "redirect:stock/recorder/"+dealEntity.getId();
 			}
 			
 		}
@@ -174,7 +174,7 @@ public class DealController {
 			ownerEntity.setCashProfit(ownerEntity.getCashProfit().add(oldDeal.getDealRoi()));
 			this.ownerService.saveOrUpdate(ownerEntity);
 			
-			return "redirect:/stock/recorder/" + oldDeal.getId();
+			return "redirect:stock/recorder/" + oldDeal.getId();
 		}
 	}
 	//修改deal
@@ -227,7 +227,7 @@ public class DealController {
 			
 			this.ownerService.saveOrUpdate(ownerEntity);
 			this.dealService.add(oldDeal);
-			return "redirect:/stock/recorder/" + dealEntity.getId();
+			return "redirect:stock/recorder/" + dealEntity.getId();
 		}
 	}
 	//删除deal
@@ -248,6 +248,6 @@ public class DealController {
 		}
 		this.dealService.deleteDeal(oldDeal);
 		
-		return "redirect:/stock/recorder/";
+		return "redirect:stock/recorder/";
 	}
 }
