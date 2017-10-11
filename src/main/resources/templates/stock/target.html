@@ -10,7 +10,7 @@
 		<div class="jumbotron">
 			
 			<div class="table-responsive" th:if="${stock != null }">
-				<h1 th:text="#{target.title}">target</h1>
+				<h3 th:text="#{target.title}">target</h3>
 				<table class="table table-striped">
 				<thead>
 					<tr>
@@ -43,7 +43,7 @@
 
 			
 			<div class="table-responsive" th:if="${not #lists.isEmpty(stocks)}">
-				<h1 th:text="#{targets.title}">targets</h1>
+				<h3 th:text="#{targets.title}">targets</h3>
 				<table class="table table-striped">
 				<thead>
 					<tr>
