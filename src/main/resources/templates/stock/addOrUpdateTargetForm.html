@@ -8,37 +8,37 @@
 		<nav th:replace="fragments/layout::navbar"></nav>
 		
 		<div class="jumbotron">
-			<h1 th:with="text='add a real target'" th:text="${text}">add new target</h1>
+			<h1  th:text="#{target.form.addATarget}">add new target</h1>
 			<form th:object="${stockEntity}" id="add_new_target" method="post" role="form">
 				
 				
 				<div class="form-group">
-					<label for="stockCode">code</label>
-					<input type="text" class="form-control" id="stockCode" th:field="${stockEntity.stockCode}" placeholder="请输入stockCode" />
+					<label for="stockCode"  th:text="#{target.stockCode}">code</label>
+					<input type="text" class="form-control" id="stockCode" th:field="${stockEntity.stockCode}" th:placeholder="#{target.form.placeholder.stockCode}" />
 					<p th:if="${#fields.hasErrors('stockCode')}" th:errors="${stockEntity.stockCode}">stockCode error</p>
 				</div>
 				
 				<div class="form-group">
-					<label for="stockName">名称</label>
-					<input type="text" class="form-control" id="stockName" th:field="${stockEntity.stockName}" placeholder="请输入stockName" />
+					<label for="stockName"  th:text="#{target.stockName}">名称</label>
+					<input type="text" class="form-control" id="stockName" th:field="${stockEntity.stockName}" th:placeholder="#{target.stockName}" />
 					<p th:if="${#fields.hasErrors('stockName')}" th:errors="*{stockName}">stock name error</p>
 				</div>
 				
 				<div class="form-group">
-					<label for="currentPrice">current price</label>
-					<input type="text" class="form-control" id="currentPrice" th:field="${stockEntity.currentPrice}" placeholder="请输入当前价格" />
+					<label for="currentPrice" th:text="#{target.currentPrice}">current price</label>
+					<input type="text" class="form-control" id="currentPrice" th:field="${stockEntity.currentPrice}" th:placeholder="#{target.form.placeholder.currentPrice}" />
 					
 				</div>
 				
 				<div class="form-group">
-					<label for="aiPrice">ai price</label>
-					<input type="text" class="form-control" id="aiPrice" th:field="${stockEntity.aiPrice}" placeholder="请输入ai价格" />
+					<label for="aiPrice"  th:text="#{target.aiPrice}">ai price</label>
+					<input type="text" class="form-control" id="aiPrice" th:field="${stockEntity.aiPrice}" th:placeholder="#{target.form.placeholder.aiPrice}" />
 					
 				</div>
 				
 				<div class="form-group">
-					<label for="aiRoi">ai roi</label>
-					<input type="text" class="form-control" id="aiRoi" th:field="${stockEntity.aiRoi}" placeholder="请输入aiRoi" />
+					<label for="aiRoi"  th:text="#{target.aiRoi}">ai roi</label>
+					<input type="text" class="form-control" id="aiRoi" th:field="${stockEntity.aiRoi}" th:placeholder="#{target.form.placeholder.aiRoi}" />
 				</div>
 				
 				<div class="form-group">
