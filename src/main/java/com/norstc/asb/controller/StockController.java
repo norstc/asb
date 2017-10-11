@@ -54,7 +54,7 @@ public class StockController {
 	
 	@RequestMapping("/stock/select")
 	public String mainSelectHandler(){
-		return "stock/select";
+		return "/stock/select";
 	}
 	
 	@RequestMapping("/stock/target")
@@ -70,13 +70,13 @@ public class StockController {
 			model.addAttribute("stocks",stockService.findByOwner(owner));
 		}
 		
-		return "stock/target";
+		return "/stock/target";
 	}
 	
 	@RequestMapping("/stock/target/{id}")
 	public String mainTargetHandler(@PathVariable Integer id, Model model){
 		model.addAttribute("stock",stockService.getStockById(id));
-		return "stock/target";
+		return "/stock/target";
 	}
 	
 	//增加target
@@ -103,7 +103,7 @@ public class StockController {
 			
 			this.stockService.add(stockEntity);
 			log.info("processAdd ok: , stockEntity is: " + stockEntity.getStockCode());
-			return "redirect:stock/target/"+stockEntity.getId();
+			return "redirect:"+stockEntity.getId();
 		}
 	}
 	
@@ -130,7 +130,7 @@ public class StockController {
 			oldStock.setAiPrice(stockEntity.getAiPrice());
 			
 			this.stockService.add(oldStock);
-			return "redirect:stock/target/" + oldStock.getId();
+			return "redirect:" + oldStock.getId();
 		}
 	}
 	
@@ -140,7 +140,7 @@ public class StockController {
 	public String deleteTargetHandler(@PathVariable Integer id){
 		StockEntity stockEntity = stockService.getStockById(id);
 		stockService.deleteStock(stockEntity);
-		return "redirect:stock/target";
+		return "/stock/target";
 	}
 	
 	//余额
@@ -151,17 +151,17 @@ public class StockController {
 		List<DealEntity> deals = this.dealService.findByOwnerAndIsBuy(ownerEntity,true);
 		model.addAttribute("owner", ownerEntity);
 		model.addAttribute("deals",deals);
-		return "stock/balance";
+		return "/stock/balance";
 	}
 	
 	@RequestMapping("/stock/another")
 	public String mainAnotherHandler(){
-		return "stock/another";
+		return "/stock/another";
 	}
 	
 	@RequestMapping("/stock/secret")
 	public String mainSecretHandler(){
-		return "stock/secret";
+		return "/stock/secret";
 	}
 	
 
