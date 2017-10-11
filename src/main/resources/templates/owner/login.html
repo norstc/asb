@@ -14,15 +14,15 @@
 			<div th:if="${param.logout}">
 				<label style="color:green">已经登出</label>
 			</div>
-			<h1>login</h1>
+			<h1 th:text="#{login.title}">login</h1>
 			<form th:action="@{/owner/login}"  id="loginform" method = "post"  role="form">
 				<div class="form-group">
-					<label for="username">ownerName</label>
+					<label for="username" th:text="#{login.userName}">ownerName</label>
 					<!-- must use name="username" for spring boot default security settings -->
 					<input type = "text" class="form-control"  id="username" name="username"  placeholder="ownerName" />
 				</div>
 				<div class="form-group">
-					<label for="password">password</label>
+					<label for="password" th:text="#{login.password}">password</label>
 					<input type="password" class="form-control"  id="password" name="password" placeholder="password" />
 				</div>
 				

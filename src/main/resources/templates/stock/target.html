@@ -10,16 +10,16 @@
 		<div class="jumbotron">
 			
 			<div class="table-responsive" th:if="${stock != null }">
-				<h1>target</h1>
+				<h3 th:text="#{target.title}">target</h3>
 				<table class="table table-striped">
 				<thead>
 					<tr>
-						<th>Id</th>
-						<th>Stock Code</th>
-						<th>Stock Name</th>
-						<th>Current Price</th>
-						<th>AI Price</th>
-						<th>AI ROI</th>
+						<th th:text="#{target.id}">Id</th>
+						<th th:text="#{target.stockCode}">Stock Code</th>
+						<th th:text="#{target.stockName}">Stock Name</th>
+						<th th:text="#{target.currentPrice}">Current Price</th>
+						<th th:text="#{target.aiPrice}">AI Price</th>
+						<th th:text="#{target.aiRoi}">AI ROI</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -43,16 +43,16 @@
 
 			
 			<div class="table-responsive" th:if="${not #lists.isEmpty(stocks)}">
-				<h1>targets</h1>
+				<h3 th:text="#{targets.title}">targets</h3>
 				<table class="table table-striped">
 				<thead>
 					<tr>
-						<th>Id</th>
-						<th>Stock Code</th>
-						<th>Stock Name</th>
-						<th>Current Price</th>
-						<th>AI Price</th>
-						<th>AI ROI</th>
+						<th th:text="#{target.id}">Id</th>
+						<th th:text="#{target.stockCode}">Stock Code</th>
+						<th th:text="#{target.stockName}">Stock Name</th>
+						<th th:text="#{target.currentPrice}">Current Price</th>
+						<th th:text="#{target.aiPrice}">AI Price</th>
+						<th th:text="#{target.aiRoi}">AI ROI</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -75,8 +75,8 @@
 			
 			<div th:if="${stock==null}">
 				<ul class="nav nav-pills">
-					<li><a class="btn btn-default" href="/stock/target/add">增加</a></li>
-					<li><a class="btn btn-info" href="/">返回</a></li>
+					<li><a class="btn btn-default"  th:href="@{'/stock/target/add'}">增加</a></li>
+					<li><a class="btn btn-info"  th:href="@{'/'}">返回</a></li>
 					
 				</ul>
 			</div>

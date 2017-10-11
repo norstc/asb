@@ -48,7 +48,7 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/h2console">漫步记账</a>
+            <a class="navbar-brand" href="#">漫步记账</a>
           </div>
           <div id="navbar" class="navbar-collapse collapse" th:with="view=${#httpServletRequest.getServletPath()}">
             <ul class="nav navbar-nav" >
@@ -61,11 +61,13 @@
                 <ul class="dropdown-menu">
                   <li><a href="/aboutus">关于</a></li>
                   <li><a href="/help">帮助</a></li>
+                  <!-- todo
                   <li role="separator" class="divider"></li>
                   <li class="dropdown-header">B计划</li>
                   <li><a href="/stock/select">选股器</a></li>
                   <li><a href="/stock/secret">小秘密</a></li>
                   <li><a href="/stock/another">还有一个</a></li>
+                   -->
                 </ul>
               </li>
             </ul>
@@ -86,7 +88,7 @@
         <h1>欢迎使用漫步记账</h1>
         <p>最专业的股票投资记录平台，依据价值分析，提供股票池，投资记录，账目明细。</p>
         <p>
-          <a class="btn btn-lg btn-primary" href="/help" role="button">更多详情 &raquo;</a>
+          <a class="btn btn-lg btn-primary" href="help" role="button">更多详情 &raquo;</a>
         </p>
       </div>
 

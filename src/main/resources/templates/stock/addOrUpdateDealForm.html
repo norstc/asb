@@ -8,17 +8,17 @@
 		<nav th:replace="fragments/layout::navbar"></nav>
 		
 		<div class = "jumbotron" th:object="${dealEntity}">
-			<h1 th:with="text=${dealEntity.isBuy}?'add a deal':'sell some'" th:text="${text}">add a deal</h1>
+			<h3 th:with="text=${dealEntity.isBuy}?#{deal.form.addADeal}:#{deal.form.sellSome}" th:text="${text}">add a deal</h3>
 			
 			<div class="table-responsive" th:if="${dealEntity.isBuy}">
-				<h2>balance</h2>
+				<h2 th:text="#{balance.title}">balance</h2>
 				<table class="table table-striped">
 					<thead>
 						<tr>
-							<th>cash Start</th>
-							<th>cash Left</th>
-							<th>market Left</th>
-							<th>profit</th>
+							<th th:text="#{balance.cashStart}">cash Start</th>
+							<th th:text="#{balance.cashLeft}">cash Left</th>
+							<th th:text="#{balance.marketLeft}">market Left</th>
+							<th th:text="#{balance.cashProfit}">cash profit</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -31,15 +31,15 @@
 					</tbody>
 				</table>
 			</div>
-			<h2>Deal</h2>
+			<h2 th:text="#{deal.title}">Deal</h2>
 			<form  id="add_new_deal" method="post" role="form">
 				<div class="form-group" >
-					<label for="stockCode">stockCode</label>
+					<label for="stockCode" th:text="#{deal.stockCode}">stockCode</label>
 					<select th:field="${dealEntity.stockCode}" th:if="${dealEntity.isBuy and !isUpdate} ">
 						<option th:each="stock:${stocks}" th:value="${stock.stockCode}"  th:text="${stock.stockCode}" >[option] </option>
 					</select>
 					<input type="text" class="form-control" id="stockCode" th:field="${dealEntity.stockCode}"  th:if="${isUpdate}"/>
-					<input type="text" class="form-control" id="stockCode" th:field="${dealEntity.stockCode}"  th:if="${dealEntity.isBuy} == false" placeholder="请输入股票代码stockCode[6位股票代码]"/>
+					<input type="text" class="form-control" id="stockCode" th:field="${dealEntity.stockCode}"  th:if="${dealEntity.isBuy} == false" th:placeholder="#{deal.form.placeholder.stockCode}"/>
 				</div>
 				
 				<div class="form-group">
@@ -48,40 +48,40 @@
 				
 
 				<div class="form-group" >
-					<label for="buyTime">buyTime</label>
-					<input type="text" class="form-control" id="buyTime" th:field="${dealEntity.buyTime}" placeholder="请输入买入时间buyTime[yyyy/mm/dd]"/>
+					<label for="buyTime"  th:text="#{deal.buyTime}">buyTime</label>
+					<input type="text" class="form-control" id="buyTime" th:field="${dealEntity.buyTime}" th:placeholder="#{deal.form.placeholder.buyTime}"/>
 					<p th:if="${#fields.hasErrors('buyTime')}" th:text="#{date.error}" >buy time error</p>
 					
 				</div>
 				
 				<div class="form-group" >
-					<label for="buyPrice">buyPrice</label>
-					<input type="text" class="form-control" id="buyPrice" th:field="${dealEntity.buyPrice}" placeholder="请输入买入价格buyPrice"/>
+					<label for="buyPrice"  th:text="#{deal.buyPrice}">buyPrice</label>
+					<input type="text" class="form-control" id="buyPrice" th:field="${dealEntity.buyPrice}" th:placeholder="#{deal.form.placeholder.buyPrice}"/>
 					<p th:if="${#fields.hasErrors('buyPrice')}" th:errors="*{buyPrice}">buy price error</p>
 				</div>
 				
 				<div class="form-group" >
-					<label for="buyQuantity">buyQuantity</label>
-					<input type="text" class="form-control" id="buyQuantity" th:field="${dealEntity.buyQuantity}" placeholder="请输入买入数量buyQuantity"/>
+					<label for="buyQuantity"  th:text="#{deal.buyQuantity}">buyQuantity</label>
+					<input type="text" class="form-control" id="buyQuantity" th:field="${dealEntity.buyQuantity}" th:placeholder="#{deal.form.placeholder.buyQuantity}"/>
 					<p th:if="${#fields.hasErrors('buyQuantity')}" th:errors="*{buyQuantity}">buy quantity error </p>
 				</div>
 				
 				<div class="form-group" th:if="${dealEntity.isBuy } == false">
-					<label for="sellTime">sellTime</label>
-					<input type="text" class="form-control" id="sellTime" th:field="${dealEntity.sellTime}" placeholder="请输入卖出时间sellTime[yyyy/mm/dd]"/>
+					<label for="sellTime"  th:text="#{deal.sellTime}">sellTime</label>
+					<input type="text" class="form-control" id="sellTime" th:field="${dealEntity.sellTime}" th:placeholder="#{deal.form.placeholder.sellTime}"/>
 					<p th:if="${#fields.hasErrors('sellTime')}" th:text="#{date.error}" >sell time error</p>
 					
 				</div>
 				
 				<div class = "form-group" th:if="${dealEntity.isBuy}  == false">
-					<label for="sellPrice">sellPrice</label>
-					<input type="text" class="form-control" id="sellPrice" th:field="${dealEntity.sellPrice}" placeholder="请输入卖出价格sellPrice"/>
+					<label for="sellPrice"  th:text="#{deal.sellPrice}">sellPrice</label>
+					<input type="text" class="form-control" id="sellPrice" th:field="${dealEntity.sellPrice}" th:placeholder="#{deal.form.placeholder.sellPrice}"/>
 					<p th:if="${#fields.hasErrors('sellPrice')}" th:errors="*{sellPrice}">sell price error</p>
 				</div>
 				
 				<div class="form-group" th:if="${dealEntity.isBuy}  == false">
-					<label for="sellQuantity">sellQuantity</label>
-					<input type="text" class="form-control" id="sellQuantity" th:field="${dealEntity.sellQuantity}" placeholder="请输入卖出数量sellQuantity"/>
+					<label for="sellQuantity"  th:text="#{deal.sellQuantity}">sellQuantity</label>
+					<input type="text" class="form-control" id="sellQuantity" th:field="${dealEntity.sellQuantity}" th:placeholder="#{deal.form.placeholder.sellQuantity}"/>
 					<p th:if="${#fields.hasErrors('sellQuantity')}" th:errors="*{sellQuantity}">sell quantity error </p>
 				</div>
 				

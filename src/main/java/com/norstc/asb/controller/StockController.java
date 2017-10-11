@@ -103,7 +103,11 @@ public class StockController {
 			
 			this.stockService.add(stockEntity);
 			log.info("processAdd ok: , stockEntity is: " + stockEntity.getStockCode());
+<<<<<<< HEAD
 			return "redirect:"+stockEntity.getId();
+=======
+			return "redirect:/stock/target/"+stockEntity.getId();
+>>>>>>> branch 'master' of https://github.com/norstc/asb.git
 		}
 	}
 	
@@ -130,7 +134,11 @@ public class StockController {
 			oldStock.setAiPrice(stockEntity.getAiPrice());
 			
 			this.stockService.add(oldStock);
+<<<<<<< HEAD
 			return "redirect:" + oldStock.getId();
+=======
+			return "redirect:/stock/target/" + oldStock.getId();
+>>>>>>> branch 'master' of https://github.com/norstc/asb.git
 		}
 	}
 	
@@ -140,7 +148,11 @@ public class StockController {
 	public String deleteTargetHandler(@PathVariable Integer id){
 		StockEntity stockEntity = stockService.getStockById(id);
 		stockService.deleteStock(stockEntity);
+<<<<<<< HEAD
 		return "/stock/target";
+=======
+		return "redirect:/stock/target";
+>>>>>>> branch 'master' of https://github.com/norstc/asb.git
 	}
 	
 	//余额

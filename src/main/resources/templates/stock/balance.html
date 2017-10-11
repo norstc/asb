@@ -9,14 +9,14 @@
 		
 		<div class="jumbotron">
 			<div class="table-responsive" >
-				<h1>balance</h1>
+				<h3 th:text="#{balance.title}">balance</h3>
 				<table class="table table-striped">
 					<thead>
 						<tr>
-							<th>cash Start</th>
-							<th>cash Left</th>
-							<th>market Left</th>
-							<th>cash profit</th>
+							<th th:text="#{balance.cashStart}">cash Start</th>
+							<th th:text="#{balance.cashLeft}">cash Left</th>
+							<th th:text="#{balance.marketLeft}">market Left</th>
+							<th th:text="#{balance.cashProfit}">cash profit</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -35,20 +35,20 @@
 			
 			
 			<div class="table-responsive"  th:if="${not #lists.isEmpty(deals)}">
-				<h1>deals</h1>
+				<h3 th:text="#{deals.title}">deals</h3>
 				<table class="table table-striped">
 					<thead>
 						<tr>
-							<th>Id</th>
-							<th>Stock Code</th>
-							<th>Buy or Sell</th>
-							<th>Buy Time</th>
-							<th>Buy Price</th>
-							<th>Buy Quantity</th>
-							<th>Sell Time</th>
-							<th>Sell Price</th>
-							<th>Sell Quantity</th>
-							<th>Deal ROI</th>
+							<th th:text="#{deal.id}">Id</th>
+							<th th:text="#{deal.stockCode}">Stock Code</th>
+							<th th:text="#{deal.isBuy}">Buy or Sell</th>
+							<th th:text="#{deal.buyTime}">Buy Time</th>
+							<th th:text="#{deal.buyPrice}">Buy Price</th>
+							<th th:text="#{deal.buyQuantity}">Buy Quantity</th>
+							<th th:text="#{deal.sellTime}">Sell Time</th>
+							<th th:text="#{deal.sellPrice}">Sell Price</th>
+							<th th:text="#{deal.sellQuantity}">Sell Quantity</th>
+							<th th:text="#{deal.dealRoi}">Deal ROI</th>
 						</tr>
 					</thead>
 					<tbody>

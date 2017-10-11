@@ -8,7 +8,7 @@
 		<nav th:replace="fragments/layout::navbar"></nav>
 		
 		<div class="jumbotron">
-			<h1>regist</h1>
+			<h3 th:text="#{regist.title}">register</h3>
 			<form th:object="${ownerEntity}" id="add_new_owner" method="post" role="form">
 				<div class="form-group">
 					<label for="username">ownerName</label>
