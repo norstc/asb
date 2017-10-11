@@ -53,13 +53,13 @@ public class DealController {
 		String username = principal.getName();
 		OwnerEntity ownerEntity = this.ownerService.findByUsername(username);
 		model.addAttribute("deals",dealService.findByOwner(ownerEntity));
-		return "/stock/recorder";
+		return "stock/recorder";
 	}
 	
 	@RequestMapping("/stock/recorder/{id}")
 	public String recorderDetailHandler(@PathVariable Integer id, Model model){
 		model.addAttribute("deal",dealService.getDealById(id));
-		return "/stock/recorder";
+		return "stock/recorder";
 	}
 	
 	//显示买入表单
@@ -248,6 +248,6 @@ public class DealController {
 		}
 		this.dealService.deleteDeal(oldDeal);
 		
-		return "/stock/recorder/";
+		return "stock/recorder/";
 	}
 }
