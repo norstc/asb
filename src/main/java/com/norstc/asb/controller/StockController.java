@@ -103,7 +103,7 @@ public class StockController {
 			
 			this.stockService.add(stockEntity);
 			log.info("processAdd ok: , stockEntity is: " + stockEntity.getStockCode());
-			return "redirect:"+stockEntity.getId();
+			return "redirect:/stock/target/"+stockEntity.getId();
 
 		}
 	}
@@ -128,10 +128,14 @@ public class StockController {
 			return VIEWS_TARGET_ADD_OR_UPDATE_FORM;
 		}else{
 			StockEntity oldStock = stockService.getStockById(id);
+			oldStock.setStockCode(stockEntity.getStockCode());
+			oldStock.setStockName(stockEntity.getStockName());
+			oldStock.setCurrentPrice(stockEntity.getCurrentPrice());
 			oldStock.setAiPrice(stockEntity.getAiPrice());
+			oldStock.setAiRoi(stockEntity.getAiRoi());
 			
 			this.stockService.add(oldStock);
-			return "redirect:" + oldStock.getId();
+			return "redirect:/stock/target/" + oldStock.getId();
 
 		}
 	}
@@ -142,7 +146,7 @@ public class StockController {
 	public String deleteTargetHandler(@PathVariable Integer id){
 		StockEntity stockEntity = stockService.getStockById(id);
 		stockService.deleteStock(stockEntity);
-		return "stock/target";
+		return "redirect:/stock/target/";
 
 	}
 	

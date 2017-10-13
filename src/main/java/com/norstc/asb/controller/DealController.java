@@ -63,7 +63,7 @@ public class DealController {
 	}
 	
 	//显示买入表单
-	@RequestMapping(value="/stock/recoder/buy",method=RequestMethod.GET)
+	@RequestMapping(value="/stock/recorder/buy",method=RequestMethod.GET)
 	public String addDealHandler(Map<String,Object> modelMap, Model model,Principal principal){
 		String username = principal.getName();
 		OwnerEntity ownerEntity = ownerService.findByUsername(username);
@@ -81,7 +81,7 @@ public class DealController {
 	}
 	
 	//提交买入表单
-	@RequestMapping(value="/stock/recoder/buy",method=RequestMethod.POST)
+	@RequestMapping(value="/stock/recorder/buy",method=RequestMethod.POST)
 	public String processAddForm(@Valid DealEntity dealEntity, BindingResult result, Model model,Principal principal){
 		if(result.hasErrors()){
 			log.info("processAddForm result has error: dealEntity.getBuyOrSell(): " + dealEntity.getIsBuy() +"results : " + result.toString());
@@ -112,7 +112,7 @@ public class DealController {
 				ownerEntity.setCashLeft(cashLeft.subtract(cashNeed));
 				ownerEntity.setMarketLeft(ownerEntity.getMarketLeft().add(cashNeed));
 				this.ownerService.saveOrUpdate(ownerEntity);
-				return "redirect:"+dealEntity.getId();
+				return "redirect:/stock/recorder/"+dealEntity.getId();
 			}
 			
 		}
@@ -174,7 +174,7 @@ public class DealController {
 			ownerEntity.setCashProfit(ownerEntity.getCashProfit().add(oldDeal.getDealRoi()));
 			this.ownerService.saveOrUpdate(ownerEntity);
 			
-			return "redirect:" + oldDeal.getId();
+			return "redirect:/stock/recorder/" + oldDeal.getId();
 		}
 	}
 	//修改deal
@@ -227,7 +227,7 @@ public class DealController {
 			
 			this.ownerService.saveOrUpdate(ownerEntity);
 			this.dealService.add(oldDeal);
-			return "redirect:" + dealEntity.getId();
+			return "redirect:/stock/recorder/" + dealEntity.getId();
 		}
 	}
 	//删除deal
@@ -248,6 +248,6 @@ public class DealController {
 		}
 		this.dealService.deleteDeal(oldDeal);
 		
-		return "stock/recorder/";
+		return "redirect:/stock/recorder/";
 	}
 }
