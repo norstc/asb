@@ -39,6 +39,7 @@ public class ScheduledTasks {
 	
 	//更新到数据库
 	@Scheduled(fixedDelay = 15000)
+	//@Scheduled(cron = "*/15 * 9-15 * * MON-FRI")
 	public void updateStockEntity(){
 		BigDecimal stockCurrentPrice = new BigDecimal(100.0);
 		BigDecimal stockAiRoi = new BigDecimal(0);
@@ -47,7 +48,8 @@ public class ScheduledTasks {
 		for (StockEntity oneStockEntity :listStockEntity){
 			//log.info("stock code is {}", oneStockEntity.getStockCode());
 			String stockCode = oneStockEntity.getStockCode();
-			String quoteUrl="http://hq.sinajs.cn/list=sh" + stockCode;
+			String stockMarket = getStockMarket(stockCode);
+			String quoteUrl=stockMarket + stockCode;
 			String result = null;
 			try {
 				result = doGetQuote(quoteUrl);
@@ -66,6 +68,33 @@ public class ScheduledTasks {
 		}
 	}
 	
+	//根据证券代码识别是深圳还是上海
+	private String getStockMarket(String stockCode) {
+		if(stockCode == null) {
+			log.info("stockCode is null");
+			return null;
+		}else{
+			log.info("Stock Code is: " + stockCode);
+		}
+		String stockMarket = null;
+		char firstDigit = stockCode.charAt(0);
+		if(firstDigit == '\0'){
+			log.info("firstDigit is null");
+			return null;
+		}else{
+			log.info("firstDigit is : " + firstDigit);
+		}
+		switch (firstDigit) {
+		case '6' : stockMarket="http://hq.sinajs.cn/list=sh";
+		break;
+		case '0' : stockMarket="http://hq.sinajs.cn/list=sz";
+		break;
+		default : stockMarket="http://hq.sinajs.cn/list=sh";
+		break;
+		}
+		return stockMarket;
+	}
+
 	//定时任务示例
 	@Scheduled(initialDelay = 10000, fixedDelay=5000)
 	public void reportCurrentTime(){
@@ -97,11 +126,13 @@ public class ScheduledTasks {
 		//log.info("the current price is {}",result );
 	}
 
+	//从字符串中获得报价
 	private String doGetQuote(String quoteUrl) throws Exception {
 		URL url = null;
 		BufferedReader reader = null;
 		StringBuilder stringBuilder;
 		
+		log.info("get " + quoteUrl);
 		try{
 			url = new URL(quoteUrl);
 			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -117,6 +148,7 @@ public class ScheduledTasks {
 				stringBuilder.append(line + "\n");
 			}
 			String ret = stringBuilder.toString();
+			log.info("ret is :" + ret);
 			String[] aret = ret.split(",");
 			//按 ‘，’ 拆分后，第4个元素是当前价格，第一元素中是证券名称，有乱码，待解决
 			return aret[3];
