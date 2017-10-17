@@ -38,8 +38,9 @@ public class ScheduledTasks {
 	}
 	
 	//更新到数据库
-	@Scheduled(fixedDelay = 15000)
-	//@Scheduled(cron = "*/15 * 9-15 * * MON-FRI")
+	//@Scheduled(fixedDelay = 15000)
+	//9:00, 9:30, 10:00, 10:30 ~ 15:00 15:30 every monday to friday
+	@Scheduled(cron = "0 0/30 9-15 * * MON-FRI")
 	public void updateStockEntity(){
 		BigDecimal stockCurrentPrice = new BigDecimal(100.0);
 		BigDecimal stockAiRoi = new BigDecimal(0);
@@ -96,7 +97,7 @@ public class ScheduledTasks {
 	}
 
 	//定时任务示例
-	@Scheduled(initialDelay = 10000, fixedDelay=5000)
+	//@Scheduled(initialDelay = 10000, fixedDelay=5000)
 	public void reportCurrentTime(){
 		//System.out.println("test for scheduled task");
 		//log.info("The time is now {}",dateFormat.format(new Date()));
@@ -111,7 +112,7 @@ public class ScheduledTasks {
     // "0 0 0 25 12 ?" = every Christmas Day at midnight
 
 	//定时任务示例2：从sina获取股票价格
-	@Scheduled(cron = "*/15 * 9-15 * * MON-FRI")
+	//@Scheduled(cron = "*/15 * 9-15 * * MON-FRI")
 	public void getStockPrice(){
 		//System.out.println("test for stock price");
 		String stockCode="600000";
