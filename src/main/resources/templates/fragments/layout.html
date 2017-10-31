@@ -53,13 +53,13 @@
           <div id="navbar" class="navbar-collapse collapse" th:with="view=${#httpServletRequest.getServletPath()}">
             <ul class="nav navbar-nav" >
               <li th:class="${#strings.startsWith(view,'/welcome')?'active':''}"><a href="/welcome">主页</a></li>
-              <li th:class="${#strings.startsWith(view,'/stock/target')?'active':''}"><a href="/stock/target">股票池</a></li>
-              <li th:class="${#strings.startsWith(view,'/stock/recorder')?'active':''}"><a href="/stock/recorder">记一笔</a></li>
-              <li th:class="${#strings.startsWith(view,'/stock/balance')?'active':''}"><a href="/stock/balance">帐目表</a></li>
-              <li class="dropdown">
+              <li th:class="${#strings.startsWith(view,'/stock/target')?'active':''}" sec:authorize="isAuthenticated()"><a href="/stock/target">股票池</a></li>
+              <li th:class="${#strings.startsWith(view,'/stock/recorder')?'active':''}" sec:authorize="isAuthenticated()"><a href="/stock/recorder">记一笔</a></li>
+              <li th:class="${#strings.startsWith(view,'/stock/balance')?'active':''}" sec:authorize="isAuthenticated()"><a href="/stock/balance">帐目表</a></li>
+              <li class="dropdown" >
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">其他 <span class="caret"></span></a>
-                <ul class="dropdown-menu">
-                  <li><a href="/aboutus">关于</a></li>
+                <ul class="dropdown-menu" >
+                  <li ><a href="/aboutus">关于</a></li>
                   <li><a href="/help">帮助</a></li>
                   <!-- todo
                   <li role="separator" class="divider"></li>
@@ -72,9 +72,9 @@
               </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-              <li th:class="${#strings.startsWith(view,'/owner/login')?'active':''}"><a href="/owner/login">登录<span class="sr-only">(current)</span></a></li>
-              <li th:class="${#strings.startsWith(view,'/owner/regist')?'active':''}"><a href="/owner/regist">注册</a></li>
-              <li th:class="${#strings.startsWith(view,'/owner/logout')?'active':''}"><a href="/owner/logout">退出</a></li>
+              <li th:class="${#strings.startsWith(view,'/owner/login')?'active':''}" sec:authorize="isAnonymous()"><a href="/owner/login">登录<span class="sr-only">登录</span></a></li>
+              <li th:class="${#strings.startsWith(view,'/owner/regist')?'active':''}" sec:authorize="isAuthenticated()"><a href="/owner/editpasswd">修改密码</a></li>
+              <li th:class="${#strings.startsWith(view,'/owner/logout')?'active':''}" sec:authorize="isAuthenticated()"><a href="/owner/logout">退出</a></li>
             </ul>
           </div><!--/.nav-collapse -->
           <div sec:authorize="isAuthenticated()">

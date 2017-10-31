@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" >
+
+<head th:replace="fragments/layout :: common_header"></head>
+
+<body>
+	<div class="container">
+		<nav th:replace="fragments/layout::navbar"></nav>
+		
+		<div class="jumbotron">
+			<h3 th:text="#{editpasswd.title}">editpasswd</h3>
+			<form th:object="${ownerEntity}" id="edit_passwd" method="post" role="form">
+				
+				<div class="form-group">
+					<label for="old_password">old_password</label>
+					<input type="password" class="form-control" id="password"  th:field="${ownerEntity.password}" placeholder="password" />
+					<p th:if="${#fields.hasErrors('password')}" th:errors="${ownerEntity.password}">password error</p>
+				</div>
+				
+				<div class="form-group">
+					<label for="new_password">new_password</label>
+					<input type="password" class="form-control" id="password"  th:field="${ownerEntity.password}" placeholder="password" />
+					<p th:if="${#fields.hasErrors('password')}" th:errors="${ownerEntity.password}">password error</p>
+				</div>
+				
+				<div class="form-group">
+					<label for="comfirmPassword">comfirmPassword</label>
+					<input type="password" class="form-control" id="comfirmPassword" th:field="${ownerEntity.confirmPassword}" placeholder="confirmPassword" />
+					<p th:if="${#fields.hasErrors('confirmPassword')}" th:errors="${ownerEntity.confirmPassword}">confirmPassword error</p>
+				</div>
+								
+				<button type="submit" class="btn btn-default">确认</button>
+			</form>
+			
+		</div>
+		
+		
+		<div th:replace="fragments/footer :: footer"></div>
+	
+	
+	</div> <!-- /container -->
+	
+	
+	
+	<!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="/js/jquery-3.2.1.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="/js/ie10-viewport-bug-workaround.js"></script>
+    
+    
+</body>
+</html>
