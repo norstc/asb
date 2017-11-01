@@ -35,6 +35,7 @@ public class OwnerEntity extends PersonEntity{
 	@NotEmpty
 	private String username;
 	
+	//不保存到数据库
 	@Transient
 	private String password;
 	

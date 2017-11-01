@@ -1,6 +1,7 @@
 package com.norstc.asb.controller;
 
 import java.math.BigDecimal;
+import java.security.Principal;
 import java.util.Map;
 
 import javax.validation.Valid;
@@ -63,7 +64,7 @@ public class WelcomeController {
 	
 	
 	//user part
-	
+	//登录页面GET
 	@RequestMapping(value = "/owner/login", method =  RequestMethod.GET)
 	public String userLoginHandler(){
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -78,7 +79,7 @@ public class WelcomeController {
 		
 	}
 	
-	
+	//登出页面
 	
 	@RequestMapping("/owner/logout")
 	public String userLogoutHandler(){
@@ -106,7 +107,7 @@ public class WelcomeController {
 				ownerEntity.setCashProfit(new BigDecimal(0));
 				this.ownerService.saveOrUpdate(ownerEntity);
 				log.info("add new owner: " + ownerEntity.getUsername());
-				return "redirect:welcome";
+				return "redirect:/welcome";
 			}else{
 				//ObjectError error = new ObjectError("confirmPassword", "should be same with password");
 				//result.addError(error);
@@ -117,4 +118,37 @@ public class WelcomeController {
 		}
 	}
 	
+	
+	//修改密码
+	//修改密码GET
+	@RequestMapping(value="/owner/editpasswd", method = RequestMethod.GET)
+	public String editpasswdHandler(Map<String,Object> model, Principal principal){
+		String username = principal.getName();
+		OwnerEntity ownerEntity = ownerService.findByUsername(username);
+		
+		model.put("ownerEntity", ownerEntity);
+		return "owner/editpasswd";
+	}
+	//修改密码POST
+	@RequestMapping(value="/owner/editpasswd",method = RequestMethod.POST)
+	public String editpasswdProcess(@Valid OwnerEntity ownerEntity, BindingResult result, Principal principal){
+		String username = principal.getName();
+		OwnerEntity oldOwnerEntity = ownerService.findByUsername(username);
+		if(result.hasErrors()){
+			log.info("editpasswd process failed: " + result.toString());
+			return "owner/editpasswd";
+		}else{
+			if(ownerEntity.getPassword().equals(ownerEntity.getConfirmPassword())){
+				oldOwnerEntity.setPassword(ownerEntity.getPassword());
+				this.ownerService.saveOrUpdate(oldOwnerEntity);
+				log.info("update owner: " + oldOwnerEntity.getUsername());
+				return "redirect:/stock/target/";
+			}else{
+				result.rejectValue("confirmPassword", "error.ownerEntity","confirmPassword should be same as password");
+				return "redirect:/stock/target/";
+			}
+			
+		}
+		
+	}
 }
