@@ -73,7 +73,7 @@
             </ul>
             <ul class="nav navbar-nav navbar-right">
               <li th:class="${#strings.startsWith(view,'/owner/login')?'active':''}" sec:authorize="isAnonymous()"><a href="/owner/login">登录<span class="sr-only">登录</span></a></li>
-              <li th:class="${#strings.startsWith(view,'/owner/login')?'active':''}" sec:authorize="isAnonymous()"><a href="/owner/regist">注册<span class="sr-only">注册</span></a></li>
+              <li th:class="${#strings.startsWith(view,'/owner/login')?'active':''}" sec:authorize="hasAuthority('ADMIN')"><a href="/owner/regist">注册<span class="sr-only">注册</span></a></li>
               <li th:class="${#strings.startsWith(view,'/owner/regist')?'active':''}" sec:authorize="isAuthenticated()"><a href="/owner/editpasswd">修改密码</a></li>
               <li th:class="${#strings.startsWith(view,'/owner/logout')?'active':''}" sec:authorize="isAuthenticated()"><a href="/owner/logout">退出</a></li>
             </ul>

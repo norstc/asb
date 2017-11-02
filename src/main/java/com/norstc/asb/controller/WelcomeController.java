@@ -2,6 +2,8 @@ package com.norstc.asb.controller;
 
 import java.math.BigDecimal;
 import java.security.Principal;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import javax.validation.Valid;
@@ -19,18 +21,24 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.norstc.asb.owner.OwnerEntity;
 import com.norstc.asb.owner.OwnerService;
+import com.norstc.asb.owner.RoleEntity;
+import com.norstc.asb.owner.RoleService;
 
 
 @Controller
 public class WelcomeController {
 	private static final Logger log = LoggerFactory.getLogger(WelcomeController.class);
 	private OwnerService ownerService;
-	
+	private RoleService roleService;
 	@Autowired
 	public void setOwnerService(OwnerService ownerService){
 		this.ownerService = ownerService;
 	}
 	
+	@Autowired
+	public void setRoleService(RoleService roleService){
+		this.roleService= roleService;
+	}
 	@RequestMapping("/")
 	public String homeHandler(){
 		return "redirect:/welcome";
@@ -97,6 +105,8 @@ public class WelcomeController {
 	//提交表单
 	@RequestMapping(value  = "/owner/regist", method = RequestMethod.POST)
 	public String processRegist(@Valid OwnerEntity ownerEntity, BindingResult result){
+		
+		
 		if(result.hasErrors()){
 			log.info("form has error : " + result.toString());
 			return "owner/regist";
@@ -105,6 +115,16 @@ public class WelcomeController {
 				ownerEntity.setCashLeft(ownerEntity.getCashStart());
 				ownerEntity.setMarketLeft(new BigDecimal(0));
 				ownerEntity.setCashProfit(new BigDecimal(0));
+				
+				//注册的帐号全部是'USER'角色
+				RoleEntity roleEntity = roleService.getById(2);
+				List<RoleEntity> roles = new ArrayList<>();
+				roles.add(roleEntity);
+				ownerEntity.setRoles(roles);
+				
+				//注册的帐号全部是1级
+				ownerEntity.setOwnerLevel(1);
+				
 				this.ownerService.saveOrUpdate(ownerEntity);
 				log.info("add new owner: " + ownerEntity.getUsername());
 				return "redirect:/welcome";
