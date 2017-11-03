@@ -1,32 +1,64 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" >
+<html xmlns:th="http://www.thymeleaf.org">
 
 <head th:replace="fragments/layout :: common_header"></head>
 
 <body>
 	<div class="container">
 		<nav th:replace="fragments/layout::navbar"></nav>
-		
-		<div class="jumbotron">
-			<h1>帮助</h1>
+
+
+		<div id="myCarousel" class="carousel slide">
+			<!-- 轮播（Carousel）指标 -->
+			<ol class="carousel-indicators">
+				<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+				<li data-target="#myCarousel" data-slide-to="1"></li>
+				<li data-target="#myCarousel" data-slide-to="2"></li>
+			</ol>
+			<!-- 轮播（Carousel）项目 -->
+			<div class="carousel-inner">
+				<div class="item active">
+					<img src="/images/slide1.jpg" alt="First slide"/>
+					<div class="carousel-caption">
+						<p>股票池锁定目标</p>
+					</div>
+				</div>
+				<div class="item">
+					<img src="/images/slide2.jpg" alt="Second slide"/>
+					<div class="carousel-caption">
+						<p>记一笔掌控交易</p>
+					</div>
+				</div>
+				<div class="item">
+					<img src="/images/slide3.jpg" alt="Third slide"/>
+					<div class="carousel-caption">
+						<p>账户明细一览</p>
+					</div>
+				</div>
+			</div>
+			<!-- 轮播（Carousel）导航 -->
+			<a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
+			<a class="carousel-control right" href="#myCarousel" 	data-slide="next">&rsaquo;</a>
 		</div>
+
 		
-		
+
 		<div th:replace="fragments/footer :: footer"></div>
-	
-	
-	</div> <!-- /container -->
-	
-	
-	
+
+
+	</div>
+	<!-- /container -->
+
+
+
 	<!-- Bootstrap core JavaScript
     ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="/js/jquery-3.2.1.min.js"></script>
-    <script src="/js/bootstrap.min.js"></script>
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script src="/js/ie10-viewport-bug-workaround.js"></script>
-    
-    
+	<!-- Placed at the end of the document so the pages load faster -->
+	<script src="/js/jquery-3.2.1.min.js"></script>
+	<script src="/js/bootstrap.min.js"></script>
+	<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+	<script src="/js/ie10-viewport-bug-workaround.js"></script>
+
+
 </body>
 </html>

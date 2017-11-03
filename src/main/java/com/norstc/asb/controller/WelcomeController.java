@@ -110,6 +110,12 @@ public class WelcomeController {
 		if(result.hasErrors()){
 			log.info("form has error : " + result.toString());
 			return "owner/regist";
+		}
+		//数据库已有用户
+		if(ownerService.findByUsername(ownerEntity.getUsername()) != null){
+			log.info("user already exist");
+			result.rejectValue("username", "error.ownerEntity","user already exist");
+			return "owner/regist";
 		}else{
 			if(ownerEntity.getPassword().equals(ownerEntity.getConfirmPassword())){
 				ownerEntity.setCashLeft(ownerEntity.getCashStart());

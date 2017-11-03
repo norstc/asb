@@ -1,32 +1,42 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" >
+<html xmlns:th="http://www.thymeleaf.org">
 
 <head th:replace="fragments/layout :: common_header"></head>
 
 <body>
 	<div class="container">
 		<nav th:replace="fragments/layout::navbar"></nav>
-		
-		<div class="jumbotron">
-			<h1>我们也很好</h1>
+
+		<div class="panel panel-default">
+			<div class="panel-heading">野牛实验室</div>
+			<div class="panel-body">
+				<p>欢迎访问野牛实验室，我们是专业的软件技术团队，主要面向医生，工程师，家庭主妇等缺少专业投资知识的客户提供投资技术咨询服务。</p>
+			</div>
+			<ul class="list-group">
+				<li class="list-group-item">股票池确定目标和期望空间</li>
+				<li class="list-group-item">记一笔简单快捷的追踪交易记录</li>
+				<li class="list-group-item">账目明细一览无疑</li>
+				<li class="list-group-item">全天技术支持</li>
+				<li class="list-group-item">每年更新成本</li>
+			</ul>
 		</div>
-		
-		
+
 		<div th:replace="fragments/footer :: footer"></div>
-	
-	
-	</div> <!-- /container -->
-	
-	
-	
+
+
+	</div>
+	<!-- /container -->
+
+
+
 	<!-- Bootstrap core JavaScript
     ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="/js/jquery-3.2.1.min.js"></script>
-    <script src="/js/bootstrap.min.js"></script>
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script src="/js/ie10-viewport-bug-workaround.js"></script>
-    
-    
+	<!-- Placed at the end of the document so the pages load faster -->
+	<script src="/js/jquery-3.2.1.min.js"></script>
+	<script src="/js/bootstrap.min.js"></script>
+	<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+	<script src="/js/ie10-viewport-bug-workaround.js"></script>
+
+
 </body>
 </html>
