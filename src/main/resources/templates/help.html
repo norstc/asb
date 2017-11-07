@@ -8,7 +8,7 @@
 		<nav th:replace="fragments/layout::navbar"></nav>
 
 
-		<div id="myCarousel" class="carousel slide">
+		<div id="myCarousel" class="carousel slide" data-ride="carousel">
 			<!-- 轮播（Carousel）指标 -->
 			<ol class="carousel-indicators">
 				<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
@@ -18,22 +18,16 @@
 			<!-- 轮播（Carousel）项目 -->
 			<div class="carousel-inner">
 				<div class="item active">
-					<img src="/images/slide1.jpg" alt="First slide"/>
-					<div class="carousel-caption">
-						<p>股票池锁定目标</p>
-					</div>
+					<img src="/images/slide1.jpg" alt="First slide" />
+					
 				</div>
 				<div class="item">
-					<img src="/images/slide2.jpg" alt="Second slide"/>
-					<div class="carousel-caption">
-						<p>记一笔掌控交易</p>
-					</div>
+					<img src="/images/slide2.jpg" alt="Second slide" />
+					
 				</div>
 				<div class="item">
-					<img src="/images/slide3.jpg" alt="Third slide"/>
-					<div class="carousel-caption">
-						<p>账户明细一览</p>
-					</div>
+					<img src="/images/slide3.jpg" alt="Third slide" />
+					
 				</div>
 			</div>
 			<!-- 轮播（Carousel）导航 -->
