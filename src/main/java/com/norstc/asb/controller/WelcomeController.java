@@ -41,7 +41,16 @@ public class WelcomeController {
 	}
 	@RequestMapping("/")
 	public String homeHandler(){
-		return "redirect:/welcome";
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String username = authentication.getName();
+		if(username.equals("anonymousUser")){
+			
+			return "welcome";
+		}else{
+			log.info("have logged in as :  " + username);
+			return "redirect:/stock/target";
+		}
+		
 	}
 	
 	@RequestMapping("/welcome")
