@@ -107,6 +107,12 @@ public class StockController {
 			OwnerEntity ownerEntity = this.ownerService.findByUsername(ownerName);
 			ownerStocks = this.stockService.findByOwner(ownerEntity);
 			
+			//检查目标总数是否超过7*level
+			if(ownerStocks.size() >= 7*ownerEntity.getOwnerLevel()){
+				result.rejectValue("stockCode", "error.stockEntity", "已经超出用户当前可以添加的目标数量" +7*ownerEntity.getOwnerLevel() );
+				log.info("stock quantity is up to owner level limit" + 7*ownerEntity.getOwnerLevel());
+				return VIEWS_TARGET_ADD_OR_UPDATE_FORM;
+			}
 			boolean inStocks = false;
 			for (StockEntity se: ownerStocks){
 				if(se.getStockCode().equals(stockEntity.getStockCode())){
