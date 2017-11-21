@@ -1,6 +1,7 @@
 package com.norstc.asb.controller;
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -99,11 +100,31 @@ public class StockController {
 			return VIEWS_TARGET_ADD_OR_UPDATE_FORM;
 		}else{
 			
+			//检查是否是重复的stock
+			StockEntity oldStockEntity = new StockEntity();
+			List<StockEntity> ownerStocks = new ArrayList<StockEntity>();
+			String ownerName = principal.getName();
+			OwnerEntity ownerEntity = this.ownerService.findByUsername(ownerName);
+			ownerStocks = this.stockService.findByOwner(ownerEntity);
 			
+			boolean inStocks = false;
+			for (StockEntity se: ownerStocks){
+				if(se.getStockCode().equals(stockEntity.getStockCode())){
+					inStocks = true;
+				}
+			}
+			if (inStocks){
+				//已经添加过了
+				log.info("stock already added: " + stockEntity.getStockCode());
+				result.rejectValue("stockCode", "error.stockEntity","stock already exist");
+				return VIEWS_TARGET_ADD_OR_UPDATE_FORM;
+			}else{
+				this.stockService.add(stockEntity);
+				log.info("processAdd ok: , stockEntity is: " + stockEntity.getStockCode());
+				return "redirect:/stock/target/"+stockEntity.getId();
+			}
+		
 			
-			this.stockService.add(stockEntity);
-			log.info("processAdd ok: , stockEntity is: " + stockEntity.getStockCode());
-			return "redirect:/stock/target/"+stockEntity.getId();
 
 		}
 	}

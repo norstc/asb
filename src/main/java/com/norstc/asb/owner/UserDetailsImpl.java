@@ -43,7 +43,7 @@ public class UserDetailsImpl implements UserDetails{
 
 	@Override
 	public String getUsername() {
-		log.info("get user name " + username);
+		//log.info("get user name " + username);
 		return username;
 	}
 

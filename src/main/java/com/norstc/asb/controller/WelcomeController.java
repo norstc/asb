@@ -82,7 +82,7 @@ public class WelcomeController {
 			return "owner/login";
 		}else{
 			log.info("have logged in as :  " + username);
-			return "welcome";
+			return "stock/target";
 		}
 		
 	}
