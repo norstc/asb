@@ -36,7 +36,7 @@
 				<div class="form-group" >
 					<label for="stockCode" th:text="#{deal.stockCode}">stockCode</label>
 					<select th:field="${dealEntity.stockCode}" th:if="${dealEntity.isBuy and !isUpdate} ">
-						<option th:each="stock:${stocks}" th:value="${stock.stockCode}"  th:text="${stock.stockCode}" >[option] </option>
+						<option th:each="stock:${stocks}" th:value="${stock.stockCode}"  th:text="${stock.stockCode + '/' + stock.stockName}" >[option] </option>
 					</select>
 					<input type="text" class="form-control" id="stockCode" th:field="${dealEntity.stockCode}"  th:if="${isUpdate}"/>
 					<input type="text" class="form-control" id="stockCode" th:field="${dealEntity.stockCode}"  th:if="${dealEntity.isBuy} == false" th:placeholder="#{deal.form.placeholder.stockCode}"/>
