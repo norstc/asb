@@ -1,5 +1,6 @@
 package com.norstc.asb.controller;
 
+import java.math.BigDecimal;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
@@ -159,8 +160,11 @@ public class StockController {
 			oldStock.setStockName(stockEntity.getStockName());
 			oldStock.setCurrentPrice(stockEntity.getCurrentPrice());
 			oldStock.setAiPrice(stockEntity.getAiPrice());
-			oldStock.setAiRoi(stockEntity.getAiRoi());
-			
+			//更新目标价格后立即计算出当前预期收益率
+			BigDecimal roi = stockEntity.getAiPrice().subtract(stockEntity.getCurrentPrice());
+			log.info("roi is " + roi);
+			log.info("stockEntity.getCurrentPrice() is " + stockEntity.getCurrentPrice());
+			oldStock.setAiRoi(roi.divide(stockEntity.getCurrentPrice(),2));
 			this.stockService.add(oldStock);
 			return "redirect:/stock/target/" + oldStock.getId();
 
