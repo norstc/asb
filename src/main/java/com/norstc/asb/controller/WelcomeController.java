@@ -173,14 +173,21 @@ public class WelcomeController {
 			log.info("editpasswd process failed: " + result.toString());
 			return "owner/editpasswd";
 		}else{
+			//密码不可为空
+			if(ownerEntity.getPassword().equals("")){
+				log.info("password cant be null");
+				result.rejectValue("password", "error.ownerEntity","密码不可为空");
+				return "owner/editpasswd";
+			}
 			if(ownerEntity.getPassword().equals(ownerEntity.getConfirmPassword())){
 				oldOwnerEntity.setPassword(ownerEntity.getPassword());
 				this.ownerService.saveOrUpdate(oldOwnerEntity);
 				log.info("update owner: " + oldOwnerEntity.getUsername());
 				return "redirect:/stock/target/";
 			}else{
+				log.info("密码不一致");
 				result.rejectValue("confirmPassword", "error.ownerEntity","confirmPassword should be same as password");
-				return "redirect:/stock/target/";
+				return "owner/editpasswd";
 			}
 			
 		}
