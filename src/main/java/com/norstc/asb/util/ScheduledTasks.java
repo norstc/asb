@@ -19,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+import com.norstc.asb.stock.BasicService;
 import com.norstc.asb.stock.StockEntity;
 import com.norstc.asb.stock.StockService;
 
@@ -28,7 +29,7 @@ public class ScheduledTasks {
 	
 	private static final SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
 	
-
+	private BasicService basicService;
 	private StockService stockService ;
 	
 	
@@ -37,6 +38,17 @@ public class ScheduledTasks {
 		this.stockService = stockService;
 	}
 	
+	@Autowired
+	public void setBasicService(BasicService basicService){
+		this.basicService = basicService;
+	}
+	
+	//更新到基本信息库
+	//定时任务每隔5分钟执行一次
+	@Scheduled(cron = "0 */5 * * * *")
+	public void updateBasicEntity(){
+		
+	}
 	//更新到数据库
 	//@Scheduled(fixedDelay = 15000)
 	//9:00, 9:30, 10:00, 10:30 ~ 15:00 15:30 every monday to friday
