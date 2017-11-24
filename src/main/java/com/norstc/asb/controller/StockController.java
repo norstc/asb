@@ -24,6 +24,8 @@ import com.norstc.asb.deal.DealEntity;
 import com.norstc.asb.deal.DealService;
 import com.norstc.asb.owner.OwnerEntity;
 import com.norstc.asb.owner.OwnerService;
+import com.norstc.asb.stock.BasicEntity;
+import com.norstc.asb.stock.BasicService;
 import com.norstc.asb.stock.StockEntity;
 import com.norstc.asb.stock.StockService;
 
@@ -35,6 +37,12 @@ public class StockController {
 	private StockService stockService;
 	private OwnerService ownerService;
 	private DealService dealService;
+	private BasicService basicService;
+	
+	@Autowired
+	public void setBasicService(BasicService basicService){
+		this.basicService = basicService;
+	}
 	
 	@Autowired
 	public void setDealService(DealService dealService){
@@ -77,7 +85,19 @@ public class StockController {
 	
 	@RequestMapping("/stock/target/{id}")
 	public String mainTargetHandler(@PathVariable Integer id, Model model){
-		model.addAttribute("stock",stockService.getStockById(id));
+		StockEntity stockEntity = stockService.getStockById(id);
+		String stockCode = stockEntity.getStockCode();
+		//基本信息库
+		
+		BasicEntity basicEntity =	basicService.getBasicByStockCode(stockCode);
+		if(basicEntity == null){
+			basicEntity = new BasicEntity();
+			basicEntity.setStockDividend(new BigDecimal(0));
+			basicEntity.setStockAdvantage("--");
+			basicEntity.setStockRisk("--");
+		}
+		model.addAttribute("stock",stockEntity);
+		model.addAttribute("basic",basicEntity);
 		return "stock/target";
 	}
 	

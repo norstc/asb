@@ -33,6 +33,23 @@
 					</tr>
 				</tbody>
 				</table>
+				<h3 th:text="#{basic.title}">基本分析</h3>
+			     <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th class="col-md-2"  th:text="#{basic.dividend}">当期每股分红</th>
+                        <th class="col-md-5"  th:text="#{basic.advantage}">买点</th>
+                        <th class="col-md-5"  th:text="#{basic.risk}">风险提示</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="col-md-2"  th:text="${basic.stockDividend}">[dividend]</td>
+                        <td class="col-md-5"  th:text="${basic.stockAdvantage}">[advantage]</td>
+                        <td class="col-md-5"  th:text="${basic.stockRisk} ">[risk]</td>
+                    </tr>
+                </tbody>
+                </table>
 				
 				<ul class="nav nav-pills">
 					<li><a class="btn btn-warning"  th:href="@{'/stock/target/' + ${stock.id} + '/delete'}" >删除</a></li>
