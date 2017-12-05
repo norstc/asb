@@ -10,7 +10,7 @@ import java.net.ConnectException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.Calendar;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -19,9 +19,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+import com.norstc.asb.stock.BasicEntity;
 import com.norstc.asb.stock.BasicService;
 import com.norstc.asb.stock.StockEntity;
 import com.norstc.asb.stock.StockService;
+
+
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+
 
 @Component
 public class ScheduledTasks {
@@ -44,11 +52,109 @@ public class ScheduledTasks {
 	}
 	
 	//更新到基本信息库
-	//定时任务每隔5分钟执行一次
-	@Scheduled(cron = "0 */5 * * * *")
+	//定时任务,每隔5分钟执行一次
+	//@Scheduled(cron = "0 */5 * * * *")
+	//定时任务，固定间隔15秒执行一次，调试用
+	//@Scheduled(fixedDelay = 15000)
+	//定时任务，每天晚上0点执行一次，生产环境
+	@Scheduled(cron="0 0 0 * * *")
 	public void updateBasicEntity(){
-		
+		BigDecimal stockDividend = new BigDecimal(0);
+		List<BasicEntity> listBasicEntity = basicService.findAll();
+		for (BasicEntity oneBasicEntity: listBasicEntity){
+			String stockCode = oneBasicEntity.getStockCode();
+			String quoteUrl = "http://vip.stock.finance.sina.com.cn/corp/go.php/vISSUE_ShareBonus/stockid/" + stockCode + ".phtml";
+			String result = null;
+			try {
+				log.info("get dividend from :  " + quoteUrl);
+				result = doGetDividend(quoteUrl);
+				log.info("get dividend: " + result);
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+			stockDividend = new BigDecimal(result);
+			oneBasicEntity.setStockDividend(stockDividend);
+			basicService.add(oneBasicEntity);
+		}
 	}
+	
+	//使用 Jsoup 获取分红
+	private String doGetDividend(String quoteUrl) {
+		//网页中分红的id
+		String idShareBonus = "sharebonus_1";
+		String currentYear = getCurrentYear();
+		try{
+			//直接打开网页，获取内容
+			Document doc = Jsoup.connect(quoteUrl).get();
+			if(doc != null ){
+				//分红表格
+				Element shareBonusTable = doc.getElementById(idShareBonus);
+				//去除thead，只拿表格中的tbody
+				Elements tbodys = shareBonusTable.getElementsByTag("tbody");
+				for (Element tbody: tbodys){
+					
+					if(tbody.text().contains(currentYear)){
+						//当期有分红
+						Elements trs = tbody.getElementsByTag("tr");
+						Double dividend = 0.0;
+						for(Element tr: trs){
+							//判断是否为当年的分红
+							if(tr.text().contains(currentYear)){
+									Elements tds = tr.getElementsByTag("td");
+									//第一个td是时间，第4个td是分红数据
+									//极少数当年会有两次分红
+									dividend +=  Double.parseDouble(tds.get(3).text());
+							}
+						}
+						return String.format("%.2f",dividend);
+					}else{
+						//当期没分红
+						return "0";
+					}
+				}
+				
+				
+			}else{
+					return "0";
+			}
+			
+		}catch (ConnectException ce){
+			ce.printStackTrace();
+			return "0";
+		}catch(Exception e){
+			e.printStackTrace();
+			return "0";
+		}finally{
+			
+		}
+		return "0";
+	}
+
+	//获取当前年份
+	private String getCurrentYear() {
+		String ret = "";
+		int year = Calendar.getInstance().get(Calendar.YEAR);
+		int month = Calendar.getInstance().get(Calendar.MONTH);
+		if(month > 6){
+			//上半年时看前年的分红
+			 ret = Integer.toString(year);
+		}else{
+			//下半年时看今年的分红
+			 ret = Integer.toString(year-1);
+		}
+		
+		return ret;
+	}
+
+	private String getTbodyByHand(String bonusTable) {
+		int iStartPos = bonusTable.indexOf("tbody");
+		int iLastPos = bonusTable.lastIndexOf("tbody");
+		log.info("tbody location is: " + iStartPos + "-" + iLastPos);
+		String bonusBody = bonusTable.substring(iStartPos-1, iLastPos+6);
+		log.info("bonusBody is: " + bonusBody);
+		return bonusBody;
+	}
+
 	//更新到数据库
 	//@Scheduled(fixedDelay = 15000)
 	//9:00, 9:30, 10:00, 10:30 ~ 15:00 15:30 every monday to friday
@@ -82,6 +188,9 @@ public class ScheduledTasks {
 	}
 	
 	//根据证券代码识别是深圳还是上海
+	//3 创业版 sz
+	//0 深市 sz
+	//6 沪市 sh
 	private String getStockMarket(String stockCode) {
 		if(stockCode == null) {
 			log.info("stockCode is null");
@@ -100,6 +209,7 @@ public class ScheduledTasks {
 		switch (firstDigit) {
 		case '6' : stockMarket="http://hq.sinajs.cn/list=sh";
 		break;
+		case '3' :
 		case '0' : stockMarket="http://hq.sinajs.cn/list=sz";
 		break;
 		default : stockMarket="http://hq.sinajs.cn/list=sh";

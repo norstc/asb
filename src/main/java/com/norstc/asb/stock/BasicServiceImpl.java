@@ -1,5 +1,7 @@
 package com.norstc.asb.stock;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -34,6 +36,11 @@ public class BasicServiceImpl implements BasicService {
 	public void deleteBasic(BasicEntity basicEntity) {
 		basicRepository.delete(basicEntity);
 		
+	}
+	@Override
+	public List<BasicEntity> findAll() {
+		
+		return this.basicRepository.findAll();
 	}
 
 }

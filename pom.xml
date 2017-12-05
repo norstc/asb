@@ -76,6 +76,13 @@
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 		</dependency>
+		
+		<!--  html parser  -->
+		<dependency>
+		      <groupId>org.jsoup</groupId>
+		      <artifactId>jsoup</artifactId>
+		      <version>1.11.2</version>
+		</dependency>
 	</dependencies>
 
 	<build>

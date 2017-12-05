@@ -45,4 +45,5 @@ public class StockServiceImpl implements StockService{
 		return this.stockRepository.findByOwner(ownerEntity);
 	}
 
+	
 }
