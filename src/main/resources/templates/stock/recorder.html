@@ -15,6 +15,7 @@
 						<tr>
 							<th th:text="#{deal.id}">Id</th>
 							<th th:text="#{deal.stockCode}">Stock Code</th>
+							<th th:text= "#{deal.stockName}">Stock Name</th>
 							<th th:text="#{deal.isBuy}">Buy or Sell</th>
 							<th th:text="#{deal.buyTime}">Buy Time</th>
 							<th th:text="#{deal.buyPrice}">Buy Price</th>
@@ -29,6 +30,7 @@
 						<tr>
 							<td th:text="${deal.id}">[id]</td>
 							<td th:text="${deal.stockCode}">[stockCode]</td>
+							<td th:text="${deal.stockName}">[stockName]</td>
 							<td th:text="${deal.isBuy}?'buy':'sell'">[isBuy]</td>
 							<td th:text="${#calendars.format(deal.buyTime,'yyyy/MM/dd')}">[buyTime]</td>
 							<td th:text="${deal.buyPrice}">[buyPrice]</td>
@@ -57,6 +59,7 @@
 						<tr>
 							<th th:text="#{deal.id}">Id</th>
 							<th th:text="#{deal.stockCode}">Stock Code</th>
+							<th th:text="#{deal.stockName}">Stock Name</th>
 							<th th:text="#{deal.isBuy}">Buy or Sell</th>
 							<th th:text="#{deal.buyTime}">Buy Time</th>
 							<th th:text="#{deal.buyPrice}">Buy Price</th>
@@ -73,6 +76,7 @@
 							<td ><a th:href="@{'/stock/recorder/' + ${deal.id}}"
 								th:text="${deal.stockCode}"
 							>[stockCode]</a></td>
+							<td th:text="${deal.stockName}">[stockName]</td>
 							<td th:text="${deal.isBuy}?'buy':'sell'">[isBuy]</td>
 							<td th:text="${deal.buyTime}">[buyTime]</td>
 							<td th:text="${deal.buyPrice}">[buyPrice]</td>

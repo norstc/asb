@@ -26,6 +26,9 @@ public class DealEntity extends BaseEntity{
 	private String stockCode;
 	
 
+	@Column(name="stock_name")
+	private String stockName;
+	
 	@Column(name = "is_Buy")
 	@NotNull
 	private Boolean isBuy;
@@ -67,6 +70,14 @@ public class DealEntity extends BaseEntity{
 	
 	
 	
+	public String getStockName() {
+		return stockName;
+	}
+
+	public void setStockName(String stockName) {
+		this.stockName = stockName;
+	}
+
 	public OwnerEntity getOwner() {
 		return owner;
 	}

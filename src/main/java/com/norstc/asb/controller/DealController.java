@@ -21,6 +21,7 @@ import com.norstc.asb.deal.DealEntity;
 import com.norstc.asb.deal.DealService;
 import com.norstc.asb.owner.OwnerEntity;
 import com.norstc.asb.owner.OwnerService;
+import com.norstc.asb.stock.BasicService;
 import com.norstc.asb.stock.StockService;
 
 @Controller
@@ -30,6 +31,12 @@ public class DealController {
 	private DealService dealService;
 	private OwnerService ownerService;	
 	private StockService stockService;
+	private BasicService basicService;
+	
+	@Autowired
+	public void setBasicService(BasicService basicService){
+		this.basicService = basicService;
+	}
 	
 	@Autowired
 	public void setStockService(StockService stockService){
@@ -101,13 +108,17 @@ public class DealController {
 			BigDecimal cashNeed = dealEntity.getBuyPrice().multiply(new BigDecimal(dealEntity.getBuyQuantity()));
 			
 			if(cashLeft.compareTo(cashNeed) == -1){
-				
+				//钱不够
 				model.addAttribute("owner",ownerEntity);
 				Boolean isUpdate = false;
 				model.addAttribute("isUpdate", isUpdate);
 				model.addAttribute("stocks", stockService.findByOwner(ownerEntity));
 				return VIEWS_DEAL_ADD_OR_UPDATE_FORM;
 			}else{
+				//添加交易成功
+				//根据stockCode补充stockName,
+				String stockName = basicService.getBasicByStockCode(dealEntity.getStockCode()).getStockName();
+				dealEntity.setStockName(stockName);
 				this.dealService.add(dealEntity);
 				ownerEntity.setCashLeft(cashLeft.subtract(cashNeed));
 				ownerEntity.setMarketLeft(ownerEntity.getMarketLeft().add(cashNeed));
