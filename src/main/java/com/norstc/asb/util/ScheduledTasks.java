@@ -56,6 +56,8 @@ public class ScheduledTasks {
 	//@Scheduled(cron = "0 */5 * * * *")
 	//定时任务，固定间隔15秒执行一次，调试用
 	//@Scheduled(fixedDelay = 15000)
+	//定时任务，设定时间执行，调试用
+	//@Scheduled(cron="0 45 1 * * *")
 	//定时任务，每天晚上0点执行一次，生产环境
 	@Scheduled(cron="0 0 0 * * *")
 	public void updateBasicEntity(){
@@ -75,6 +77,13 @@ public class ScheduledTasks {
 			stockDividend = new BigDecimal(result);
 			oneBasicEntity.setStockDividend(stockDividend);
 			basicService.add(oneBasicEntity);
+			//延迟10秒，否则会屏蔽
+			try {
+				Thread.sleep(10000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 	
@@ -85,7 +94,7 @@ public class ScheduledTasks {
 		String currentYear = getCurrentYear();
 		try{
 			//直接打开网页，获取内容
-			Document doc = Jsoup.connect(quoteUrl).get();
+			Document doc = Jsoup.connect(quoteUrl).userAgent("Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:25.0) Gecko/20100101 Firefox/25.0").get();
 			if(doc != null ){
 				//分红表格
 				Element shareBonusTable = doc.getElementById(idShareBonus);
