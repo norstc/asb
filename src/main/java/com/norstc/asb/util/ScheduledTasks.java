@@ -57,7 +57,7 @@ public class ScheduledTasks {
 	//定时任务，固定间隔15秒执行一次，调试用
 	//@Scheduled(fixedDelay = 15000)
 	//定时任务，设定时间执行，调试用
-	//@Scheduled(cron="0 45 1 * * *")
+	//@Scheduled(cron="0 45 17 * * *")
 	//定时任务，每天晚上0点执行一次，生产环境
 	@Scheduled(cron="0 0 0 * * *")
 	public void updateBasicEntity(){
@@ -75,6 +75,7 @@ public class ScheduledTasks {
 				e.printStackTrace();
 			}
 			stockDividend = new BigDecimal(result);
+			stockDividend = stockDividend.divide(new BigDecimal(10), 2);
 			oneBasicEntity.setStockDividend(stockDividend);
 			basicService.add(oneBasicEntity);
 			//延迟10秒，否则会屏蔽
